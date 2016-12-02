@@ -70,7 +70,7 @@ update_dir() {
            if [ "$DEBUG_MODE" != "debug" ]
            then
                git add "$DIR_MD"
-               git commit -m "Auto update (on $(hostname)) using '$0' $DIR_MD"
+               git commit -m "Auto update (on $(hostname)) using '$0'" $DIR_MD 
            else
                echo git commit -m "Auto update (on $(hostname)) using '$0' $DIR_MD"
            fi
