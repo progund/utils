@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #
 #
@@ -8,27 +8,17 @@
 #
 
 THIS_SCRIPT_DIR=$(dirname $0)
+
 BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
 if [ -f ${BASH_FUNCTIONS} ]
 then
-    . ${BASH_FUNCTIONS}
+    . ${BASH_FUNCTIONS} $*
 else
     echo -n "Failed finding file: ${BASH_FUNCTIONS}. "
     echo "Bailing out..."
     exit 1
 fi
 
-
-#
-# DEST_DIR - base dir for the books
-# JAVA_BOOK_DIR - name of the Java programming book dir
-# C_BOOK_DIR - name of the programming with C book dir
-# DP_BOOK_DIR name of the more programming in Java book dir
-#
-DEST_DIR=/tmp/hesa-book
-JAVA_BOOK_DIR=Programming-with-Java
-C_BOOK_DIR=Programming-with-C
-DP_BOOK_DIR=More-programming-with-Java
 
 COMMON_REPOS="https://github.com/progund/computer-introduction.git https://github.com/progund/programming-introduction.git"
 
@@ -75,9 +65,11 @@ dload()
     then
         pushd $REPO_DIR
         update_repo
+        exit_on_error "$?" "Failed upgrading educational repository: $REPO_DIR"
         popd
     else
         clone_repo $REPO
+        exit_on_error "$?" "Failed cloning educational repository: $REPO_DIR"
     fi
 }
 

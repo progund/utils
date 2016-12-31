@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+
+Encoding=UTF-8
+Type=Application
+
+Terminal=__TERMINAL__
+Exec=__PROGRAM__
+Icon=__ICON__
+
+Name=__NAME__

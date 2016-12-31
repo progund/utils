@@ -1,0 +1,136 @@
+#
+# Bash util functions for misc scripts
+#
+#
+#
+
+FORCED_MODE="false"
+
+
+#
+#
+# PARSER - well, sort of
+#
+#
+if [ "$1" = "--force" ] || [ "$1" = "-f" ]
+then
+    FORCED_MODE="true" 
+fi
+
+check_x()
+{
+    xdpyinfo 2>/dev/null >/dev/null 
+    if [ $? -ne 0 ]
+    then
+        HAS_X=false
+    else
+        HAS_X=true
+    fi
+}
+
+
+exit_on_error()
+{
+    if [ "$1" != "0" ]
+    then
+        if [ "$2" != "" ]
+        then
+            echo "$2"
+            echo "return value: $1"
+            exit $1
+        else
+            echo "Failure"
+            echo "return value: $1"
+            exit $1
+        fi
+    fi
+}
+
+source_file()
+{
+    if [ ! -f $1 ]
+    then
+        exit_on_error "1" "Failed reading (sourcing) file: $1"
+    fi
+    . $1
+}
+
+get_date()
+{
+    echo -n "$(date '+%Y-%m-%d %H:%M:%S')"
+}
+
+log()
+{
+    echo -n "["
+    get_date
+    echo "] $1"
+}
+
+do_exec()
+{
+    CMD="$1"
+    ERR_MSG="$2"
+    log "$CMD"
+    $CMD
+    exit_on_error "$?" "$ERR_MSG"
+    log "$CMD: OK"
+}
+
+
+
+determine_os()
+{
+    if [ "$(uname  | grep -ic linux)" != "0" ]
+    then
+        OS=linux
+        if [ -f /etc/fedora-release ]
+        then
+            DIST=fedora
+        elif [ -f /etc/fedora-release ]
+        then
+            DIST=redhat
+        elif [ -f /etc/os-release ]
+        then
+            if [ "$( grep NAME /etc/os-release | grep -i -c ubuntu)" != "0" ]
+            then
+                DIST=ubuntu
+            else
+                DIST=debian
+            fi
+        else
+            echo "UNSUPPORTED Linux distribution"
+            exit 1
+        fi
+    else
+        echo "UNSUPPORTED OS"
+        exit 1
+    fi
+}
+
+ask_question()
+{
+    Q=$1
+    
+    RET=1
+
+    if [ "$FORCED_MODE" = "true" ]
+    then
+        # RET=0 means yes
+        RET=0
+    elif [ "$HAS_X" = "true" ]
+    then
+        zenity --question --text "$Q"
+        RET=$?
+    else
+        echo "$Q [Y/n]"
+        read ANSWER
+        if [ "$ANSWER" = "Y" ] || [ "$ANSWER" = "y" ]
+        then
+            RET=0
+        fi
+    fi
+    return $RET
+}
+
+source_file ${THIS_SCRIPT_DIR}/settings

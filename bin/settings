@@ -1,0 +1,15 @@
+#
+# DEST_DIR - base dir for the books
+# JAVA_BOOK_DIR - name of the Java programming book dir
+# C_BOOK_DIR - name of the programming with C book dir
+# DP_BOOK_DIR name of the more programming in Java book dir
+#
+
+#
+# move to common place
+#
+DESKTOP_DIR=Juneday-Education
+DEST_DIR=~/Desktop/${DESKTOP_DIR}/source-code
+JAVA_BOOK_DIR=Programming-with-Java
+C_BOOK_DIR=Programming-with-C
+DP_BOOK_DIR=More-programming-with-Java
