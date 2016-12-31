@@ -65,7 +65,7 @@ install_atom_linux_ubuntu()
 dload_sw_linux_fedora()
 {
     echo "Download fedora packages"
-    sudo dnf install gcc arduino valgrind java-1.8.0-openjdk curl wget \
+    sudo dnf install -y gcc arduino valgrind java-1.8.0-openjdk curl wget \
          sqlite git cvs svn mercurial bzr emacs vim make firefox
     exit_on_error "$?" "Failed installing system packages"
 }
@@ -73,20 +73,20 @@ dload_sw_linux_fedora()
 dload_sw_linux_ubuntu()
 {
     echo "Download ubun packages"
-    sudo apt-get install gcc arduino valgrind openjdk-8-jdk curl wget \
+    sudo apt-get install -y gcc arduino valgrind openjdk-8-jdk curl wget \
          sqlite git cvs subversion mercurial bzr emacs vim make firefox
     exit_on_error "$?" "Failed installing system packages"
 }
 
 update_os_linux_ubuntu()
 {
-    sudo apt-get update && sudo apt-get upgrade
+    sudo apt-get update && sudo apt-get upgrade -y
     exit_on_error "$?" "Failed upgrading system packages"
 }
 
 update_os_linux_fedora()
 {
-    sudo dnf update && sudo dnf upgrade
+    sudo dnf update && sudo dnf upgrade -y
     exit_on_error "$?" "Failed upgrading system packages"
 }
 
