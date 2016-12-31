@@ -78,16 +78,22 @@ create_desktop_directory()
 
 
 create_desktop_icon \
-    "$TERMINAL -e /media/juneday/utils/bin/download-software.sh" \
+    "$TERMINAL -e $DEST_DIR/utils/bin/download-software.sh" \
     "" \
     "Update system software" \
     "${DESKTOP_DIR}/jd-update-sw.desktop"
 
 create_desktop_icon \
-    "$TERMINAL -e /media/juneday/utils/bin/dload-techbooks.sh" \
+    "$TERMINAL -e $DEST_DIR/utils/utils/bin/dload-techbooks.sh" \
     "" \
     "Update educational repositories" \
     "${DESKTOP_DIR}/jd-update-repos.desktop"
+
+create_desktop_icon \
+    "$TERMINAL -e $DEST_DIR/utils/utils/bin/set-mime.sh" \
+    "" \
+    "Set Atom as editor" \
+    "${DESKTOP_DIR}/jd-set-mime.desktop"
 
 create_desktop_icon \
     "$BROWSER http://virt08.itu.chalmers.se/mediawiki/" \
