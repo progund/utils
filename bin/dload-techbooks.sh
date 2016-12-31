@@ -111,6 +111,7 @@ exit_on_error "$?" "Failed entering $DEST_DIR"
 #
 # Download/update books
 #
+dload_repos "https://github.com/progund/utils.git"
 dload_c
 dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
 dload_book "$DP_BOOK_DIR" "$DP_REPOS"
