@@ -28,9 +28,9 @@ dload()
 
 
 
-#dload
+dload
 
-#unzip master.zip
+unzip master.zip
 
 cd utils-master
 
