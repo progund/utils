@@ -36,7 +36,7 @@ set_mime()
 {
     Q=$1
     MIME=$2
-    if [ "$(xdg-mime query default '$MIME' | grep -i atom | wc -l)" = "0" ]
+    if [ "$(xdg-mime query default $MIME | grep -i atom | wc -l)" = "0" ]
     then
         ask_question   "$MIME"
         if [ "$RET" = "0" ]
