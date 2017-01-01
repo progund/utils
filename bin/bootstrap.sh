@@ -19,7 +19,7 @@ dload()
         curl -L https://github.com/progund/utils/archive/master.zip -o master.zip
     elif [ $WGET_RET -eq 0 ]
     then
-        wget https://github.com/progund/utils/archive/master.zip -o master.zip
+        wget https://github.com/progund/utils/archive/master.zip 
     else
         echo "Failed finding tool to download"
         exit 1
