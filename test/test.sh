@@ -1,6 +1,28 @@
 #!/bin/bash
 
 
+THIS_SCRIPT_DIR=$(dirname $0)/../bin
+BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
+if [ -f ${BASH_FUNCTIONS} ]
+then
+    echo "Sourcing file:  ${BASH_FUNCTIONS}"
+    . ${BASH_FUNCTIONS} $*
+    determine_os
+else
+    echo -n "Failed finding file: ${BASH_FUNCTIONS}. "
+    echo "Bailing out..."
+    exit 1
+fi
+
+check_presence()
+{
+    PROG=$1
+    echo -n "Checking program $PROG: "
+    which $PROG 2>/dev/null >/dev/null 
+    exit_on_error "$?" "Could not find program: $PROG"
+    echo " OK"
+}
+
 check_hello()
 {
     EXP_RET=$1
@@ -43,9 +65,23 @@ check_Hello()
 }
 
 
+echo Checking gcc
+echo -n "*"
 check_hello 0 Cleveland
+echo -n "*"
 check_hello 1 Einar Einar
 
+echo Checking javac
+echo -n "*"
 check_Hello 0 Cleveland
+echo -n "*"
 check_Hello 1 Einar Einar
+
+check_presence valgrind
+check_presence arduino
+check_presence gcov
+check_presence wget
+check_presence curl
+
+
 
