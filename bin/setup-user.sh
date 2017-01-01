@@ -70,6 +70,27 @@ $SUDO usermod -a -G "$CUR_USER" dialout
 
 
 #
-# bashrc
-# 
-echo "PATH=$${PATH}:$DEST_DIR/utils/bin/"
+# bashrc etc
+#
+add_to_bashrc()
+{
+    echo "$*"
+    #>> $CUR_USER/.bashrc
+}
+add_to_junedayrc()
+{
+    echo "jdrc: $*"
+    #>> $CUR_USER/.bashrc
+}
+add_to_bashrc  "#"
+add_to_bashrc  "#"
+add_to_bashrc  "# Added by Juneday education"
+add_to_bashrc  "#"
+add_to_bashrc  "#"
+add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
+add_to_bashrc  "if [ -f ~/.junedayrc] ; then .  ~/.junedayrc; fi "
+add_to_junedayrc "# Juneday bash stuff"
+add_to_junedayrc "# "
+add_to_junedayrc "# C development aliases"
+add_to_junedayrc "alias pgcc='gcc  -pedantic -Wconversion -Wall -Werror  -Wextra -Wstrict-prototypes'
+
