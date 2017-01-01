@@ -92,5 +92,5 @@ add_to_bashrc  "if [ -f ~/.junedayrc] ; then .  ~/.junedayrc; fi "
 add_to_junedayrc "# Juneday bash stuff"
 add_to_junedayrc "# "
 add_to_junedayrc "# C development aliases"
-add_to_junedayrc "alias pgcc='gcc  -pedantic -Wconversion -Wall -Werror  -Wextra -Wstrict-prototypes'
+add_to_junedayrc "alias pgcc='gcc  -pedantic -Wconversion -Wall -Werror  -Wextra -Wstrict-prototypes'"
 
