@@ -80,7 +80,7 @@ add_to_bashrc()
 }
 add_to_junedayrc()
 {
-    echo "$*" >> /home/$CUR_USER/.bashrc
+    echo "$*" >> /home/$CUR_USER/.junedayrc
 }
 
 #
