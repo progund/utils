@@ -82,13 +82,20 @@ add_to_junedayrc()
 {
     echo "$*" >> /home/$CUR_USER/.bashrc
 }
-add_to_bashrc  "#"
-add_to_bashrc  "#"
-add_to_bashrc  "# Added by Juneday education"
-add_to_bashrc  "#"
-add_to_bashrc  "#"
-add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
-add_to_bashrc  "if [ -f ~/.junedayrc ] ; then .  ~/.junedayrc; fi "
+
+#
+# Prevent from adding twice
+#
+if [ "$(grep Juneday /home/$CUR_USER/.bashrc | wc -l)" = "0" ]
+   then
+       add_to_bashrc  "#"
+       add_to_bashrc  "#"
+       add_to_bashrc  "# Added by Juneday education"
+       add_to_bashrc  "#"
+       add_to_bashrc  "#"
+       add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
+       add_to_bashrc  "if [ -f ~/.junedayrc ] ; then .  ~/.junedayrc; fi "
+fi
 add_to_junedayrc "# Juneday bash stuff"
 add_to_junedayrc "# "
 add_to_junedayrc "# C development aliases"
