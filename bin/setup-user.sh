@@ -74,13 +74,11 @@ $SUDO usermod -a -G "$CUR_USER" dialout
 #
 add_to_bashrc()
 {
-    echo "$*"
-    #>> $CUR_USER/.bashrc
+    echo "$*" >> $CUR_USER/.bashrc
 }
 add_to_junedayrc()
 {
-    echo "jdrc: $*"
-    #>> $CUR_USER/.bashrc
+    echo "$*" >> $CUR_USER/.bashrc
 }
 add_to_bashrc  "#"
 add_to_bashrc  "#"
