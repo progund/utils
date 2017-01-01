@@ -21,7 +21,9 @@ exit_on_error "$?" "Failed downloading system software"
 ${THIS_SCRIPT_DIR}/dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
-pushd ${THIS_SCRIPT_DIR}/test
+sudo usermod -a -G dialout $USER
+
+pushd ${THIS_SCRIPT_DIR}/../test
 make check
 exit_on_error "$?" "Failed verifying development softwares"
 popd
@@ -29,4 +31,5 @@ popd
 ${THIS_SCRIPT_DIR}/install-desktop-entries.sh
 exit_on_error "$?" "Failed creating desktop entries"
 
-
+${THIS_SCRIPT_DIR}/setup-user.sh
+exit_on_error "$?" "Failed setting up stuff for user"
