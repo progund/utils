@@ -55,7 +55,7 @@ add_user()
     $SUDO usermod -a -G "$CUR_USER" "$CUR_USER"
     for g in $GROUPSTOADD
     do
-        $SUDO usermod -a -G "$CUR_USER" "$g"    
+        $SUDO usermod -a -G  "$g"    "$CUR_USER"
     done
 }
 
@@ -66,7 +66,7 @@ then
 fi
 
 # For Arduino
-$SUDO usermod -a -G "$CUR_USER" dialout
+$SUDO usermod -a -G dialout "$CUR_USER" 
 
 
 #
@@ -86,7 +86,7 @@ add_to_bashrc  "# Added by Juneday education"
 add_to_bashrc  "#"
 add_to_bashrc  "#"
 add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
-add_to_bashrc  "if [ -f ~/.junedayrc] ; then .  ~/.junedayrc; fi "
+add_to_bashrc  "if [ -f ~/.junedayrc ] ; then .  ~/.junedayrc; fi "
 add_to_junedayrc "# Juneday bash stuff"
 add_to_junedayrc "# "
 add_to_junedayrc "# C development aliases"
