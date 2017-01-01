@@ -8,17 +8,18 @@ then
     shift
     ADD=true
 else
-    CUR_USER=$USER
+    CUR_USER=$1
     ADD=false
 fi
 shift
 
 if [ "$CUR_USER" = "" ]
 then
-    echo -n "Supply user name: "
-    read username
-    echo -n "Supply real name: "
-    read realname
+    CUR_USER=$USER
+    #    echo -n "Supply user name: "
+    #    read username
+    #    echo -n "Supply real name: "
+    #    read realname
 fi
 
 
