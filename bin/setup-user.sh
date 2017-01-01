@@ -1,5 +1,7 @@
 #!/bin/bash
 
+SUDO=echo
+
 if [ "$1" = "--add" ]
 then
     CUR_USER=$2
@@ -48,7 +50,6 @@ add_user()
     fi
     
     GROUPSTOADD="adm cdrom sudo dip plugdev lpadmin sambashare "
-    SUDO=echo
     
     $SUDO adduser   "$CUR_USER" 
     $SUDO addgroup "$CUR_USER"
