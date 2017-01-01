@@ -18,10 +18,13 @@ source_file ${THIS_SCRIPT_DIR}/settings
 ${THIS_SCRIPT_DIR}/download-software.sh
 exit_on_error "$?" "Failed downloading system software"
 
-
 ${THIS_SCRIPT_DIR}/dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
+pushd ${THIS_SCRIPT_DIR}/test
+make check
+exit_on_error "$?" "Failed verifying development softwares"
+popd
 
 ${THIS_SCRIPT_DIR}/install-desktop-entries.sh
 exit_on_error "$?" "Failed creating desktop entries"
