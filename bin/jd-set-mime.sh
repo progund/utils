@@ -38,10 +38,10 @@ set_mime()
     MIME=$2
     if [ "$(xdg-mime query default $MIME | grep -i atom | wc -l)" = "0" ]
     then
-        ask_question   "$MIME"
+        ask_question   "$Q"
         if [ "$RET" = "0" ]
         then
-            echo "xdg-mime  default atom.desktop $MIME"
+            xdg-mime  default atom.desktop $MIME
         fi
     fi
 }

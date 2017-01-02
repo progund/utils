@@ -15,10 +15,10 @@ fi
 
 source_file ${THIS_SCRIPT_DIR}/settings
 
-${THIS_SCRIPT_DIR}/download-software.sh
+${THIS_SCRIPT_DIR}/jd-download-software.sh
 exit_on_error "$?" "Failed downloading system software"
 
-${THIS_SCRIPT_DIR}/dload-techbooks.sh
+${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
 sudo usermod -a -G dialout $USER
@@ -28,8 +28,8 @@ make check
 exit_on_error "$?" "Failed verifying development softwares"
 popd
 
-${THIS_SCRIPT_DIR}/install-desktop-entries.sh
+${THIS_SCRIPT_DIR}/jd-install-desktop-entries.sh
 exit_on_error "$?" "Failed creating desktop entries"
 
-${THIS_SCRIPT_DIR}/setup-user.sh
+${THIS_SCRIPT_DIR}/jd-setup-user.sh
 exit_on_error "$?" "Failed setting up stuff for user"

@@ -34,5 +34,5 @@ unzip master.zip
 
 cd utils-master
 
-bin/setup.sh
+bin/jd-setup.sh
 
