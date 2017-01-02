@@ -133,4 +133,5 @@ ask_question()
     return $RET
 }
 
+check_x
 source_file ${THIS_SCRIPT_DIR}/settings
