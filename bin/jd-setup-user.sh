@@ -103,15 +103,29 @@ fi
 
 # Clean .junedayrc
 rm -f $JUNEDAYRC
-add_to_junedayrc "# Juneday bash stuff"
-add_to_junedayrc "# "
+add_to_junedayrc "# Juneday bash stuff "
+add_to_junedayrc "# Added $(date) by $USER on $(uname -n)"
+add_to_junedayrc ""
 add_to_junedayrc "# C development aliases"
 add_to_junedayrc "alias pgcc='gcc  -pedantic -Wconversion -Wall -Werror  -Wextra -Wstrict-prototypes'"
 add_to_junedayrc "function show() { declare -f \"$1\" || alias \"$1\" ; }"
-add_to_junedayrc "export SAVED_PS1=\"$PS1\""
+add_to_junedayrc ""
+add_to_junedayrc "#"
+add_to_junedayrc "# Functions to set the prompt differently"
+add_to_junedayrc "#"
+add_to_junedayrc "export SAVED_PS1=\"\$PS1\""
 add_to_junedayrc "function gitprompt()    { PS1=\"\u@\h [\$(date +'%H:%M:%S')] \w \$(brname)\n # \";}"
 add_to_junedayrc "function normalprompt() { export PS1=\"$SAVED_PS1\"; }"
 add_to_junedayrc "function smallprompt()  { PS1=\"# \" ;}"
 add_to_junedayrc "function debianprompt()  { export PS1=\"$DEBIAN_PS\" ;}"
+add_to_junedayrc ""
+add_to_junedayrc "#"
+add_to_junedayrc "# Functions to 'walk' between directories"
+add_to_junedayrc "#"
+add_to_junedayrc "# p dir - go to a directory and put the current dir in the stack"
+add_to_junedayrc "p() { pushd \"\$1\"; dirs -v ;}"
+add_to_junedayrc "# o - go to the directory at the top of the stack"
+add_to_junedayrc "o() { popd; dirs -v ;}"
+
 
 
