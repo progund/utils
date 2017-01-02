@@ -74,19 +74,23 @@ $SUDO usermod -a -G dialout "$CUR_USER"
 #
 # bashrc etc
 #
+BASHRC=/home/$CUR_USER/.bashrc
 add_to_bashrc()
 {
-    echo "$*" >> /home/$CUR_USER/.bashrc
+    echo "$*" >> $BASHRC
 }
+
+
+JUNEDAYRC=/home/$CUR_USER/.junedayrc
 add_to_junedayrc()
 {
-    echo "$*" >> /home/$CUR_USER/.junedayrc
+    echo "$*" >> $JUNEDAYRC
 }
 
 #
 # Prevent from adding twice
 #
-if [ "$(grep Juneday /home/$CUR_USER/.bashrc | wc -l)" = "0" ]
+if [ "$(grep Juneday $BASHRC | wc -l)" = "0" ]
    then
        add_to_bashrc  "#"
        add_to_bashrc  "#"
@@ -94,10 +98,20 @@ if [ "$(grep Juneday /home/$CUR_USER/.bashrc | wc -l)" = "0" ]
        add_to_bashrc  "#"
        add_to_bashrc  "#"
        add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
-       add_to_bashrc  "if [ -f ~/.junedayrc ] ; then .  ~/.junedayrc; fi "
+       add_to_bashrc  "if [ -f $JUNEDAYRC ] ; then .  $JUNEDAYRC; fi "
 fi
+
+# Clean .junedayrc
+rm -f $JUNEDAYRC
 add_to_junedayrc "# Juneday bash stuff"
 add_to_junedayrc "# "
 add_to_junedayrc "# C development aliases"
 add_to_junedayrc "alias pgcc='gcc  -pedantic -Wconversion -Wall -Werror  -Wextra -Wstrict-prototypes'"
+add_to_junedayrc "function show() { declare -f \"$1\" || alias \"$1\" ; }"
+add_to_junedayrc "export SAVED_PS1=\"$PS1\""
+add_to_junedayrc "function gitprompt()    { PS1=\"\u@\h [\$(date +'%H:%M:%S')] \w \$(brname)\n # \";}"
+add_to_junedayrc "function normalprompt() { export PS1=\"$SAVED_PS1\"; }"
+add_to_junedayrc "function smallprompt()  { PS1=\"# \" ;}"
+add_to_junedayrc "function debianprompt()  { export PS1=\"$DEBIAN_PS\" ;}"
+
 
