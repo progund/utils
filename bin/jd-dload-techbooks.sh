@@ -35,6 +35,10 @@ JAVA_REPOS="https://github.com/progund/control-flow.git \
 
 C_REPOS="https://github.com/progund/programming-with-c.git"
 
+BASH_REPOS=
+
+MORE_BASH_REPOS="https://github.com/progund/bash-script.git https://github.com/progund/bash-control-flow.git https://github.com/progund/bash-output-and-return.git"
+
 DP_REPOS="https://github.com/progund/design_patterns_introduction.git \
  https://github.com/progund/design_patterns_builder.git \
  https://github.com/progund/design-patterns-bi-directional-builder.git \
@@ -115,3 +119,5 @@ dload_repos "https://github.com/progund/utils.git"
 dload_c
 dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
 dload_book "$DP_BOOK_DIR" "$DP_REPOS"
+#dload_book "$BASH_BOOK_DIR" "$BASH_REPOS"
+dload_book "$MOREBASH_BOOK_DIR" "$MOREBASH_REPOS"

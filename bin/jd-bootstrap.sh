@@ -31,8 +31,18 @@ dload()
 dload
 
 unzip master.zip
+if [ $? -ne 0 ]
+then
+    echo "Failed unpacking master.zip"
+    exit 1
+fi
 
 cd utils-master
+if [ $? -ne 0 ]
+then
+    echo "Failed entering utils-master directory"
+    exit 2
+fi
 
 bin/jd-setup.sh
 
