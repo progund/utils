@@ -124,6 +124,7 @@ exit_on_error "$?" "Failed entering $DEST_DIR"
 if [ "$UTIL_REPO_ONLY" = "true" ]
 then
     dload_repos "https://github.com/progund/utils.git"
+    $0 --update-all
 else
     dload_c
     dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
