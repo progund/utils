@@ -8,7 +8,6 @@
 #
 
 THIS_SCRIPT_DIR=$(dirname $0)
-
 BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
 if [ -f ${BASH_FUNCTIONS} ]
 then
@@ -17,6 +16,12 @@ else
     echo -n "Failed finding file: ${BASH_FUNCTIONS}. "
     echo "Bailing out..."
     exit 1
+fi
+
+UTIL_REPO_ONLY=true
+if [ "$1" = "--update-all" ]
+then
+    UTIL_REPO_ONLY=false
 fi
 
 
@@ -35,7 +40,7 @@ JAVA_REPOS="https://github.com/progund/control-flow.git \
 
 C_REPOS="https://github.com/progund/programming-with-c.git"
 
-BASH_REPOS=
+BASH_REPOS=""
 
 MORE_BASH_REPOS="https://github.com/progund/bash-script.git https://github.com/progund/bash-control-flow.git https://github.com/progund/bash-output-and-return.git"
 
@@ -115,9 +120,15 @@ exit_on_error "$?" "Failed entering $DEST_DIR"
 #
 # Download/update books
 #
-dload_repos "https://github.com/progund/utils.git"
-dload_c
-dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
-dload_book "$DP_BOOK_DIR" "$DP_REPOS"
-#dload_book "$BASH_BOOK_DIR" "$BASH_REPOS"
-dload_book "$MOREBASH_BOOK_DIR" "$MOREBASH_REPOS"
+
+if [ "$UTIL_REPO_ONLY" = "true" ]
+then
+    dload_repos "https://github.com/progund/utils.git"
+else
+    dload_c
+    dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
+    dload_book "$DP_BOOK_DIR" "$DP_REPOS"
+    #dload_book "$BASH_BOOK_DIR" "$BASH_REPOS"
+    dload_book "$MORE_BASH_BOOK_DIR" "$MORE_BASH_REPOS"
+fi
+
