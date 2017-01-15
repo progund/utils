@@ -8,6 +8,7 @@
 #
 
 THIS_SCRIPT_DIR=$(dirname $0)
+THIS_SCRIPT=$(pwd)/$0
 BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
 if [ -f ${BASH_FUNCTIONS} ]
 then
@@ -124,7 +125,7 @@ exit_on_error "$?" "Failed entering $DEST_DIR"
 if [ "$UTIL_REPO_ONLY" = "true" ]
 then
     dload_repos "https://github.com/progund/utils.git"
-    $0 --update-all
+    $THIS_SCRIPT --update-all
 else
     dload_c
     dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
