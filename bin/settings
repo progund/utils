@@ -15,5 +15,5 @@ JAVA_BOOK_DIR=Programming-with-Java
 C_BOOK_DIR=Programming-with-C
 DP_BOOK_DIR=More-programming-with-Java
 BASH_BOOK_DIR=Bash-introduction
-MOREBASH_BOOK_DIR=More-Bash
+MORE_BASH_BOOK_DIR=More-Bash
 
