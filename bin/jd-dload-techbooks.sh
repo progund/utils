@@ -43,7 +43,7 @@ C_REPOS="https://github.com/progund/programming-with-c.git"
 
 BASH_REPOS=""
 
-MORE_BASH_REPOS="https://github.com/progund/bash-script.git https://github.com/progund/bash-control-flow.git https://github.com/progund/bash-output-and-return.git"
+MORE_BASH_REPOS="https://github.com/progund/bash-script.git https://github.com/progund/bash-control-flow.git https://github.com/progund/bash-output-and-return.git https://github.com/progund/bash-network-tools.git"
 
 DP_REPOS="https://github.com/progund/design_patterns_introduction.git \
  https://github.com/progund/design_patterns_builder.git \
