@@ -99,7 +99,7 @@ then
        add_to_bashrc  "# Added by Juneday education"
        add_to_bashrc  "#"
        add_to_bashrc  "#"
-       add_to_bashrc  "PATH=\${PATH}:\"$DEST_DIR/utils/bin/"
+       add_to_bashrc  "PATH=\${PATH}:\"$DEST_DIR/utils/bin/\""
        add_to_bashrc  "if [ -f ~/$JUNEDAYRC_FILE ] ; then .  $JUNEDAYRC_FILE; fi "
 fi
 
