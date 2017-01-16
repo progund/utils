@@ -102,6 +102,10 @@ determine_os()
             echo "UNSUPPORTED Linux distribution"
             exit 1
         fi
+    elif [ "$(uname  | grep -ic darwin)" != "0" ]
+    then
+        OS=MacOS
+        DIST=MacOS
     else
         echo "UNSUPPORTED OS"
         exit 1
