@@ -82,6 +82,7 @@ add_to_bashrc()
 
 
 JUNEDAYRC="/home/$CUR_USER/.junedayrc"
+JUNEDAYRC_FILE=".junedayrc"
 add_to_junedayrc()
 {
     echo "$*" >> "$JUNEDAYRC"
@@ -98,7 +99,7 @@ if [ '$(grep Juneday "$BASHRC" | wc -l)' = "0" ]
        add_to_bashrc  "#"
        add_to_bashrc  "#"
        add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
-       add_to_bashrc  "if [ -f \"$JUNEDAYRC\" ] ; then .  \"$JUNEDAYRC\"; fi "
+       add_to_bashrc  "if [ -f ~/$JUNEDAYRC_FILE ] ; then .  $JUNEDAYRC_FILE; fi "
 fi
 
 # Clean .junedayrc
