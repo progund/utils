@@ -105,6 +105,21 @@ update_os_MacOS_MacOS()
 }
 
 
+dload_sw_Cygwin_Cygwin()
+{
+    echo "Not dowloading for Cygwin"
+}
+
+install_atom_Cygwin_Cygwin()
+{
+    echo "Not installing Atom for Cygwin"
+}
+update_os_Cygwin_Cygwin()
+{
+    echo "Not updating for Cygwin"
+}
+
+
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
