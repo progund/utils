@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TMP_DIR=/tmp/$$
+TMP_DIR=/tmp/juneday-tmp/$$
 
 mkdir -p ${TMP_DIR}
 cd       ${TMP_DIR}
