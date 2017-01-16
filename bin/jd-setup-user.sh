@@ -4,11 +4,11 @@ SUDO=echo
 
 if [ "$1" = "--add" ]
 then
-    CUR_USER=$2
+    CUR_USER="$2"
     shift
     ADD=true
 else
-    CUR_USER=$1
+    CUR_USER="$1"
     ADD=false
 fi
 shift
@@ -23,8 +23,8 @@ then
 fi
 
 
-THIS_SCRIPT_DIR=$(dirname $0)
-BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
+THIS_SCRIPT_DIR="$(dirname $0)"
+BASH_FUNCTIONS="${THIS_SCRIPT_DIR}/bash-functions"
 if [ -f ${BASH_FUNCTIONS} ]
 then
     echo "Sourcing file:  ${BASH_FUNCTIONS}"
@@ -81,10 +81,10 @@ add_to_bashrc()
 }
 
 
-JUNEDAYRC=/home/$CUR_USER/.junedayrc
+JUNEDAYRC="/home/$CUR_USER/.junedayrc"
 add_to_junedayrc()
 {
-    echo "$*" >> $JUNEDAYRC
+    echo "$*" >> "$JUNEDAYRC"
 }
 
 #
@@ -102,7 +102,7 @@ if [ "$(grep Juneday $BASHRC | wc -l)" = "0" ]
 fi
 
 # Clean .junedayrc
-rm -f $JUNEDAYRC
+rm -f "$JUNEDAYRC"
 add_to_junedayrc "# Juneday bash stuff "
 add_to_junedayrc "# Added $(date) by $USER on $(uname -n)"
 add_to_junedayrc ""
