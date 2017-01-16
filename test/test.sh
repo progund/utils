@@ -77,11 +77,15 @@ check_Hello 0 Cleveland
 echo -n "*"
 check_Hello 1 Einar Einar
 
-check_presence valgrind
-check_presence arduino
-check_presence gcov
-check_presence wget
-check_presence curl
+
+if [ "$OS" = "Linux" ]
+then
+    check_presence valgrind
+    check_presence arduino
+    check_presence gcov
+    check_presence wget
+    check_presence curl
+fi
 
 
 
