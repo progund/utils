@@ -43,7 +43,7 @@ dload()
     REPO_DIR=$(echo $REPO|sed -e 's,https://github.com/progund/,,g' -e 's,.git,,g')
     if [ -d "$REPO_DIR" ]
     then
-        pushd $REPO_DIR
+        pushd "$REPO_DIR"
         update_repo
         exit_on_error "$?" "Failed upgrading educational repository: $REPO_DIR"
         popd
@@ -67,7 +67,7 @@ dload_book()
     BOOK_DIR="$1"
     BOOK_REPOS="$2"
     mkdir -p $BOOK_DIR
-    pushd $BOOK_DIR
+    pushd "$BOOK_DIR"
     exit_on_error "$?" "Failed entering $BOOK_DIR"
 
     dload_repos "$BOOK_REPOS"
@@ -83,9 +83,9 @@ dload_c()
     dload_repos $C_REPOS
 }
 
-ORIG_DIR=$(pwd)
-mkdir -p $DEST_DIR
-cd $DEST_DIR
+ORIG_DIR="$(pwd)"
+mkdir -p "$DEST_DIR"
+cd "$DEST_DIR"
 exit_on_error "$?" "Failed entering $DEST_DIR"
 
 #
@@ -95,7 +95,7 @@ exit_on_error "$?" "Failed entering $DEST_DIR"
 if [ "$UTIL_REPO_ONLY" = "true" ]
 then
     dload_repos "https://github.com/progund/utils.git"
-    cd $ORIG_DIR
+    cd "$ORIG_DIR"
     $THIS_SCRIPT --update-all
     exit 0
 else
