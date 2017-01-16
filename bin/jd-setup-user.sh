@@ -74,10 +74,10 @@ $SUDO usermod -a -G dialout "$CUR_USER"
 #
 # bashrc etc
 #
-BASHRC=/home/$CUR_USER/.bashrc
+BASHRC="/home/$CUR_USER/.bashrc"
 add_to_bashrc()
 {
-    echo "$*" >> $BASHRC
+    echo "$*" >> "$BASHRC"
 }
 
 
