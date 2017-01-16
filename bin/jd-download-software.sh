@@ -95,11 +95,11 @@ dload_sw_MacOS_MacOS()
     echo "Not dowloading for MacOS"
 }
 
-install_atom_MacOS_MacOS
+install_atom_MacOS_MacOS()
 {
     echo "Not installing Atom for MacOS"
 }
-update_os_MacOS_MacOS
+update_os_MacOS_MacOS()
 {
     echo "Not updating for MacOS"
 }
