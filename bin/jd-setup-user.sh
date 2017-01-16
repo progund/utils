@@ -98,7 +98,7 @@ if [ '$(grep Juneday "$BASHRC" | wc -l)' = "0" ]
        add_to_bashrc  "#"
        add_to_bashrc  "#"
        add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
-       add_to_bashrc  "if [ -f $JUNEDAYRC ] ; then .  $JUNEDAYRC; fi "
+       add_to_bashrc  "if [ -f \"$JUNEDAYRC\" ] ; then .  \"$JUNEDAYRC\"; fi "
 fi
 
 # Clean .junedayrc
