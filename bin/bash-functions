@@ -106,6 +106,10 @@ determine_os()
     then
         OS=MacOS
         DIST=MacOS
+    elif [ "$(uname  | grep -ic cygwin)" != "0" ]
+    then
+        OS=Cygwin
+        DIST=Cygwin
     else
         echo "UNSUPPORTED OS"
         exit 1
