@@ -26,36 +26,6 @@ then
 fi
 
 
-COMMON_REPOS="https://github.com/progund/computer-introduction.git https://github.com/progund/programming-introduction.git"
-
-JAVA_REPOS="https://github.com/progund/control-flow.git \
- https://github.com/progund/our-first-java-program.git \
- https://github.com/progund/programming-in-java.git \
- https://github.com/progund/objects_in_java.git \
- https://github.com/progund/intro-java-assignment-1.git \
- https://github.com/progund/classes.git \
- https://github.com/progund/java-programming-assignment2-public.git \
- https://github.com/progund/inheritance.git \
- https://github.com/progund/interfaces.git \
- https://github.com/progund/exceptions.git"
-
-C_REPOS="https://github.com/progund/programming-with-c.git"
-
-BASH_REPOS=""
-
-MORE_BASH_REPOS="https://github.com/progund/bash-script.git https://github.com/progund/bash-control-flow.git https://github.com/progund/bash-output-and-return.git https://github.com/progund/bash-network-tools.git"
-
-DP_REPOS="https://github.com/progund/design_patterns_introduction.git \
- https://github.com/progund/design_patterns_builder.git \
- https://github.com/progund/design-patterns-bi-directional-builder.git \
- https://github.com/progund/design-patterns-singleton.git \
- https://github.com/progund/design-patterns-oo-design-principles.git \
- https://github.com/progund/design-patterns-factories.git \
- https://github.com/progund/design-patterns-decorator.git \
- https://github.com/progund/design-patterns-strategy.git \
- https://github.com/progund/design-patterns-observer.git \
- https://github.com/progund/java-surprises.git"
-
 
 clone_repo()
 {
@@ -129,10 +99,17 @@ then
     $THIS_SCRIPT --update-all
     exit 0
 else
-    dload_c
-    dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
-    dload_book "$DP_BOOK_DIR" "$DP_REPOS"
+    BOOKS_REPOS=utils/etc/books-repos.txt
+    cat $BOOKS_REPOS | grep -v -e "^#" -v -e "^[ \t]*$" | while read book
+    do
+        DIR_NAME=$(echo $book | cut -d "|" -f 1)
+        REPOS=$(echo $book | cut -d "|" -f 2)
+        dload_book "$DIR_NAME" "$REPOS"
+    done
+#    dload_c
+ #   dload_book "$JAVA_BOOK_DIR" "$JAVA_REPOS"
+  #  dload_book "$DP_BOOK_DIR" "$DP_REPOS"
     #dload_book "$BASH_BOOK_DIR" "$BASH_REPOS"
-    dload_book "$MORE_BASH_BOOK_DIR" "$MORE_BASH_REPOS"
+   # dload_book "$MORE_BASH_BOOK_DIR" "$MORE_BASH_REPOS"
 fi
 
