@@ -1,7 +1,6 @@
 #!/bin/bash
 
-TMP_DIR=/tmp/$USER
-#/$$
+TMP_DIR=/tmp/$USER/$$
 
 mkdir -p ${TMP_DIR}
 cd       ${TMP_DIR}
