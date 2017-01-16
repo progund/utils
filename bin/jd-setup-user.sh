@@ -94,19 +94,14 @@ add_to_junedayrc()
 JD_FOUND=`grep Juneday "$BASHRC" | wc -l`
 if [ "$JD_FOUND" = "0" ]
 then
-    echo "Adding"
        add_to_bashrc  "#"
        add_to_bashrc  "#"
        add_to_bashrc  "# Added by Juneday education"
        add_to_bashrc  "#"
        add_to_bashrc  "#"
-       add_to_bashrc  "PATH=\${PATH}:$DEST_DIR/utils/bin/"
+       add_to_bashrc  "PATH=\${PATH}:\"$DEST_DIR/utils/bin/"
        add_to_bashrc  "if [ -f ~/$JUNEDAYRC_FILE ] ; then .  $JUNEDAYRC_FILE; fi "
-else
-    echo "NOT adding"
 fi
-
-sleep 10
 
 # Clean .junedayrc
 rm -f "$JUNEDAYRC"
