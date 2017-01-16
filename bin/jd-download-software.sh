@@ -90,6 +90,21 @@ update_os_linux_fedora()
     exit_on_error "$?" "Failed upgrading system packages"
 }
 
+dload_sw_MacOS_MacOS()
+{
+    echo "Not dowloading for MacOS"
+}
+
+install_atom_MacOS_MacOS
+{
+    echo "Not installing Atom for MacOS"
+}
+update_os_MacOS_MacOS
+{
+    echo "Not updating for MacOS"
+}
+
+
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
