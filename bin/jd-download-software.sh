@@ -66,7 +66,8 @@ dload_sw_linux_fedora()
 {
     echo "Download fedora packages"
     sudo dnf install -y gcc arduino valgrind java-1.8.0-openjdk curl wget \
-         sqlite git cvs svn mercurial bzr emacs vim make firefox
+         sqlite git cvs svn mercurial bzr emacs vim make firefox check  \
+         gdb zip unzip splint p7zip python python3 rsync
     exit_on_error "$?" "Failed installing system packages"
 }
 
@@ -74,7 +75,8 @@ dload_sw_linux_ubuntu()
 {
     echo "Download ubun packages"
     sudo apt-get install -y gcc arduino valgrind openjdk-8-jdk curl wget \
-         sqlite git cvs subversion mercurial bzr emacs vim make firefox
+         sqlite git cvs subversion mercurial bzr emacs vim make firefox check \
+         gdb splint p7zip python python3 rsync
     exit_on_error "$?" "Failed installing system packages"
 }
 
@@ -107,7 +109,16 @@ update_os_MacOS_MacOS()
 
 dload_sw_Cygwin_Cygwin()
 {
-    echo "Not dowloading for Cygwin"
+    echo "Dowloading for Cygwin"
+    apt-cyg --version
+    if [ $? -ne 0 ]
+    then
+        lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+        install apt-cyg /bin
+    fi
+
+    apt-cyg install gcc-core git cvs mercurial subversion curl wget perl-LWP-Protocol-https make emacs sqlite3 check gdb indent zip splint unzip p7zip python3 perl bc openssh rsync
+    
 }
 
 install_atom_Cygwin_Cygwin()
