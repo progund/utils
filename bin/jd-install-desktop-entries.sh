@@ -26,6 +26,12 @@ then
     exit 1
 fi
 
+if [ "$OS" != "Linux" ]
+then
+    echo "Don't know how to install Desktop stuff for $OS"
+    exit 0
+fi
+
 
 #
 # move to common place
