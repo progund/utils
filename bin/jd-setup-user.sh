@@ -90,7 +90,7 @@ add_to_junedayrc()
 #
 # Prevent from adding twice
 #
-if [ "$(grep Juneday $BASHRC | wc -l)" = "0" ]
+if [ "$(grep Juneday \"$BASHRC\" | wc -l)" = "0" ]
    then
        add_to_bashrc  "#"
        add_to_bashrc  "#"
