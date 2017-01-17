@@ -65,14 +65,14 @@ install_atom_linux_ubuntu()
 dload_sw_linux_fedora()
 {
     echo "Download fedora packages"
-    sudo dnf install -y "$PKGS"
+    sudo dnf install -y $PKGS
     exit_on_error "$?" "Failed installing system packages"
 }
 
 dload_sw_linux_ubuntu()
 {
     echo "Download ubun packages"
-    sudo apt-get install -y  "$PKGS"
+    sudo apt-get install -y  $PKGS
     exit_on_error "$?" "Failed installing system packages"
 }
 
@@ -113,7 +113,7 @@ dload_sw_cygwin_cygwin()
         install apt-cyg /bin
     fi
 
-    apt-cyg install "$PKGS"
+    apt-cyg install $PKGS
 }
 
 install_atom_cygwin_cygwin()
