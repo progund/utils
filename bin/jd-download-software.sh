@@ -125,7 +125,7 @@ update_os_cygwin_cygwin()
     echo "Not updating for Cygwin"
 }
 
-PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/pkgs.${DIST}
+PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
 PKGS=$(cat "${PKG_LIST_FILE}")
 
 dload_sw_${OS}_${DIST}
