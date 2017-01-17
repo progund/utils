@@ -117,7 +117,11 @@ dload_sw_Cygwin_Cygwin()
         install apt-cyg /bin
     fi
 
-    apt-cyg install gcc-core git cvs mercurial subversion curl wget perl-LWP-Protocol-https make emacs sqlite3 check gdb indent zip splint unzip p7zip python3 perl bc openssh rsync
+    pwd
+    echo "$JD_ETC_DIR:$JD_ETC_DIR"
+    cat "$JD_ETC_DIR"
+    sleep 5
+    apt-cyg install $(cat "$JD_ETC_DIR")
     
 }
 
