@@ -65,18 +65,14 @@ install_atom_linux_ubuntu()
 dload_sw_linux_fedora()
 {
     echo "Download fedora packages"
-    sudo dnf install -y gcc arduino valgrind java-1.8.0-openjdk curl wget \
-         sqlite git cvs svn mercurial bzr emacs vim make firefox check  \
-         gdb zip unzip splint p7zip python python3 rsync
+    sudo dnf install -y "$PKGS"
     exit_on_error "$?" "Failed installing system packages"
 }
 
 dload_sw_linux_ubuntu()
 {
     echo "Download ubun packages"
-    sudo apt-get install -y gcc arduino valgrind openjdk-8-jdk curl wget \
-         sqlite git cvs subversion mercurial bzr emacs vim make firefox check \
-         gdb splint p7zip python python3 rsync
+    sudo apt-get install -y  "$PKGS"
     exit_on_error "$?" "Failed installing system packages"
 }
 
@@ -107,7 +103,7 @@ update_os_MacOS_MacOS()
 }
 
 
-dload_sw_Cygwin_Cygwin()
+dload_sw_cygwin_cygwin()
 {
     echo "Dowloading for Cygwin"
     apt-cyg --version
@@ -117,22 +113,20 @@ dload_sw_Cygwin_Cygwin()
         install apt-cyg /bin
     fi
 
-    PKG_LIST=${THIS_SCRIPT_DIR}/../etc/pkgs.Cygwin
-    cat "$PKG_LIST"
-    sleep 5
-    apt-cyg install $(cat "$PKG_LIST")
-    
+    apt-cyg install "$PKGS"
 }
 
-install_atom_Cygwin_Cygwin()
+install_atom_cygwin_cygwin()
 {
     echo "Not installing Atom for Cygwin"
 }
-update_os_Cygwin_Cygwin()
+update_os_cygwin_cygwin()
 {
     echo "Not updating for Cygwin"
 }
 
+PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/pkgs.${DIST}
+PKGS=$(cat "${PKG_LIST_FILE}")
 
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}

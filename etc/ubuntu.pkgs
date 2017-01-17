@@ -1,0 +1,3 @@
+gcc arduino valgrind openjdk-8-jdk curl wget \
+         sqlite git cvs subversion mercurial bzr emacs vim make firefox check \
+         gdb splint p7zip python python3 rsync

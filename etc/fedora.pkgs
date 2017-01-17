@@ -1,0 +1,3 @@
+gcc arduino valgrind java-1.8.0-openjdk curl wget \
+         sqlite git cvs svn mercurial bzr emacs vim make firefox check  \
+         gdb zip unzip splint p7zip python python3 rsync
