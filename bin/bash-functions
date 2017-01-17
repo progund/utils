@@ -142,4 +142,5 @@ ask_question()
 }
 
 check_x
+JD_ETC_DIR=${THIS_SCRIPT_DIR}/../etc
 source_file ${THIS_SCRIPT_DIR}/settings
