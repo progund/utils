@@ -117,11 +117,10 @@ dload_sw_Cygwin_Cygwin()
         install apt-cyg /bin
     fi
 
-    pwd
-    echo "$JD_ETC_DIR:$JD_ETC_DIR"
-    cat "$JD_ETC_DIR"
+    PKG_LIST=${THIS_SCRIPT_DIR}/../etc/pkgs.Cygwin
+    cat "$PKG_LIST"
     sleep 5
-    apt-cyg install $(cat "$JD_ETC_DIR")
+    apt-cyg install $(cat "$PKG_LIST")
     
 }
 

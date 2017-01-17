@@ -142,7 +142,4 @@ ask_question()
 }
 
 check_x
-echo "WOW...."
-JD_ETC_DIR=${THIS_SCRIPT_DIR}/../etc
-            echo "$JD_ETC_DIR:$JD_ETC_DIR"
 source_file ${THIS_SCRIPT_DIR}/settings
