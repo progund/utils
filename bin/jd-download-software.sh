@@ -109,10 +109,10 @@ dload_sw_cygwin_cygwin()
 {
     echo "Dowloading for Cygwin"
     apt-cyg --version
-    if [ $? -ne 0 ]
+    if [ $? -eq 0 ]
     then
         lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-        if [ $? -ne 0 ]
+        if [ $? -eq 0 ]
         then
             install apt-cyg /bin
         else
