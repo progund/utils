@@ -112,13 +112,12 @@ dload_sw_cygwin_cygwin()
     if [ $? -ne 0 ]
     then
         lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+        install apt-cyg /bin
     fi
 
     apt-cyg --version
-    if [ $? -eq 0 ]
+    if [ $? -ne 0 ]
     then
-        install apt-cyg /bin
-    else
         echo "*** Uh oh, failed downloading or installing apt-cyg *** "
         echo "***  This means, we're not able to download   ***"
         echo "*** the  required software packages to cygwin ***"
