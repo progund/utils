@@ -109,20 +109,22 @@ dload_sw_cygwin_cygwin()
 {
     echo "Dowloading for Cygwin"
     apt-cyg --version
-    if [ $? -eq 0 ]
+    if [ $? -ne 0 ]
     then
         lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
-        if [ $? -eq 0 ]
-        then
-            install apt-cyg /bin
-        else
-            echo "***    Uh oh, failed downloading apt-cyg      *** "
-            echo "***  This means, we're not able to download   ***"
-            echo "*** the  required software packages to cygwin ***"
-            echo "...sleeping 5 secs, hoping you will see this message"
-            sleep 5
-            return
-        fi
+    fi
+
+    apt-cyg --version
+    if [ $? -eq 0 ]
+    then
+        install apt-cyg /bin
+    else
+        echo "*** Uh oh, failed downloading or installing apt-cyg *** "
+        echo "***  This means, we're not able to download   ***"
+        echo "*** the  required software packages to cygwin ***"
+        echo "...sleeping 5 secs, hoping you will see this message"
+        sleep 5
+        return
     fi
 
     apt-cyg install $PKGS
