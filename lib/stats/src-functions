@@ -1,0 +1,46 @@
+
+file_types_stat()
+{
+    HEADER=$1
+    shift
+    SUFFIX=""
+    for option in $*
+    do
+        if [ "$SUFFIX" != "" ]
+        then
+            SUFFIX="$SUFFIX -o "
+        fi
+        SUFFIX="$SUFFIX -name \"*.$option\""
+        shift
+    done
+    
+    FILES=$(eval find $DIR -type f $SUFFIX)
+
+    echo "      {"
+#    echo -n "${HEADER}-loc: "
+    echo "          \"type\": \"${HEADER}\","
+    echo -n  "          \"number-of-files\": \""
+    echo  "$(echo  $FILES | sed 's, ,\n,g' | wc -l)\","
+    echo -n "          \"lines-of-code\": \""
+    echo -n $(for file in $FILES
+    do
+        cat $file
+    done | wc -l)
+    echo "\""
+    echo -n "      }"
+}
+
+source_code_stat()
+{
+#    echo "source_code_stat()"
+    #   pwd
+    echo "  \"source-code\": ["
+    pushd git 2>/dev/null >/dev/null
+    file_types_stat Java java 
+    echo ","
+    file_types_stat C c h
+    echo ","
+    file_types_stat Bash sh
+    popd 2>/dev/null >/dev/null
+    echo "  ]"
+}

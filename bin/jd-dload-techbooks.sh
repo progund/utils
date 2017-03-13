@@ -23,8 +23,13 @@ UTIL_REPO_ONLY=true
 if [ "$1" = "--update-all" ]
 then
     UTIL_REPO_ONLY=false
+    shift
 fi
-
+if [ "$1" = "--destination-dir" ]
+then
+    DEST_DIR=$2
+    shift
+fi
 
 
 clone_repo()
@@ -96,10 +101,17 @@ if [ "$UTIL_REPO_ONLY" = "true" ]
 then
     dload_repos "https://github.com/progund/utils.git"
     cd "$ORIG_DIR"
-    $THIS_SCRIPT --update-all
+    $THIS_SCRIPT --update-all --destination-dir $DEST_DIR
     exit 0
 else
     BOOKS_REPOS=utils/etc/books-repos.txt
+    if [ ! -f $BOOKS_REPOS ]
+    then
+        echo "Can't find file: $BOOKS_REPOS"
+        echo "Dest dir: $DEST_DIR"
+        echo "Current dir: $(pwd)"
+        exit 1
+    fi
     cat $BOOKS_REPOS | grep -v -e "^#" -v -e "^[ \t]*$" | while read book
     do
         DIR_NAME=$(echo $book | cut -d "|" -f 1)

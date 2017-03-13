@@ -64,7 +64,15 @@ log()
 {
     echo -n "["
     get_date
-    echo "] $1"
+    echo "] $*"
+}
+
+log_to_file()
+{
+    if [ "$LOG_FILE" != "" ]
+    then
+        log "$*" >> $LOG_FILE
+    fi           
 }
 
 do_exec()
@@ -77,6 +85,13 @@ do_exec()
     log "$CMD: OK"
 }
 
+debug()
+{
+    if [ $DEBUG ]
+    then
+        echo $*
+    fi
+}
 
 
 determine_os()
@@ -143,3 +158,4 @@ ask_question()
 
 check_x
 source_file ${THIS_SCRIPT_DIR}/settings
+determine_os

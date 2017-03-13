@@ -1,0 +1,9 @@
+
+get_vimeo_stat()
+{
+    echo "  \"vimeo-stats\": {"
+    echo -n "      \"videos\": \""
+    echo -n $(w3m -dump 'https://vimeo.com/user52531669/collections'|grep -i videos|egrep '^ *[0-9]+ Videos'|awk '{print $1}')
+    echo "\""
+    echo "    }"
+}
