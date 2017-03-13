@@ -1,0 +1,60 @@
+
+dload_source_code()
+{
+    log_to_file "      --> dload_source_code()"
+    curl -s https://api.github.com/orgs/progund/repos  > repos.json
+#    curl -s https://github.com/progund/repositories > repos.txt
+    REPOS=$(grep clone_url repos.json  | sed -e 's,"clone_url": ,,' -e "s/[,\"]//g" )
+    REPO_CNT=$(grep clone_url repos.json  | sed -e 's,"clone_url": ,,' -e "s/[,\"]//g"| wc -l )
+
+    mkdir -p git
+    pushd git 2>/dev/null >/dev/null
+
+    log_to_file "        --> looping through repos"
+    for repo in $REPOS
+    do
+        GIT_DIR=$(echo "$repo" | sed -e 's,https://github.com/progund/,,g' -e 's,.git,,g')
+        log_to_file "        -- dir: $GIT_DIR"
+        if [ -d $GIT_DIR ]
+        then
+            log_to_file "        -- updating repo"
+            pushd $GIT_DIR 2>/dev/null >/dev/null
+            git pull 
+            popd 2>/dev/null >/dev/null
+        else
+            log_to_file "        -- cloning repo"
+            git clone "${repo}"
+        fi
+    done
+    log_to_file "        <-- looping through repos"
+
+    popd 2>/dev/null >/dev/null
+    log_to_file "      <-- dload_source_code()"
+}
+
+git_stats_sub()
+{
+    LANG_TYPE=$1
+    echo "        {" 
+    echo "           \"name\": \"$LANG_TYPE\","
+    echo -n "        \"repos\": \""
+    log_to_file "w3m -dump 'https://github.com/progund?language=$LANG_TYPE'"
+    echo -n $(w3m -dump "https://github.com/progund?language=$LANG_TYPE" | grep "repositories written in "|awk '{print $1}');
+    echo  "\""
+    echo "        }"
+    #LC_TIME=en_US date
+}
+
+git_stats()
+{
+    echo "    \"git-repos\": {"
+    echo "      \"total\": \"$REPO_CNT\","
+    echo "      \"languages\": ["
+    git_stats_sub java
+    echo "      ,"
+    git_stats_sub c
+    echo "      ,"
+    git_stats_sub shell
+    echo "       ]"
+    echo "    }"
+}

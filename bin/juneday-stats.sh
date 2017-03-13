@@ -1,187 +1,187 @@
 #!/bin/bash
 
-mkdir -p /tmp/junedaywiki
+TEMP_DIR=/tmp/junedaywiki
+DEST_DIR_BASE=/tmp/junedaywiki-stats
+PATH=${PATH}:.
+CURR_DIR=$(pwd)
+DOWNLOAD=true
+DEST_DIR=${DEST_DIR_BASE}/$(date '+%Y%m%d')/
+mkdir -p $DEST_DIR
+export LOG_FILE=$DEST_DIR/juneday-stats.log
+
+
+STAT_FILE=$DEST_DIR/stat.json
+JD_STAT_FILE=$DEST_DIR/jd-stats.json
+
+rm -f $STAT_FILE
+
+
+mkdir -p $TEMP_DIR
 declare -A PAGE_COUNTS
 
-DOWNLOAD=true
-if [ "$1" = "-nd" ]
+#
+# Source bash-functions
+#
+#
+THIS_SCRIPT_DIR=$(dirname $0)
+BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
+if [ -f ${BASH_FUNCTIONS} ]
 then
-    DOWNLOAD=false
-    shift
-fi
-
-debug()
-{
-    if [ $DEBUG ]
-    then
-        echo $*
-    fi
-}
-
-BOOK_CONF=$1
-if [ ! -f $BOOK_CONF ] || [ "$BOOK_CONF" = "" ]
-then
-    if [ ! -f $BOOK_CONF ]
-    then
-        echo "missing: $BOOK_CONF"
-        ls -al
-        exit 1
-    fi
-    echo "Missing or faulty book configuration file ($BOOK_CONF)"
+    echo "Sourcing file:  ${BASH_FUNCTIONS}"
+    . ${BASH_FUNCTIONS}
+    determine_os
+else
+    echo -n "Failed finding file: ${BASH_FUNCTIONS}. "
+    echo "Bailing out..."
     exit 1
 fi
-. $BOOK_CONF
 
+#
+# Source in functions
+#
+#
+HELPER_FILES="git-functions src-functions wiki-functions video-functions pod-functions"
+if [ -d ${THIS_SCRIPT_DIR} ]
+then
+    echo "Sourcing helper files"
+    for f in $HELPER_FILES
+    do
+        SH_FILE=$THIS_SCRIPT_DIR/../lib/stats/$f
+        if [ -f $SH_FILE ]
+        then
+            echo "source $SH_FILE"
+            . ${SH_FILE}
+        else
+            echo "Missing file: $SH_FILE"
+            echo "Current directory: $(pwd)"
+            exit 2
+        fi
+    done
+else
+    echo "Bailing out..."
+    exit 1
+fi
 
-get_html()
+parse()
 {
-#    echo get html
-    if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${page}.html ]
+
+    log_to_file "parsing user arguments"
+    if [ "$1" = "-nd" ]
     then
-        rm -f ${page}.html
-        curl  "http://rameau.sandklef.com/mediawiki/index.php/${page}" -o ${page}.html
+        DOWNLOAD=false
+        shift
     fi
-#    ls -al ${page}.html
-}
-
-get_pdf()
-{
-    PAGES="$1"
-    for page in $PAGES
-    do
-        if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${page}.pdf ]
+    
+    BOOK_CONF=$1
+    if [ ! -f $BOOK_CONF ] || [ "$BOOK_CONF" = "" ]
+    then
+        if [ ! -f $BOOK_CONF ]
         then
-            rm -f ${page}.pdf
-            curl -s "http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single" -o ${page}.pdf 
+            echo "missing: $BOOK_CONF"
+            ls -al
+            exit 1
         fi
-        PDFS="$PDFS ${page}.pdf"
-    done
+        echo "Missing or faulty book configuration file ($BOOK_CONF)"
+        exit 1
+    fi
+    . $BOOK_CONF
 }
-
-check_pres_pdfs()
-{
-    PRES_PAGE_COUNT=0
-#    echo "Presentation pdfs: $PRES_PDFS" 
-    UNIQ_PDFS=$(echo "$PRES_PDFS" | uniq | tr '[\n]' '[ ]')
-
-#    echo "pres pdfs: $UNIQ_PDFS  ($(echo $UNIQ_PDFS | wc -l))"; 
-    
-    for pdf_long in $UNIQ_PDFS
-    do
-        
-        pdf=$(basename "$pdf_long")
-        echo -n "$pdf: "
-        PRES_PAGES=$(pdfinfo $pdf 2>/dev/null | grep Pages | awk ' { print $2}')
-        PRES_PAGE_COUNT=$(( PRES_PAGE_COUNT + PRES_PAGES ))
-        echo "$PRES_PAGES"
-    done
-    TOTAL_PRES_PAGE_COUNT=$(( TOTAL_PRES_PAGE_COUNT + PRES_PAGE_COUNT ))
-    echo "Total presentation pdf: $PRES_PAGE_COUNT"
-}
-
-check_pdfs()
-{
-    
-    PAGE_COUNT=0
-    for pdf in $PDFS
-    do
-        echo -n "$pdf: "
-        PAGES=$(pdfinfo $pdf | grep Pages | awk ' { print $2}')
-        echo $PAGES
-        PAGE_COUNT=$(( PAGE_COUNT + PAGES ))
-    done
-    TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + PAGE_COUNT ))
-    echo "Total: $PAGE_COUNT"
-}
-
-get_presentations()
-{
-    HTML_PAGE="$1".html
-    LOCAL_PRES_PDFS=$(grep "href=" "$HTML_PAGE" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g')
-    for page in $LOCAL_PRES_PDFS
-    do
-        short_page=$(basename ${page})
-        if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${short_page} ]
-        then
-            rm -f ${short_page}
-            curl  "http://rameau.sandklef.com/$page" -o ${short_page}
-        fi
-        
-#        echo  "pdf: $short_page"
-        
-        echo -n "$short_page: "
-        PAGES=$(pdfinfo $short_page 2>/dev/null | grep Pages | awk ' { print $2}')
-        echo $PAGES
-    done
-    PRES_PDFS="$PRES_PDFS $LOCAL_PRES_PDFS"
-}
-
-
-check_book()
-{
-    book=$1
-    
-    PAGES=${book}_PAGES
-    TITLE_VAR=${book}_TITLE
-    TITLE=${!TITLE_VAR}
-    TITLE_NO_BLANKS=$(echo $TITLE | sed 's, ,_,g')
-
-#    echo "PAGES: $PAGES / ${!PAGES}"
-    
-    debug " * $TITLE"
-    
-    printf "\n --== %s ==-- \n" "$TITLE"
-    PDFS=""
-    for page in ${!PAGES}
-    do
-        debug " ** $page"
-        get_pdf "$page"
-        get_html "$page"
-        get_presentations "$page"
-#        echo "PRES_PDF: $PRES_PDFS"
-    done
-
-    check_pdfs
-
-  #  echo "Insert .... $book, ${PAGE_COUNT}"
-    PAGE_COUNTS["${book}"]="${PAGE_COUNT}"
-#    echo "Inserted .... $book:" ${PAGE_COUNTS["$book"]}
- #   echo "Inserted .... JAVA:" ${PAGE_COUNTS["JAVA"]}
-
-    echo Skipping merge pdf
-#    rm -f  "${TITLE_NO_BLANKS}.pdf"
- #   pdfmerge $PDFS "${TITLE_NO_BLANKS}.pdf"
-}
-
 
 main()
 {
+    
+    log_to_file "--> main"
+    
     debug "BOOKS: $BOOKS"
     PRES_PDFS=""
+    TOTAL_PAGE_COUNT=0
+    log_to_file "  --> looping through books"
 
+    echo "{" >> $STAT_FILE
+    echo " \"books\": [" >> $STAT_FILE
+
+    BOOK_COUNT=0
     for book in $BOOKS
     do
-        debug "Handle book: $book"
-        check_book $book
+        if [ $BOOK_COUNT -ne 0 ]
+        then
+            echo "," >> $STAT_FILE
+        fi
+        BOOK_COUNT=$(( BOOK_COUNT + 1 ))
+        log_to_file "    --> handle book: $book"
+        check_book $book >> $STAT_FILE
+        log_to_file "    -- handle book: $book"
     done
+    log_to_file "  <-- looping through books"
+    echo "  ],"  >> $STAT_FILE
+    
+    log_to_file "  --> Check presentation pdfs"
+    check_pres_pdfs_vids >> $STAT_FILE
+    log_to_file "  <-- Check presentation pdfs"
 
-    check_pres_pdfs
+    log_to_file "  --> Getting wiki stats"
+    get_wiki_stats >> $STAT_FILE
+    echo "," >> $STAT_FILE
+    log_to_file "  <-- Getting wiki stats"
 
+    log_to_file "  --> downloading source code"
+    dload_source_code
+    log_to_file "  <-- downloading source code"
+    
+    log_to_file "  --> Creating stats for source code"
+    source_code_stat >> $STAT_FILE
+    echo "    , " >> $STAT_FILE
+    log_to_file "  <-- Creating stats for source code"
+
+    log_to_file "  --> Creating stats for git"
+    git_stats >> $STAT_FILE
+    echo "    , " >> $STAT_FILE
+    log_to_file "  <-- Creating stats for git"
+#    echo "]">> $STAT_FILE
+
+    log_to_file "  --> Creating stats from vimeo"
+    get_vimeo_stat >> $STAT_FILE
+    echo "    , " >> $STAT_FILE
+    log_to_file "  <-- Creating stats from vimeo"
+
+    log_to_file "  --> Creating stats from vimeo"
+    get_pod_stat >> $STAT_FILE
+    log_to_file "  <-- Creating stats from vimeo"
+
+    
+    echo "}" >> $STAT_FILE
+
+    echo "    conv ${STAT_FILE} to  ${JD_STAT_FILE}"
+
+    cat ${STAT_FILE} | python -mjson.tool > ${JD_STAT_FILE}
+#    jsonlint  ${JD_STAT_FILE}
+    return
+    
+    #
+    # Summary
+    #
     printf "\n --== %s ==-- \n" "Books"
+    log_to_file "  --> looping through books (again)"
     for book in $BOOKS
     do
+        log_to_file "    --> handle book: $book"
         TITLE_VAR=${book}_TITLE
         TITLE=${!TITLE_VAR}
         echo -n "${TITLE}: "
         echo ${PAGE_COUNTS[$book]}
+        log_to_file "    -- handle book: $book"
     done
+    log_to_file "  <-- looping through books (again)"
+
     echo "Total: $TOTAL_PAGE_COUNT"
     printf "\n --== %s ==-- \n" "Presentation pdfs"
     echo "$TOTAL_PRES_PAGE_COUNT"
 
 }
-        
-cd  /tmp/junedaywiki
+
+
+parse $*
+cd  $TEMP_DIR
 main
 
 
