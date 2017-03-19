@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMP_DIR=/tmp/junedaywiki
-DEST_DIR_BASE=/tmp/junedaywiki-stats
+DEST_DIR_BASE=/var/www/html/junedaywiki-stats
 PATH=${PATH}:.
 CURR_DIR=$(pwd)
 DOWNLOAD=true
@@ -13,6 +13,7 @@ export LOG_FILE=$DEST_DIR/juneday-stats.log
 STAT_FILE=$DEST_DIR/stat.json
 JD_STAT_FILE=$DEST_DIR/jd-stats.json
 
+mkdir -p $DEST_DIR
 rm -f $STAT_FILE
 
 
@@ -64,12 +65,17 @@ fi
 
 parse()
 {
-
     log_to_file "parsing user arguments"
     if [ "$1" = "-nd" ]
     then
         DOWNLOAD=false
         shift
+    fi
+    
+    if [ "$1" = "--big-json" ]
+    then
+        BIG_JSON=true
+	shift
     fi
     
     BOOK_CONF=$1
@@ -87,11 +93,44 @@ parse()
     . $BOOK_CONF
 }
 
+big_json()
+{
+    cd ${DEST_DIR_BASE}
+    echo "{" 
+    echo "  \"juneday-stats\": [" 
+
+    DIR_CNT=0
+    for dir in $(ls -1d 20* | sort -n)
+    do
+	if [ $DIR_CNT -ne 0 ]
+	then
+	    echo ","
+	fi
+	DIR_CNT=$(( DIR_CNT + 1 ))
+	echo "  {"
+	echo "\"date\":\"$dir\"",
+	echo "\"daily-stats\":"
+	cat $dir/jd-stats.json
+	echo "  }"
+    done
+    
+    echo "  ]"
+    echo "}"
+
+}
+
 main()
 {
     
     log_to_file "--> main"
-    
+
+    if [ "$BIG_JSON" = "true" ]
+    then
+	big_json >  ${DEST_DIR_BASE}/jd-tmp.json
+	cat ${DEST_DIR_BASE}/jd-tmp.json | python -mjson.tool > ${DEST_DIR_BASE}/jd-complete.json
+	exit 0
+    fi
+
     debug "BOOKS: $BOOKS"
     PRES_PDFS=""
     TOTAL_PAGE_COUNT=0
