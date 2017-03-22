@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMP_DIR=/tmp/junedaywiki
-DEST_DIR_BASE=/var/www/html/junedaywiki-stats
+DEST_DIR_BASE=/tmp/var/www/html/junedaywiki-stats
 PATH=${PATH}:.
 CURR_DIR=$(pwd)
 DOWNLOAD=true
