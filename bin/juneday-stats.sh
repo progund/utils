@@ -9,6 +9,7 @@ DEST_DIR=${DEST_DIR_BASE}/$(date '+%Y%m%d')/
 mkdir -p $DEST_DIR
 export LOG_FILE=$DEST_DIR/juneday-stats.log
 
+export HTML_STATS=${DEST_DIR_BASE}/jd-stat.html
 
 STAT_FILE=$DEST_DIR/stat.json
 JD_STAT_FILE=$DEST_DIR/jd-stats.json
@@ -113,6 +114,54 @@ print_last_entry()
     printf "%6s " $(grep "$REGEXP" "$JSON_FILE" | tail -1 | sed 's/[",]*//g' | awk ' { printf "%s", $2}')" "
 }
 
+
+init_html()
+{
+    cat <<EOF
+<html>
+<body>
+<style type="text/css">
+
+.rTable {
+  	display: table;
+  	width: 100%;
+}
+.rTableRow {
+  	display: table-row;
+}
+.rTableHeading {
+  	display: table-header-group;
+  	background-color: #ddd;
+}
+.rTableCell, .rTableHead {
+  	display: table-cell;
+  	padding: 3px 10px;
+  	border: 1px solid #999999;
+}
+.rTableHeading {
+  	display: table-header-group;
+  	background-color: #ddd;
+  	font-weight: bold;
+}
+.rTableFoot {
+  	display: table-footer-group;
+  	font-weight: bold;
+  	background-color: #ddd;
+}
+.rTableBody {
+  	display: table-row-group;
+}
+</style>
+EOF
+}
+
+html_stat()
+{
+    echo "$*" >> $HTML_STATS
+}
+
+
+
 gen_graph()
 {
     REGEXPS_HEAD="books pages uniq-channels uniq-presentations uniq-presentations-pages uniq-videos podcasts"
@@ -120,29 +169,45 @@ gen_graph()
     SOURCE_SUFF="Java C Bash"
     pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
 
-    log_to_file "---> gen_graph()"
+    init_html > $HTML_STATS
     
+    log_to_file "---> gen_graph()"
+
+    html_stat '<h2>Stats for Jundeday</h2>'
+    html_stat '<div><div class="rTable">'
+    html_stat '<div class="rTableRow">'
+
     echo -n "# date "
+    html_stat '<div class="rTableHead"><strong>Date</strong></div>'
     for re in $REGEXPS_HEAD  $REGEXPS_TAIL
     do
+        html_stat '<div class="rTableHead"><strong>'$re'</strong></div>'
 	printf "%s " ${re} 
     done
     for i in $SOURCE_SUFF
     do
+        html_stat '<div class="rTableHead"><strong>'$i'</strong></div>'
 	printf "%s " "$i" 
     done
+    html_stat '</div>'
     echo
     
     for dir in $(ls -1d 20* | sort -n)
     do
+        html_stat '<div class="rTableRow">'
 	log_to_file "---  gen_graph() -- dir: $dir"
 	echo -n "$dir "
+        html_stat '<div class="rTableCell">'$dir'</div>'
 	for re in $REGEXPS_HEAD
 	do
-	    print_first_entry "$re" "$dir/jd-stats.json"
+            ENTRY=$(print_first_entry "$re" "$dir/jd-stats.json")
+            html_stat '<div class="rTableCell">'$ENTRY'</div>'
+            print_first_entry "$re" "$dir/jd-stats.json"
 	done
 	for re in $REGEXPS_TAIL
 	do
+            ENTRY=$(print_last_entry "$re" "$dir/jd-stats.json")
+            html_stat '<div class="rTableCell">'$ENTRY'</div>'
 	    print_last_entry "$re" "$dir/jd-stats.json"
 	done
 	#
@@ -150,10 +215,16 @@ gen_graph()
 	#
 	for i in $SOURCE_SUFF
 	do
+	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "`
+            html_stat '<div class="rTableCell">'$SOURCE_STUFF'</div>'
 	    echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "
 	done
 	echo
+        html_stat '</div>'
     done
+    html_stat '</div>'
+    html_stat '</body>'
+    html_stat '</html>'
 
     popd  2>/dev/null >/dev/null 
     log_to_file "<--- gen_graph()"
