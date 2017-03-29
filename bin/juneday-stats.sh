@@ -78,6 +78,12 @@ parse()
 	shift
     fi
     
+    if [ "$1" = "--graph" ]
+    then
+        GRAPH=true
+	shift
+    fi
+    
     BOOK_CONF=$1
     if [ ! -f $BOOK_CONF ] || [ "$BOOK_CONF" = "" ]
     then
@@ -93,8 +99,69 @@ parse()
     . $BOOK_CONF
 }
 
+print_first_entry()
+{
+    REGEXP="$1"
+    JSON_FILE="$2"
+    printf "%6s " $(grep "$REGEXP" "$JSON_FILE" | head -1 | sed 's/[",]*//g' | awk ' { printf "%s", $2}')" "
+}
+
+print_last_entry()
+{
+    REGEXP="$1"
+    JSON_FILE="$2"
+    printf "%6s " $(grep "$REGEXP" "$JSON_FILE" | tail -1 | sed 's/[",]*//g' | awk ' { printf "%s", $2}')" "
+}
+
+gen_graph()
+{
+    REGEXPS_HEAD="books pages uniq-channels uniq-presentations uniq-presentations-pages uniq-videos podcasts"
+    REGEXPS_TAIL="videos content-pages pages "
+    SOURCE_SUFF="Java C Bash"
+    pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
+
+    log_to_file "---> gen_graph()"
+    
+    echo -n "# date "
+    for re in $REGEXPS_HEAD  $REGEXPS_TAIL
+    do
+	printf "%s " ${re} 
+    done
+    for i in $SOURCE_SUFF
+    do
+	printf "%s " "$i" 
+    done
+    echo
+    
+    for dir in $(ls -1d 20* | sort -n)
+    do
+	log_to_file "---  gen_graph() -- dir: $dir"
+	echo -n "$dir "
+	for re in $REGEXPS_HEAD
+	do
+	    print_first_entry "$re" "$dir/jd-stats.json"
+	done
+	for re in $REGEXPS_TAIL
+	do
+	    print_last_entry "$re" "$dir/jd-stats.json"
+	done
+	#
+	# src code
+	#
+	for i in $SOURCE_SUFF
+	do
+	    echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "
+	done
+	echo
+    done
+
+    popd  2>/dev/null >/dev/null 
+    log_to_file "<--- gen_graph()"
+}
+
 big_json()
 {
+    log_to_file "---> big_json()"
     cd ${DEST_DIR_BASE}
     echo "{" 
     echo "  \"juneday-stats\": [" 
@@ -102,6 +169,8 @@ big_json()
     DIR_CNT=0
     for dir in $(ls -1d 20* | sort -n)
     do
+	log_to_file "---  big_json()  dir: $dir"
+
 	if [ $DIR_CNT -ne 0 ]
 	then
 	    echo ","
@@ -116,6 +185,7 @@ big_json()
     
     echo "  ]"
     echo "}"
+    log_to_file "<--- big_json()"
 
 }
 
@@ -128,6 +198,12 @@ main()
     then
 	big_json >  ${DEST_DIR_BASE}/jd-tmp.json
 	cat ${DEST_DIR_BASE}/jd-tmp.json | python -mjson.tool > ${DEST_DIR_BASE}/jd-complete.json
+	exit 0
+    fi
+
+    if [ "$GRAPH" = "true" ]
+    then
+	gen_graph > ${DEST_DIR_BASE}/jd-stat.data
 	exit 0
     fi
 
