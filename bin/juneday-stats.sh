@@ -164,7 +164,7 @@ day_one_html()
 {
 cat <<EOF
 <div class="rTableRow">
-<div class="rTableCell">20160601</div>
+<div class="rTableCell">20160616</div>
 <div class="rTableCell"> 0 </div>
 <div class="rTableCell"> 0 </div>
 <div class="rTableCell"> 0 </div>
