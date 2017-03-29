@@ -160,6 +160,28 @@ html_stat()
     echo "$*" >> $HTML_STATS
 }
 
+day_one_html()
+{
+cat <<EOF
+<div class="rTableRow">
+<div class="rTableCell">20160601</div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell">0 </div>
+<div class="rTableCell">0 </div>
+<div class="rTableCell">0 </div>
+</div>
+EOF
+}
+
 
 
 gen_graph()
@@ -191,6 +213,8 @@ gen_graph()
     done
     html_stat '</div>'
     echo
+
+    day_one_html  >> $HTML_STATS
     
     for dir in $(ls -1d 20* | sort -n)
     do
