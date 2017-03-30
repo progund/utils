@@ -9,6 +9,7 @@ DEST_DIR=${DEST_DIR_BASE}/$(date '+%Y%m%d')/
 mkdir -p $DEST_DIR
 export LOG_FILE=$DEST_DIR/juneday-stats.log
 
+export HTML_STATS=${DEST_DIR_BASE}/jd-stat.html
 
 STAT_FILE=$DEST_DIR/stat.json
 JD_STAT_FILE=$DEST_DIR/jd-stats.json
@@ -78,6 +79,12 @@ parse()
 	shift
     fi
     
+    if [ "$1" = "--graph" ]
+    then
+        GRAPH=true
+	shift
+    fi
+    
     BOOK_CONF=$1
     if [ ! -f $BOOK_CONF ] || [ "$BOOK_CONF" = "" ]
     then
@@ -93,8 +100,163 @@ parse()
     . $BOOK_CONF
 }
 
+print_first_entry()
+{
+    REGEXP="$1"
+    JSON_FILE="$2"
+    printf "%6s " $(grep "$REGEXP" "$JSON_FILE" | head -1 | sed 's/[",]*//g' | awk ' { printf "%s", $2}')" "
+}
+
+print_last_entry()
+{
+    REGEXP="$1"
+    JSON_FILE="$2"
+    printf "%6s " $(grep "$REGEXP" "$JSON_FILE" | tail -1 | sed 's/[",]*//g' | awk ' { printf "%s", $2}')" "
+}
+
+
+init_html()
+{
+    cat <<EOF
+<html>
+<body>
+<style type="text/css">
+
+.rTable {
+  	display: table;
+  	width: 100%;
+}
+.rTableRow {
+  	display: table-row;
+}
+.rTableHeading {
+  	display: table-header-group;
+  	background-color: #ddd;
+}
+.rTableCell, .rTableHead {
+  	display: table-cell;
+  	padding: 3px 10px;
+  	border: 1px solid #999999;
+}
+.rTableHeading {
+  	display: table-header-group;
+  	background-color: #ddd;
+  	font-weight: bold;
+}
+.rTableFoot {
+  	display: table-footer-group;
+  	font-weight: bold;
+  	background-color: #ddd;
+}
+.rTableBody {
+  	display: table-row-group;
+}
+</style>
+EOF
+}
+
+html_stat()
+{
+    echo "$*" >> $HTML_STATS
+}
+
+day_one_html()
+{
+cat <<EOF
+<div class="rTableRow">
+<div class="rTableCell">20160616</div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell"> 0 </div>
+<div class="rTableCell">0 </div>
+<div class="rTableCell">0 </div>
+<div class="rTableCell">0 </div>
+</div>
+EOF
+}
+
+
+
+gen_graph()
+{
+    REGEXPS_HEAD="books pages uniq-channels uniq-presentations uniq-presentations-pages uniq-videos podcasts"
+    REGEXPS_TAIL="videos content-pages pages "
+    SOURCE_SUFF="Java C Bash"
+    pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
+
+    init_html > $HTML_STATS
+    
+    log_to_file "---> gen_graph()"
+
+    html_stat '<h2>Stats for Jundeday</h2>'
+    html_stat '<div><div class="rTable">'
+    html_stat '<div class="rTableRow">'
+
+    echo -n "# date "
+    html_stat '<div class="rTableHead"><strong>Date</strong></div>'
+    for re in $REGEXPS_HEAD  $REGEXPS_TAIL
+    do
+        html_stat '<div class="rTableHead"><strong>'$re'</strong></div>'
+	printf "%s " ${re} 
+    done
+    for i in $SOURCE_SUFF
+    do
+        html_stat '<div class="rTableHead"><strong>'$i'</strong></div>'
+	printf "%s " "$i" 
+    done
+    html_stat '</div>'
+    echo
+
+    day_one_html  >> $HTML_STATS
+    
+    for dir in $(ls -1d 20* | sort -n)
+    do
+        html_stat '<div class="rTableRow">'
+	log_to_file "---  gen_graph() -- dir: $dir"
+	echo -n "$dir "
+        html_stat '<div class="rTableCell">'$dir'</div>'
+	for re in $REGEXPS_HEAD
+	do
+            ENTRY=$(print_first_entry "$re" "$dir/jd-stats.json")
+            html_stat '<div class="rTableCell">'$ENTRY'</div>'
+            print_first_entry "$re" "$dir/jd-stats.json"
+	done
+	for re in $REGEXPS_TAIL
+	do
+            ENTRY=$(print_last_entry "$re" "$dir/jd-stats.json")
+            html_stat '<div class="rTableCell">'$ENTRY'</div>'
+	    print_last_entry "$re" "$dir/jd-stats.json"
+	done
+	#
+	# src code
+	#
+	for i in $SOURCE_SUFF
+	do
+	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "`
+            html_stat '<div class="rTableCell">'$SOURCE_STUFF'</div>'
+	    echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "
+	done
+	echo
+        html_stat '</div>'
+    done
+    html_stat '</div>'
+    html_stat '</body>'
+    html_stat '</html>'
+
+    popd  2>/dev/null >/dev/null 
+    log_to_file "<--- gen_graph()"
+}
+
 big_json()
 {
+    log_to_file "---> big_json()"
     cd ${DEST_DIR_BASE}
     echo "{" 
     echo "  \"juneday-stats\": [" 
@@ -102,6 +264,8 @@ big_json()
     DIR_CNT=0
     for dir in $(ls -1d 20* | sort -n)
     do
+	log_to_file "---  big_json()  dir: $dir"
+
 	if [ $DIR_CNT -ne 0 ]
 	then
 	    echo ","
@@ -116,6 +280,7 @@ big_json()
     
     echo "  ]"
     echo "}"
+    log_to_file "<--- big_json()"
 
 }
 
@@ -128,6 +293,12 @@ main()
     then
 	big_json >  ${DEST_DIR_BASE}/jd-tmp.json
 	cat ${DEST_DIR_BASE}/jd-tmp.json | python -mjson.tool > ${DEST_DIR_BASE}/jd-complete.json
+	exit 0
+    fi
+
+    if [ "$GRAPH" = "true" ]
+    then
+	gen_graph > ${DEST_DIR_BASE}/jd-stat.data
 	exit 0
     fi
 
