@@ -43,11 +43,32 @@ count_keyword() {
     count_expr "$KEYWORD" "$FILES" "$EXCLUDE_DIR"
 }
 
+check_bad_class_name() {
+    local FILE_LIST="$1"
+    local EXCLUDE_LIST="$2"
+
+    if [ "$EXCLUDE_LIST" = "" ]
+    then
+        EXCLUDE_LIST="lskdfjlsdjflsdjflkjsdflksdjflksdjflkdjflskjdf"
+    fi
+ #   echo "FILES:$FILE_LIST"
+    echo "$FILE_LIST" | egrep -v "$EXCLUDE_LIST" | while read file
+    do
+#        echo "Check.. '$file'"
+        egrep -e "class[ ]*[a-zA-Z]*"      "$file"  | grep "[0-9]"
+        egrep -e "class[ ]*[a-z][a-zA-Z]*[ ]*{" "$file" 
+   done 
+}
+
+
 #file_types_stat java
 FILES=$(file_types_stat java)
 EXCLUDE_DIR="test/"
 #count_expr static "$FILES" "$EXCLUDE_DIR"
 
+check_bad_class_name "$FILES"  "$EXCLUDE_DIR"
+
+#exit 0
 #for word in static 'if \(' implements interface extends 
 for word in 'if[ ]*\(' '->' static implements interface extends 
 do
