@@ -43,6 +43,24 @@ count_keyword() {
     count_expr "$KEYWORD" "$FILES" "$EXCLUDE_DIR"
 }
 
+check_expr_in_file()
+{
+    local expr="$1"
+    local file="$2"
+    local excl_expr="$3"
+
+    if [ "$excl_expr" != "" ]
+    then
+        grep "$expr" "$file" | grep -v "$excl_expr"
+    else
+        grep "$expr" "$file"
+    fi
+}
+
+check_numeric_class_name() {
+    check_expr_in_file 'class[ ]*[a-zA-Z]*' | egrep  '[0-9]'
+}
+
 check_bad_class_name() {
     local FILE_LIST="$1"
     local EXCLUDE_LIST="$2"
@@ -51,13 +69,29 @@ check_bad_class_name() {
     then
         EXCLUDE_LIST="lskdfjlsdjflsdjflkjsdflksdjflksdjflkdjflskjdf"
     fi
- #   echo "FILES:$FILE_LIST"
+
+
+    #
+    # exprs
+    # 
+    for expr in  'class[ ]*[a-z][a-zA-Z0-9]*[ ]*{'
+    do
+        echo -n "Check expr $expr:   "
+        echo "$FILE_LIST" | egrep -v "$EXCLUDE_LIST" | while read file
+        do
+            check_expr_in_file "'class[ ]*[a-z][a-zA-Z0-9]*[ ]*{'" $file 
+        done | wc -l
+    done
+
+    #
+    # expr with an additional expr
+    # 
+    echo -n "Check classes with 0-9:   "
     echo "$FILE_LIST" | egrep -v "$EXCLUDE_LIST" | while read file
     do
-#        echo "Check.. '$file'"
-        egrep -e "class[ ]*[a-zA-Z]*"      "$file"  | grep "[0-9]"
-        egrep -e "class[ ]*[a-z][a-zA-Z]*[ ]*{" "$file" 
-   done 
+        check_expr_in_file 'class[ ]*[a-zA-Z]*' $file  '[0-9]'
+    done 
+
 }
 
 
@@ -68,7 +102,7 @@ EXCLUDE_DIR="test/"
 
 check_bad_class_name "$FILES"  "$EXCLUDE_DIR"
 
-#exit 0
+exit 0
 #for word in static 'if \(' implements interface extends 
 for word in 'if[ ]*\(' '->' static implements interface extends 
 do
