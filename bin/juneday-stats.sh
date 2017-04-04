@@ -195,7 +195,7 @@ gen_graph()
     
     log_to_file "---> gen_graph()"
 
-    html_stat '<h2>Stats for Jundeday</h2>'
+    html_stat '<h2>Stats for Juneday</h2>'
     html_stat '<div><div class="rTable">'
     html_stat '<div class="rTableRow">'
 
