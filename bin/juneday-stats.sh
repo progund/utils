@@ -1,7 +1,7 @@
 #!/bin/bash
 
 TEMP_DIR=/tmp/junedaywiki
-DEST_DIR_BASE=/tmp/var/www/html/junedaywiki-stats
+DEST_DIR_BASE=/var/www/html/junedaywiki-stats
 PATH=${PATH}:.
 CURR_DIR=$(pwd)
 DOWNLOAD=true
@@ -186,7 +186,7 @@ EOF
 
 gen_graph()
 {
-    REGEXPS_HEAD="books pages uniq-channels uniq-presentations uniq-presentations-pages uniq-videos podcasts"
+    REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages uniq-channels  uniq-videos podcasts"
     REGEXPS_TAIL="videos content-pages pages "
     SOURCE_SUFF="Java C Bash"
     pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
@@ -201,14 +201,27 @@ gen_graph()
 
     echo -n "# date "
     html_stat '<div class="rTableHead"><strong>Date</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Books</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Pages</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Presentations</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Presentation pages</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Vimeo channels</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Vimeo videos</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Podcasts</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Videos</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Content pages</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Actual pages</strong></div>'
+    html_stat '<div class="rTableHead"><strong>LOC (Java)</strong></div>'
+    html_stat '<div class="rTableHead"><strong>LOC (C)</strong></div>'
+    html_stat '<div class="rTableHead"><strong>LOC (Bash)</strong></div>'
     for re in $REGEXPS_HEAD  $REGEXPS_TAIL
     do
-        html_stat '<div class="rTableHead"><strong>'$re'</strong></div>'
+    #    html_stat '<div class="rTableHead"><strong>'$re'</strong></div>'
 	printf "%s " ${re} 
     done
     for i in $SOURCE_SUFF
     do
-        html_stat '<div class="rTableHead"><strong>'$i'</strong></div>'
+     #   html_stat '<div class="rTableHead"><strong>'$i'</strong></div>'
 	printf "%s " "$i" 
     done
     html_stat '</div>'
