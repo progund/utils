@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-THIS_SCRIPT_DIR=$(dirname $0)/../bin
-BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
+THIS_SCRIPT_DIR="$(dirname $0)/../bin"
+BASH_FUNCTIONS="${THIS_SCRIPT_DIR}/bash-functions"
 if [ -f ${BASH_FUNCTIONS} ]
 then
     echo "Sourcing file:  ${BASH_FUNCTIONS}"
