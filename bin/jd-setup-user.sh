@@ -71,7 +71,10 @@ then
 fi
 
 # For Arduino
-$SUDO usermod -a -G dialout "$CUR_USER" 
+if [ "$OS" = "linux" ]
+then
+    $SUDO usermod -a -G dialout "$CUR_USER" 
+fi
 
 
 #
