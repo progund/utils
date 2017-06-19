@@ -128,3 +128,4 @@ else
    # dload_book "$MORE_BASH_BOOK_DIR" "$MORE_BASH_REPOS"
 fi
 
+exit 0
