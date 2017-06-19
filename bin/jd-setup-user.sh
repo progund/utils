@@ -57,7 +57,10 @@ add_user()
     $SUDO usermod -a -G "$CUR_USER" "$CUR_USER"
     for g in $GROUPSTOADD
     do
-        $SUDO usermod -a -G  "$g"    "$CUR_USER"
+        if [ "$OS" = "linux" ]
+        then
+            $SUDO usermod -a -G  "$g"    "$CUR_USER"
+        fi
     done
 }
 
