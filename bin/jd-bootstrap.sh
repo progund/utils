@@ -27,7 +27,7 @@ dload()
 
 
 
-dload
+#dload
 
 unzip master.zip
 if [ $? -ne 0 ]
