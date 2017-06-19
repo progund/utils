@@ -18,13 +18,16 @@ source_file ${THIS_SCRIPT_DIR}/settings
 ${THIS_SCRIPT_DIR}/jd-download-software.sh
 exit_on_error "$?" "Failed downloading system software"
 
+# For Arduino
+if [ "$OS" = "linux" ]
+then
+    $SUDO usermod -a -G dialout "$CUR_USER" 
+fi
+
+
 ${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
-if [ "$OS" = "linux" ]
-then
-    sudo usermod -a -G dialout $USER
-fi
 
 pushd ${THIS_SCRIPT_DIR}/../test
 make check
