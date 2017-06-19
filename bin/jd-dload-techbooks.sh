@@ -7,9 +7,9 @@
 #
 #
 
-THIS_SCRIPT_DIR=$(dirname $0)
+THIS_SCRIPT_DIR="$(dirname $0)"
 THIS_SCRIPT=$0
-BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
+BASH_FUNCTIONS="${THIS_SCRIPT_DIR}/bash-functions"
 if [ -f ${BASH_FUNCTIONS} ]
 then
     . ${BASH_FUNCTIONS} $*
@@ -27,7 +27,7 @@ then
 fi
 if [ "$1" = "--destination-dir" ]
 then
-    DEST_DIR=$2
+    DEST_DIR="$2"
     shift
 fi
 
