@@ -8,7 +8,7 @@
 #
 
 THIS_SCRIPT_DIR="$(dirname $0)"
-THIS_SCRIPT=$0
+THIS_SCRIPT="$0"
 BASH_FUNCTIONS="${THIS_SCRIPT_DIR}/bash-functions"
 if [ -f ${BASH_FUNCTIONS} ]
 then
