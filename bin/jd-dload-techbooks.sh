@@ -71,7 +71,7 @@ dload_book()
 {
     BOOK_DIR="$1"
     BOOK_REPOS="$2"
-    mkdir -p $BOOK_DIR
+    mkdir -p "$BOOK_DIR"
     pushd "$BOOK_DIR"
     exit_on_error "$?" "Failed entering $BOOK_DIR"
 
