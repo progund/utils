@@ -31,6 +31,9 @@ then
     shift
 fi
 
+ls -al /home
+echo "dload debug: \"$THIS_SCRIPT_DIR\""
+echo "dload debug: \"$DEST_DIR\""
 
 clone_repo()
 {
