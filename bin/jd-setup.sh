@@ -21,7 +21,7 @@ exit_on_error "$?" "Failed downloading system software"
 ${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
-if [ "$OS" != "linux" ]
+if [ "$OS" = "linux" ]
 then
     sudo usermod -a -G dialout $USER
 fi
