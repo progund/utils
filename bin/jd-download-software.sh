@@ -108,9 +108,11 @@ update_os_MacOS_MacOS()
 dload_sw_cygwin_cygwin()
 {
     echo "Dowloading for Cygwin"
-    apt-cyg --version
+    echo "Check if apt-cyg is present"
+    apt-cyg --version 2>/dev/null >/dev/null
     if [ $? -ne 0 ]
     then
+        echo "Downloading apt-cyg"
         lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
         install apt-cyg /bin
     fi
