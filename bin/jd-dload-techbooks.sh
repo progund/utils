@@ -27,7 +27,7 @@ then
 fi
 if [ "$1" = "--destination-dir" ]
 then
-    DEST_DIR=$2
+    DEST_DIR="$2"
     shift
 fi
 
@@ -101,7 +101,7 @@ if [ "$UTIL_REPO_ONLY" = "true" ]
 then
     dload_repos "https://github.com/progund/utils.git"
     cd "$ORIG_DIR"
-    $THIS_SCRIPT --update-all --destination-dir $DEST_DIR
+    $THIS_SCRIPT --update-all --destination-dir "$DEST_DIR"
     exit 0
 else
     BOOKS_REPOS=utils/etc/books-repos.txt
