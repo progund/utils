@@ -159,6 +159,6 @@ create_desktop_icons_cygwin() {
         "no-term"
 }
 
-
+create_desktop_icons_${OS}
 
 #create_desktop_directory
