@@ -90,7 +90,6 @@ update_os_linux_fedora()
 
 dload_sw_MacOS_MacOS()
 {
-    echo "Not dowloading for MacOS"
     sudo port install $PKGS
 }
 
@@ -100,7 +99,6 @@ install_atom_MacOS_MacOS()
 }
 update_os_MacOS_MacOS()
 {
-    echo "Not updating for MacOS"
     sudo port upgrade outdated
 }
 
