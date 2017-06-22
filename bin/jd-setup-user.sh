@@ -67,9 +67,11 @@ then
     add_user
 fi
 
-# For Arduino
-$SUDO usermod -a -G dialout "$CUR_USER" 
-
+if [ "OS" = "linux" ]
+then
+    # For Arduino
+    $SUDO usermod -a -G dialout "$CUR_USER" 
+fi
 
 #
 # bashrc etc
