@@ -91,9 +91,11 @@ create_desktop_icon_cygwin()
         USE_TERM=true
     fi
 
-    pushd ${USERPROFILE}/Desktop
-    mkshortcut.exe "~/Desktop/Juneday-Education"
-    popd
+    cd "${USERPROFILE}/Desktop/"
+    echo -n "I am in: "
+    pwd
+    mkshortcut.exe -n "$NAME" "$DT_FILE"
+    cd -
 }
 
 create_desktop_directory()
@@ -133,6 +135,16 @@ create_desktop_icons_linux() {
 
 create_desktop_icons_cygwin() {
 
+#    cd "${USERPROFILE}/Desktop"
+ #   mkdir Juneday-Education
+  #  cd -
+
+    create_desktop_icon_cygwin \
+        "" \
+        "" \
+        "Juneday Education" \
+        "${HOME}/Desktop/Juneday-Education/"
+return    
     create_desktop_icon_linux \
         "$TERMINAL -e $DEST_DIR/utils/bin/jd-download-software.sh" \
         "" \
