@@ -6,6 +6,7 @@ PATH=${PATH}:.
 CURR_DIR=$(pwd)
 DOWNLOAD=true
 DEST_DIR=${DEST_DIR_BASE}/$(date '+%Y%m%d')/
+
 mkdir -p "$DEST_DIR"
 export LOG_FILE=$DEST_DIR/juneday-stats.log
 
@@ -17,8 +18,9 @@ JD_STAT_FILE=$DEST_DIR/jd-stats.json
 mkdir -p "$DEST_DIR"
 rm -f $STAT_FILE
 
-
 mkdir -p "$TEMP_DIR"
+
+
 declare -A PAGE_COUNTS
 
 #

@@ -90,7 +90,6 @@ update_os_linux_fedora()
 
 dload_sw_MacOS_MacOS()
 {
-    echo "Not dowloading for MacOS"
     sudo port install $PKGS
 }
 
@@ -100,7 +99,6 @@ install_atom_MacOS_MacOS()
 }
 update_os_MacOS_MacOS()
 {
-    echo "Not updating for MacOS"
     sudo port upgrade outdated
 }
 
@@ -108,9 +106,11 @@ update_os_MacOS_MacOS()
 dload_sw_cygwin_cygwin()
 {
     echo "Dowloading for Cygwin"
-    apt-cyg --version
+    echo "Check if apt-cyg is present"
+    apt-cyg --version 2>/dev/null >/dev/null
     if [ $? -ne 0 ]
     then
+        echo "Downloading apt-cyg"
         lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
         install apt-cyg /bin
     fi

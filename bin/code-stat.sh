@@ -90,7 +90,7 @@ check_bad_class_name() {
     echo "$FILE_LIST" | egrep -v "$EXCLUDE_LIST" | while read file
     do
         check_expr_in_file 'class[ ]*[a-zA-Z]*' $file  '[0-9]'
-    done 
+    done  | wc -l
 
 }
 
@@ -102,7 +102,7 @@ EXCLUDE_DIR="test/"
 
 check_bad_class_name "$FILES"  "$EXCLUDE_DIR"
 
-exit 0
+#exit 0
 #for word in static 'if \(' implements interface extends 
 for word in 'if[ ]*\(' '->' static implements interface extends 
 do
