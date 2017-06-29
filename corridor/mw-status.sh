@@ -90,4 +90,4 @@ echo "</html>"
 # Copy/generate HTML files
 #
 cp ${THIS_SCRIPT_DIR}/index.html  ${WWW_DIR}/
-gen_page > ${WWW_DIR}/2.html    
+gen_page_2 > ${WWW_DIR}/2.html    
