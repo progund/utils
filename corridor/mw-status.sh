@@ -85,9 +85,20 @@ echo "</h2>"
 echo "</html>"
 }
 
+copy_if_not_here()
+{
+    if [ ! ${WWW_DIR}/$1 ]
+    then
+        cp $1 ${WWW_DIR}/
+    fi
+}
 
 #
 # Copy/generate HTML files
 #
+copy_if_not_here ${THIS_SCRIPT_DIR}/../utils-blobs/images/cropped-jd.jpg 
+copy_if_not_here ${THIS_SCRIPT_DIR}/../utils-blobs/images/loonies.jpg
+
+
 cp ${THIS_SCRIPT_DIR}/1.html  ${WWW_DIR}/
 gen_page_2 > ${WWW_DIR}/2.html    
