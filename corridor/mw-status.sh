@@ -62,7 +62,7 @@ print_tag "Number of presentations" "[\"book-summary\"].\"uniq-presentations\""
 print_tag "Number of presentation pages" "[\"book-summary\"].\"uniq-presentations-pages\""
 print_tag "Number of linked videos" "[\"book-summary\"].\"uniq-videos\""
 echo "</h2>"
-echo "<h1>Stats from our source code</h1>"
+echo "<h1>Stats from the source code use in our courses </h1>"
 echo "<h2>"
 print_tag "Number of public repos" "[\"git-repos\"].total"
 NR_OF_LANG=$(cat $JD_FILE |  jq -r '.["source-code"]|length')
