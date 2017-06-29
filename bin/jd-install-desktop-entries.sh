@@ -26,7 +26,7 @@ then
     exit 1
 fi
 
-if [ "$OS" != "linux" ] 
+if [ "$OS" = "MacOS" ] 
 then
     echo "Don't know how to install Desktop stuff for $OS"
     exit 0
@@ -47,7 +47,7 @@ mkdir -p ~/Desktop/${DESKTOP_DIR}
 TMPL_DIR=${THIS_SCRIPT_DIR}/../templates
 
 
-create_desktop_icon()
+create_desktop_icon_linux()
 {
     export PROGRAM="$1"
     export ICON="$2"
@@ -75,6 +75,29 @@ create_desktop_icon()
     fi
 }
 
+create_desktop_icon_cygwin()
+{
+    export PROGRAM="$1"
+    export ICON="$2"
+    export NAME="$3"
+    export DT_FILE=$4
+    NO_TERM=$5
+#    DT_PATH=${USERPROFILE}/Desktop/$DT_FILE
+
+    if [ "$NO_TERM" == "no-term" ]
+    then
+        USE_TERM=false
+    else
+        USE_TERM=true
+    fi
+
+    cd "${USERPROFILE}/Desktop/"
+    echo -n "I am in: "
+    pwd
+    mkshortcut.exe -n "$NAME" "$DT_FILE"
+    cd -
+}
+
 create_desktop_directory()
 {
     pushd ~/Desktop/${DESKTOP_DIR}
@@ -82,33 +105,72 @@ create_desktop_directory()
     popd
 }
 
+create_desktop_icons_linux() {
 
-create_desktop_icon \
-    "$TERMINAL -e $DEST_DIR/utils/bin/jd-download-software.sh" \
-    "" \
-    "Update system software" \
-    "${DESKTOP_DIR}/jd-update-sw.desktop"
+    create_desktop_icon_linux \
+        "$TERMINAL -e $DEST_DIR/utils/bin/jd-download-software.sh" \
+        "" \
+        "Update system software" \
+        "${DESKTOP_DIR}/jd-update-sw.desktop"
+    
+    create_desktop_icon_linux \
+        "$TERMINAL -e $DEST_DIR/utils/bin/jd-dload-techbooks.sh" \
+        "" \
+        "Update educational repositories" \
+        "${DESKTOP_DIR}/jd-update-repos.desktop"
+    
+    create_desktop_icon_linux \
+        "$TERMINAL -e $DEST_DIR/utils/bin/jd-set-mime.sh" \
+        "" \
+        "Set Atom as editor" \
+        "${DESKTOP_DIR}/jd-set-mime.desktop"
+    
+    create_desktop_icon_linux \
+        "$BROWSER http://wiki.juneday.se/" \
+        "" \
+        "Juneday Education wiki" \
+        "${DESKTOP_DIR}/jd-wiki.desktop" \
+        "no-term"
+}
 
-create_desktop_icon \
-    "$TERMINAL -e $DEST_DIR/utils/bin/jd-dload-techbooks.sh" \
-    "" \
-    "Update educational repositories" \
-    "${DESKTOP_DIR}/jd-update-repos.desktop"
+create_desktop_icons_cygwin() {
 
-create_desktop_icon \
-    "$TERMINAL -e $DEST_DIR/utils/bin/jd-set-mime.sh" \
-    "" \
-    "Set Atom as editor" \
-    "${DESKTOP_DIR}/jd-set-mime.desktop"
+#    cd "${USERPROFILE}/Desktop"
+ #   mkdir Juneday-Education
+  #  cd -
 
-create_desktop_icon \
-    "$BROWSER http://virt08.itu.chalmers.se/mediawiki/" \
-    "" \
-    "Juneday Education wiki" \
-    "${DESKTOP_DIR}/jd-wiki.desktop" \
-    "no-term"
+    create_desktop_icon_cygwin \
+        "" \
+        "" \
+        "Juneday Education" \
+        "${HOME}/Desktop/Juneday-Education/"
+return    
+    create_desktop_icon_linux \
+        "$TERMINAL -e $DEST_DIR/utils/bin/jd-download-software.sh" \
+        "" \
+        "Update system software" \
+        "${DESKTOP_DIR}/jd-update-sw.desktop"
+    
+    create_desktop_icon_linux \
+        "$TERMINAL -e $DEST_DIR/utils/bin/jd-dload-techbooks.sh" \
+        "" \
+        "Update educational repositories" \
+        "${DESKTOP_DIR}/jd-update-repos.desktop"
+    
+    create_desktop_icon_linux \
+        "$TERMINAL -e $DEST_DIR/utils/bin/jd-set-mime.sh" \
+        "" \
+        "Set Atom as editor" \
+        "${DESKTOP_DIR}/jd-set-mime.desktop"
+    
+    create_desktop_icon_linux \
+        "$BROWSER http://wiki.juneday.se/" \
+        "" \
+        "Juneday Education wiki" \
+        "${DESKTOP_DIR}/jd-wiki.desktop" \
+        "no-term"
+}
 
-
-
+create_desktop_icons_${OS}
 
 #create_desktop_directory
