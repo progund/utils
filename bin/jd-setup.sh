@@ -28,6 +28,10 @@ fi
 ${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
+if [ "OS" = "linux" ]
+then
+       sudo usermod -a -G dialout $USER
+fi
 
 pushd ${THIS_SCRIPT_DIR}/../test
 make check
