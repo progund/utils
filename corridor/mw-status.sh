@@ -47,7 +47,7 @@ gen_page_2()
 {
 echo "<html>"
 echo "<head>"
-echo "<meta http-equiv=\"refresh\" content=\"10;index.html\"   >"
+#echo "<meta http-equiv=\"refresh\" content=\"10;index.html\"   >"
 echo "</head>"
 echo "<title>"
 echo "Worklog for Rikard and Henrik"
