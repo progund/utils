@@ -89,5 +89,5 @@ echo "</html>"
 #
 # Copy/generate HTML files
 #
-cp ${THIS_SCRIPT_DIR}/index.html  ${WWW_DIR}/
+cp ${THIS_SCRIPT_DIR}/1.html  ${WWW_DIR}/
 gen_page_2 > ${WWW_DIR}/2.html    
