@@ -27,14 +27,59 @@ export WWW_DIR=/var/www/html/status/
 
 ########## FUNCTIONS ETC ##############
 
-JD_DIR=$(find ${JD_STAT_DIR}/ -type d -name "20*" | sort | tail -1)
+usage()
+{
+    echo "mw-status.sh"
+    echo ""
+    echo "Simple script to generate html pages (actually one)"
+    echo "for display in a kiosk mode computer"
+    echo ""
+    echo ""
+    echo ""
+    echo "If the environment variable LOCAL_ETC is set"
+    echo "and points to a valid file (hrmm... you get it!)"
+    echo ".. then that file is sourced"
+    echo "To debug locally:"
+    echo "    LOCAL_ETC=local-mw-etc.conf ./mw-status.sh"
+    echo ""
+    echo ""
+}
+
+
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]
+then
+    usage
+    exit 0
+fi
+
+
+JD_DIR=$(find ${JD_STAT_DIR}/ -type d -name "20*" 2>/dev/null | sort | tail -1)
 JD_FILE=${JD_DIR}/jd-stats.json
+
+#
+# Local etc file, used if present
+#
+if [ "${LOCAL_ETC}" != "" ]
+   then
+       echo "Using local etc file: '${LOCAL_ETC}'"
+       if [ -f ${LOCAL_ETC} ]
+       then
+           . ${LOCAL_ETC}
+       else
+           echo "Local etc file '${LOCAL_ETC}' missing"
+           usage
+           exit 1
+       fi
+fi
+
 
 if [ ! -f ${JD_FILE} ]
 then
     echo "Missing log file"
     exit 1
 fi
+
+
 
 print_tag()
 {
@@ -53,7 +98,7 @@ echo "<title>"
 echo "Worklog for Rikard and Henrik"
 echo "</title>"
 echo "<body>"
-echo "</body>"
+echo "<center>"
 echo "<h1>Stats from our wiki</h1>"
 echo "<h2>"
 print_tag "Number of Wiki books" "[\"book-summary\"].books"
@@ -82,24 +127,34 @@ echo "<h1>Stats from Vimeo</h1>"
 echo "<h2>"
 print_tag "Number of Vimeo videos" "[\"vimeo-stats\"].\"videos\""
 echo "</h2>"
+echo "</center>"
+echo "</body>"
 echo "</html>"
 }
 
 copy_if_not_here()
 {
-    if [ ! ${WWW_DIR}/$1 ]
+#    echo "copy $1 ${WWW_DIR} ????"
+    if [ ! -f ${WWW_DIR}/$1 ]
     then
+ #       echo "cp $1 ${WWW_DIR}/"
         cp $1 ${WWW_DIR}/
     fi
 }
 
+
 #
 # Copy/generate HTML files
 #
-copy_if_not_here ${THIS_SCRIPT_DIR}/../utils-blobs/images/cropped-jd.jpg 
-copy_if_not_here ${THIS_SCRIPT_DIR}/../utils-blobs/images/loonies.jpg
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/cropped-jd.jpg 
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/loonies.jpg
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/math.jpg
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/h-and-r-1.jpg
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/spying.jpg
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/stupid.jpg
 
 
-cp ${THIS_SCRIPT_DIR}/mw-status.sh  ${WWW_DIR}/
+cp ${THIS_SCRIPT_DIR}/index.html  ${WWW_DIR}/
+#cp ${THIS_SCRIPT_DIR}/mw-status.sh  ${WWW_DIR}/
 cp ${THIS_SCRIPT_DIR}/1.html  ${WWW_DIR}/
 gen_page_2 > ${WWW_DIR}/2.html    
