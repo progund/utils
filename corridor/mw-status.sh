@@ -152,6 +152,7 @@ copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/math.jpg
 copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/h-and-r-1.jpg
 copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/spying.jpg
 copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/stupid.jpg
+copy_if_not_here ${THIS_SCRIPT_DIR}/../../utils-blobs/images/Felix.jpg
 
 
 cp ${THIS_SCRIPT_DIR}/index.html  ${WWW_DIR}/
