@@ -88,18 +88,19 @@ fi
 tofile()
 {
     echo "$*" >> $TOFILE
+#    echo writin to: $TOFILE
 }
 
 print_tag()
 {
-    tofile "<h2>$1: " $(cat $JD_FILE | jq -r ".$2")"</h2><br>"
+    tofile "<h2>$1: " $(cat $JD_FILE | jq -r ".$2")"</h2>"
 }
 
 print_week_tag()
 {
     NOW=$(cat $JD_FILE | jq -r ".$2")
     THEN=$(cat $JD_WEEK_AGO_FILE | jq -r ".$2")
-    tofile "<h2>$1: $(( $NOW - $THEN ))       ($THEN => $NOW)</h2><br>"  
+    tofile "<h2>$1: $(( $NOW - $THEN ))       ($THEN => $NOW)</h2>"  
 }
 
 
@@ -131,8 +132,7 @@ gen_page_2()
         #    tofile "CNT: $CNT"
         JD_LOC=$(cat $JD_FILE | jq -r  ".[\"source-code\"][$CNT].\"lines-of-code\"")
         JD_LANG=$(cat $JD_FILE | jq -r  ".[\"source-code\"][$CNT].\"type\"")
-        tofile "Lines of $JD_LANG code: $JD_LOC"
-        tofile "<br>"
+        tofile "<h2>Lines of $JD_LANG code: $JD_LOC</h2>"
         CNT=$(( $CNT + 1 ))
     done
     tofile "<h1>Stats from Vimeo</h1>"
