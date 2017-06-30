@@ -99,7 +99,7 @@ print_week_tag()
 {
     NOW=$(cat $JD_FILE | jq -r ".$2")
     THEN=$(cat $JD_WEEK_AGO_FILE | jq -r ".$2")
-    tofile "$1: $(( $NOW - $THEN ))       $NOW | $THEN"  
+    tofile "<h2>$1: $(( $NOW - $THEN ))       ($THEN => $NOW)</h2><br>"  
 }
 
 
@@ -116,16 +116,12 @@ gen_page_2()
     tofile "<body>"
     tofile "<center>"
     tofile "<h1>Stats from our wiki</h1>"
-    tofile "<h2>"
     print_tag "Number of Wiki books" "[\"book-summary\"].books"
     print_tag "Number of pages in our Wiki books" "[\"book-summary\"].pages"
     print_tag "Number of presentations" "[\"book-summary\"].\"uniq-presentations\""
     print_tag "Number of presentation pages" "[\"book-summary\"].\"uniq-presentations-pages\""
     print_tag "Number of linked videos" "[\"book-summary\"].\"uniq-videos\""
-
-    tofile "</h2>"
     tofile "<h1>Stats from the source code use in our courses </h1>"
-    tofile "<h2>"
     print_tag "Number of public repos" "[\"git-repos\"].total"
     NR_OF_LANG=$(cat $JD_FILE |  jq -r '.["source-code"]|length')
     #tofile "LANGS: $NR_OF_LANG"
@@ -139,17 +135,12 @@ gen_page_2()
         tofile "<br>"
         CNT=$(( $CNT + 1 ))
     done
-    tofile "</h2>"
     tofile "<h1>Stats from Vimeo</h1>"
-    tofile "<h2>"
     print_tag "Number of Vimeo videos" "[\"vimeo-stats\"].\"videos\""
-    tofile "</h2>"
     tofile "<h1>Weekly stats</h1>"
-    tofile "<h2>"
     print_week_tag "Last weeks new pages:" "[\"book-summary\"].pages"
     print_week_tag "Last weeks new presentations" "[\"book-summary\"].\"uniq-presentations\""
     print_week_tag "Last weeks new videos" "[\"vimeo-stats\"].\"videos\""
-    tofile "</h2>"
     tofile "</center>"
     tofile "</body>"
     tofile "</html>"
