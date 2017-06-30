@@ -92,7 +92,7 @@ tofile()
 
 print_tag()
 {
-    tofile "$1: " $(cat $JD_FILE | jq -r ".$2")
+    tofile "<h2>$1: " $(cat $JD_FILE | jq -r ".$2")"</h2><br>"
 }
 
 print_week_tag()
