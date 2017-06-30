@@ -1,0 +1,3628 @@
+{
+    "book-summary": {
+        "books": "7",
+        "pages": "1468",
+        "uniq-channels": "33",
+        "uniq-presentations": "136",
+        "uniq-presentations-pages": "1979",
+        "uniq-videos": "267"
+    },
+    "books": [
+        {
+            "chapters": [
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1090936",
+                        "https://vimeo.com/channels/1090954"
+                    ],
+                    "name": "Chapter:Computer_introduction",
+                    "pages": "7",
+                    "presentation-pages": "52",
+                    "presentations": [
+                        {
+                            "name": "Hardware.pdf",
+                            "pages": "11"
+                        },
+                        {
+                            "name": "File-type.pdf",
+                            "pages": "7"
+                        },
+                        {
+                            "name": "File-system.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Os.pdf",
+                            "pages": "12"
+                        },
+                        {
+                            "name": "Program.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "10",
+                    "videos": [
+                        "https://vimeo.com/167869104",
+                        "https://vimeo.com/167863269",
+                        "https://vimeo.com/167869164",
+                        "https://vimeo.com/167869142",
+                        "https://vimeo.com/167869201",
+                        "https://vimeo.com/167869189",
+                        "https://vimeo.com/167869243",
+                        "https://vimeo.com/167869229",
+                        "https://vimeo.com/167895261",
+                        "https://vimeo.com/167895288"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Computer_introduction_-_Exercises",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/169998626"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1094923",
+                        "https://vimeo.com/channels/1077932"
+                    ],
+                    "name": "Chapter:Programming_introduction",
+                    "pages": "7",
+                    "presentation-pages": "29",
+                    "presentations": [
+                        {
+                            "name": "Programming-introduction.pdf",
+                            "pages": "15"
+                        },
+                        {
+                            "name": "Compiler.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "8",
+                    "videos": [
+                        "https://vimeo.com/172574132",
+                        "https://vimeo.com/172574135",
+                        "https://vimeo.com/172574133",
+                        "https://vimeo.com/172574131",
+                        "https://vimeo.com/172574130",
+                        "https://vimeo.com/172574129",
+                        "https://vimeo.com/170178653",
+                        "https://vimeo.com/170178654"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Programming_introduction_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1095443",
+                        "https://vimeo.com/channels/1095443/172747868"
+                    ],
+                    "name": "Chapter:Setting_up_your_environment",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "5",
+                    "videos": [
+                        "https://vimeo.com/172736238",
+                        "https://vimeo.com/172736239",
+                        "https://vimeo.com/172745629",
+                        "https://vimeo.com/172740205",
+                        "https://vimeo.com/172747148"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1095560",
+                        "https://vimeo.com/channels/1095883"
+                    ],
+                    "name": "Chapter:Programming_in_Java",
+                    "pages": "8",
+                    "presentation-pages": "64",
+                    "presentations": [
+                        {
+                            "name": "Programming_in_Java.pdf",
+                            "pages": "16"
+                        },
+                        {
+                            "name": "Programming_in_Java.pdf",
+                            "pages": "16"
+                        },
+                        {
+                            "name": "Programming_in_Java.pdf",
+                            "pages": "16"
+                        },
+                        {
+                            "name": "Programming_in_Java.pdf",
+                            "pages": "16"
+                        }
+                    ],
+                    "video-count": "5",
+                    "videos": [
+                        "https://vimeo.com/172768987",
+                        "https://vimeo.com/172768740",
+                        "https://vimeo.com/172768737",
+                        "https://vimeo.com/172768739",
+                        "https://vimeo.com/172768735"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Programming_in_Java_-_Exercises",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1097501",
+                        "https://vimeo.com/channels/1097502"
+                    ],
+                    "name": "Chapter:Our_first_Java_program",
+                    "pages": "6",
+                    "presentation-pages": "11",
+                    "presentations": [
+                        {
+                            "name": "Our_first_Java_program.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/173329945",
+                        "https://vimeo.com/173329946",
+                        "https://vimeo.com/173330126",
+                        "https://vimeo.com/173329944"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Our_first_Java_program_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/173330126",
+                        "https://vimeo.com/173329944"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1082637",
+                        "https://vimeo.com/channels/1082638"
+                    ],
+                    "name": "Chapter:Variables_and_types",
+                    "pages": "9",
+                    "presentation-pages": "78",
+                    "presentations": [
+                        {
+                            "name": "Variable.pdf",
+                            "pages": "9"
+                        },
+                        {
+                            "name": "Type.pdf",
+                            "pages": "19"
+                        },
+                        {
+                            "name": "Declaration.pdf",
+                            "pages": "6"
+                        },
+                        {
+                            "name": "Assignment.pdf",
+                            "pages": "20"
+                        },
+                        {
+                            "name": "Type-cast.pdf",
+                            "pages": "15"
+                        },
+                        {
+                            "name": "Java-types.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "12",
+                    "videos": [
+                        "https://vimeo.com/169089977",
+                        "https://vimeo.com/169089982",
+                        "https://vimeo.com/169089980",
+                        "https://vimeo.com/169089979",
+                        "https://vimeo.com/169089973",
+                        "https://vimeo.com/169089975",
+                        "https://vimeo.com/169089970",
+                        "https://vimeo.com/169089972",
+                        "https://vimeo.com/169089967",
+                        "https://vimeo.com/169089968",
+                        "https://vimeo.com/170021883",
+                        "https://vimeo.com/170021884"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Variables_and_types_-_Exercises",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1086105",
+                        "https://vimeo.com/channels/1092546"
+                    ],
+                    "name": "Chapter:Expressions_and_operators",
+                    "pages": "8",
+                    "presentation-pages": "28",
+                    "presentations": [
+                        {
+                            "name": "Operator.pdf",
+                            "pages": "13"
+                        },
+                        {
+                            "name": "Expression.pdf",
+                            "pages": "15"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/170021875",
+                        "https://vimeo.com/170150428",
+                        "https://vimeo.com/170021881",
+                        "https://vimeo.com/170150680"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Expressions_and_operators_-_Exercise",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1086119",
+                        "https://vimeo.com/channels/1086100"
+                    ],
+                    "name": "Chapter:Control_flow",
+                    "pages": "8",
+                    "presentation-pages": "198",
+                    "presentations": [
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Block.pdf",
+                            "pages": "14"
+                        },
+                        {
+                            "name": "Block.pdf",
+                            "pages": "14"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        }
+                    ],
+                    "video-count": "10",
+                    "videos": [
+                        "https://vimeo.com/170150317",
+                        "https://vimeo.com/170021873",
+                        "https://vimeo.com/170021872",
+                        "https://vimeo.com/170150605",
+                        "https://vimeo.com/170021869",
+                        "https://vimeo.com/170150567",
+                        "https://vimeo.com/170021867",
+                        "https://vimeo.com/170150521",
+                        "https://vimeo.com/170021866",
+                        "https://vimeo.com/170021877"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Control_flow_-_Exercises",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1089213",
+                        "https://vimeo.com/channels/1089222"
+                    ],
+                    "name": "Chapter:Objects_-_Introduction",
+                    "pages": "7",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "Objects.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/170821378",
+                        "https://vimeo.com/170821379"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Introduction_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Relation_to_classes",
+                    "pages": "6",
+                    "presentation-pages": "6",
+                    "presentations": [
+                        {
+                            "name": "Classes_-_an_introduction.pdf",
+                            "pages": "6"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/170821375",
+                        "https://vimeo.com/170821376"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Relation_to_classes_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Creating",
+                    "pages": "6",
+                    "presentation-pages": "38",
+                    "presentations": [
+                        {
+                            "name": "Creating_objects.pdf",
+                            "pages": "19"
+                        },
+                        {
+                            "name": "Creating_objects.pdf",
+                            "pages": "19"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/170821372",
+                        "https://vimeo.com/170821374",
+                        "https://vimeo.com/170821369",
+                        "https://vimeo.com/170821373"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Creating_-_Exercises",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/175217185",
+                        "https://vimeo.com/175217184"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Using",
+                    "pages": "6",
+                    "presentation-pages": "34",
+                    "presentations": [
+                        {
+                            "name": "Using_Objects.pdf",
+                            "pages": "5"
+                        },
+                        {
+                            "name": "Invoking_methods_in_objects.pdf",
+                            "pages": "18"
+                        },
+                        {
+                            "name": "Getting_information_from_objects.pdf",
+                            "pages": "6"
+                        },
+                        {
+                            "name": "Objects_using_other_objects.pdf",
+                            "pages": "5"
+                        }
+                    ],
+                    "video-count": "8",
+                    "videos": [
+                        "https://vimeo.com/170821367",
+                        "https://vimeo.com/170821368",
+                        "https://vimeo.com/170821364",
+                        "https://vimeo.com/170821365",
+                        "https://vimeo.com/170821362",
+                        "https://vimeo.com/170821363",
+                        "https://vimeo.com/170821361",
+                        "https://vimeo.com/170821360"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Using_-_Exercises",
+                    "pages": "14",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Java_API_documentation",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "10",
+                    "videos": [
+                        "https://vimeo.com/175211069",
+                        "https://vimeo.com/175211070",
+                        "https://vimeo.com/175211067",
+                        "https://vimeo.com/175211068",
+                        "https://vimeo.com/175211061",
+                        "https://vimeo.com/175211063",
+                        "https://vimeo.com/175211060",
+                        "https://vimeo.com/175211059",
+                        "https://vimeo.com/175211057",
+                        "https://vimeo.com/175211056"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Java_API_documentation_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Objects_-_Questions_and_Answers",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "6",
+                    "channels": [
+                        "https://vimeo.com/channels/1128844",
+                        "https://vimeo.com/channels/1128843",
+                        "https://vimeo.com/channels/1130490",
+                        "https://vimeo.com/channels/1130491",
+                        "https://vimeo.com/channels/1133606",
+                        "https://vimeo.com/channels/1133608"
+                    ],
+                    "name": "Chapter:Classes_-_Introduction",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Introduction_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Declaration",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Declaration_-_Exercises",
+                    "pages": "3",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Packages",
+                    "pages": "7",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "Class_declaration.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/182101406",
+                        "https://vimeo.com/182101407"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Packages_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_main",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_main_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Commenting_code",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Commenting_code_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Declaring_variables",
+                    "pages": "6",
+                    "presentation-pages": "14",
+                    "presentations": [
+                        {
+                            "name": "Classes_II_Declaring_instance_variables.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/182425107",
+                        "https://vimeo.com/182425111",
+                        "https://vimeo.com/182425106",
+                        "https://vimeo.com/182425108"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Declaring_variables_-_Exercises",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Defining_constructors",
+                    "pages": "7",
+                    "presentation-pages": "12",
+                    "presentations": [
+                        {
+                            "name": "Classes_II_Constructors.pdf",
+                            "pages": "12"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/182425101",
+                        "https://vimeo.com/182425105",
+                        "https://vimeo.com/182425099",
+                        "https://vimeo.com/182425103"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Defining_constructors_-_Exercises",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Defining_methods",
+                    "pages": "6",
+                    "presentation-pages": "11",
+                    "presentations": [
+                        {
+                            "name": "Classes_II_-_Instance_Methods.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/182425095",
+                        "https://vimeo.com/182425098",
+                        "https://vimeo.com/182425097",
+                        "https://vimeo.com/182425096"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Defining_methods_-_Exercises",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Static_members",
+                    "pages": "7",
+                    "presentation-pages": "15",
+                    "presentations": [
+                        {
+                            "name": "Classes_III_Static_variables.pdf",
+                            "pages": "7"
+                        },
+                        {
+                            "name": "Classes_III_Static_Methods.pdf",
+                            "pages": "8"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/183329185",
+                        "https://vimeo.com/183329247",
+                        "https://vimeo.com/183332858",
+                        "https://vimeo.com/183332870"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Static_members_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "Static_or_non-static.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_final_members",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_final_members_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Using_packages",
+                    "pages": "6",
+                    "presentation-pages": "8",
+                    "presentations": [
+                        {
+                            "name": "Classes_III_-_Why_Packages.pdf",
+                            "pages": "8"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/183636812",
+                        "https://vimeo.com/183636811"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Using_packages_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Testing_your_classes",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Testing_your_classes_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Using_your_classes",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Using_your_classes_-_Exercises",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_API_source_code",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_API_source_code_-_Exercises",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Other_keywords",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Other_keywords_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Strings_are_immutable",
+                    "pages": "7",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "Classes_III_-_Strings_are_Immutable.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/183847043",
+                        "https://vimeo.com/183847049"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Classes_-_Strings_are_immutable_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1139255",
+                        "https://vimeo.com/channels/1139256"
+                    ],
+                    "name": "Chapter:Inheritance_-_What_is_it",
+                    "pages": "6",
+                    "presentation-pages": "8",
+                    "presentations": [
+                        {
+                            "name": "Inheritance-What_is_inheritance.pdf",
+                            "pages": "8"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/185034429",
+                        "https://vimeo.com/185034430"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_What_is_it_-_Exercises",
+                    "pages": "3",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Every_class_extends_Object",
+                    "pages": "6",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "Inheritance-Every_class_extends_Object.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "5",
+                    "videos": [
+                        "https://vimeo.com/185034421",
+                        "https://vimeo.com/185034425",
+                        "https://vimeo.com/185034420",
+                        "https://vimeo.com/185034426",
+                        "https://vimeo.com/185466937"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Every_class_extends_Object_-_Exercises",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Overriding_methods_in_Object",
+                    "pages": "6",
+                    "presentation-pages": "11",
+                    "presentations": [
+                        {
+                            "name": "Inheritance-Overriding_methods_inherited.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "6",
+                    "videos": [
+                        "https://vimeo.com/185034418",
+                        "https://vimeo.com/185034419",
+                        "https://vimeo.com/185466937",
+                        "https://vimeo.com/185466935",
+                        "https://vimeo.com/185466934",
+                        "https://vimeo.com/185466933"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Overriding_methods_in_Object_-_Exercises",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Extending_your_own_classes",
+                    "pages": "6",
+                    "presentation-pages": "13",
+                    "presentations": [
+                        {
+                            "name": "Inheritance-Inheriting_your_own_classes.pdf",
+                            "pages": "13"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/185645468",
+                        "https://vimeo.com/185645470"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Extending_your_own_classes_-_Exercises",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Examples_from_Swing",
+                    "pages": "6",
+                    "presentation-pages": "28",
+                    "presentations": [
+                        {
+                            "name": "Inheritance-Examples_from_Swing.pdf",
+                            "pages": "14"
+                        },
+                        {
+                            "name": "Inheritance-Examples_from_Swing.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/185645466",
+                        "https://vimeo.com/185645467",
+                        "https://vimeo.com/185645465",
+                        "https://vimeo.com/185645469"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Examples_from_Swing_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Some_rules_and_syntax",
+                    "pages": "6",
+                    "presentation-pages": "36",
+                    "presentations": [
+                        {
+                            "name": "Inheritance-Rules_and_syntax.pdf",
+                            "pages": "18"
+                        },
+                        {
+                            "name": "Inheritance-Rules_and_syntax.pdf",
+                            "pages": "18"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/185645461",
+                        "https://vimeo.com/185645463",
+                        "https://vimeo.com/185645460",
+                        "https://vimeo.com/185645462"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Some_rules_and_syntax_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Problems_with_inheritance",
+                    "pages": "6",
+                    "presentation-pages": "14",
+                    "presentations": [
+                        {
+                            "name": "Inheritance_-_problems_with.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/185645458",
+                        "https://vimeo.com/185645459"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Inheritance_-_Problems_with_inheritance_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1143555",
+                        "https://vimeo.com/channels/1142854"
+                    ],
+                    "name": "Chapter:Interfaces_-_Introduction",
+                    "pages": "8",
+                    "presentation-pages": "7",
+                    "presentations": [
+                        {
+                            "name": "Interfaces-I-What_is_an_interface.pdf",
+                            "pages": "7"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/186257744",
+                        "https://vimeo.com/185967832"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Introduction_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Implementing_an_interface",
+                    "pages": "7",
+                    "presentation-pages": "25",
+                    "presentations": [
+                        {
+                            "name": "Interfaces-II-interfaces-in-Java_s-API.pdf",
+                            "pages": "9"
+                        },
+                        {
+                            "name": "Interfaces-III-Comparator.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Interfaces-IIII-Comparator-continued.pdf",
+                            "pages": "8"
+                        }
+                    ],
+                    "video-count": "6",
+                    "videos": [
+                        "https://vimeo.com/186257742",
+                        "https://vimeo.com/186257743",
+                        "https://vimeo.com/186265943",
+                        "https://vimeo.com/186265944",
+                        "https://vimeo.com/186268355",
+                        "https://vimeo.com/186268253"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Implementing_an_interface_-_Exercises",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Writing_an_interface",
+                    "pages": "6",
+                    "presentation-pages": "18",
+                    "presentations": [
+                        {
+                            "name": "Interfaces_V-writing_your_own.pdf",
+                            "pages": "18"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/187180673",
+                        "https://vimeo.com/187180674"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Writing_an_interface_-_Exercises",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Program_against_an_interface",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Program_against_an_interface_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Creating_an_anonymous_class",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Creating_an_anonymous_class_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Rules_and_syntax",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Interfaces_-_Rules_and_syntax_-_Exercises",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1149695",
+                        "https://vimeo.com/channels/1146518"
+                    ],
+                    "name": "Chapter:Exceptions_-_What_is_it",
+                    "pages": "8",
+                    "presentation-pages": "12",
+                    "presentations": [
+                        {
+                            "name": "Exceptions-I-What_is_an_exception.pdf",
+                            "pages": "12"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/188304280",
+                        "https://vimeo.com/187360771",
+                        "https://vimeo.com/188304279",
+                        "https://vimeo.com/187360773"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_What_is_it_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Two_main_types",
+                    "pages": "7",
+                    "presentation-pages": "16",
+                    "presentations": [
+                        {
+                            "name": "Exception-II-Runtime-vs-checked.pdf",
+                            "pages": "16"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/188304277",
+                        "https://vimeo.com/187360728",
+                        "https://vimeo.com/188304276",
+                        "https://vimeo.com/187360727"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Two_main_types_-_Exercises",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Code_examples",
+                    "pages": "8",
+                    "presentation-pages": "25",
+                    "presentations": [
+                        {
+                            "name": "Exceptions-III-Code_and_syntax.pdf",
+                            "pages": "25"
+                        }
+                    ],
+                    "video-count": "8",
+                    "videos": [
+                        "https://vimeo.com/188304275",
+                        "https://vimeo.com/187360724",
+                        "https://vimeo.com/188304274",
+                        "https://vimeo.com/187360729",
+                        "https://vimeo.com/188304273",
+                        "https://vimeo.com/187360726",
+                        "https://vimeo.com/188304272",
+                        "https://vimeo.com/187360725"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Code_examples_-_Exercises",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Creating_your_own",
+                    "pages": "6",
+                    "presentation-pages": "12",
+                    "presentations": [
+                        {
+                            "name": "Exceptions-IV-Writing_your_own.pdf",
+                            "pages": "12"
+                        }
+                    ],
+                    "video-count": "3",
+                    "videos": [
+                        "https://vimeo.com/188304285",
+                        "https://vimeo.com/188304286",
+                        "https://vimeo.com/188304284"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Creating_your_own_-_Exercises",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Rules_and_syntax",
+                    "pages": "6",
+                    "presentation-pages": "6",
+                    "presentations": [
+                        {
+                            "name": "Exceptions-V-Rules_and_syntax.pdf",
+                            "pages": "6"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/188304282",
+                        "https://vimeo.com/188304283"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Exceptions_-_Rules_and_syntax_-_Exercises",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Java:Assignment_-_Guessing_game",
+                    "pages": "13",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Java:Assignment_-_Address_book",
+                    "pages": "21",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                }
+            ],
+            "title": "Programming with Java"
+        },
+        {
+            "chapters": [
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1215451"
+                    ],
+                    "name": "Android:Introduction",
+                    "pages": "7",
+                    "presentation-pages": "27",
+                    "presentations": [
+                        {
+                            "name": "Android-Introduction-History.pdf",
+                            "pages": "12"
+                        },
+                        {
+                            "name": "Android-Introduction-Compile_and_execute.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Android-Introduction-licenses.pdf",
+                            "pages": "7"
+                        }
+                    ],
+                    "video-count": "3",
+                    "videos": [
+                        "https://vimeo.com/207794633",
+                        "https://vimeo.com/207794658",
+                        "https://vimeo.com/207794603"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:Setting_up_your_development_environment",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1215452"
+                    ],
+                    "name": "Android:Android_basics",
+                    "pages": "7",
+                    "presentation-pages": "12",
+                    "presentations": [
+                        {
+                            "name": "Android-Basics.pdf",
+                            "pages": "12"
+                        }
+                    ],
+                    "video-count": "9",
+                    "videos": [
+                        "https://vimeo.com/207794679",
+                        "https://vimeo.com/208113330",
+                        "https://vimeo.com/208113318",
+                        "https://vimeo.com/208113267",
+                        "https://vimeo.com/208113282",
+                        "https://vimeo.com/208113351",
+                        "https://vimeo.com/208113299",
+                        "https://vimeo.com/208113245",
+                        "https://vimeo.com/208113343"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:Exercises_Android_Basics",
+                    "pages": "11",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1215454"
+                    ],
+                    "name": "Android:Resources",
+                    "pages": "7",
+                    "presentation-pages": "11",
+                    "presentations": [
+                        {
+                            "name": "Android-Resources.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/207794587"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:Exercises_Resources",
+                    "pages": "15",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1215456"
+                    ],
+                    "name": "Android:Adding_views",
+                    "pages": "9",
+                    "presentation-pages": "13",
+                    "presentations": [
+                        {
+                            "name": "Android-Adding-Views.pdf",
+                            "pages": "13"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/207794702"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:Exercsises_Adding_views",
+                    "pages": "18",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1223284"
+                    ],
+                    "name": "Android:ListView",
+                    "pages": "7",
+                    "presentation-pages": "15",
+                    "presentations": [
+                        {
+                            "name": "ListView.pdf",
+                            "pages": "15"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/210231741"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1223289"
+                    ],
+                    "name": "Android:Your_own_classes",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/210233807"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:Exercsises_Your_own_classes",
+                    "pages": "18",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1233469"
+                    ],
+                    "name": "Android:Activity",
+                    "pages": "13",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "7",
+                    "videos": [
+                        "https://vimeo.com/album/4516074/video/211462928",
+                        "https://vimeo.com/album/4516074/video/211462912",
+                        "https://vimeo.com/album/4516074/video/211462762",
+                        "https://vimeo.com/album/4516074/video/211462935",
+                        "https://vimeo.com/album/4516074/video/211462935",
+                        "https://vimeo.com/album/4516074/video/211462778",
+                        "https://vimeo.com/album/4516074/video/211462796"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:FAQ",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:concepts",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1232852"
+                    ],
+                    "name": "Android:Thread",
+                    "pages": "8",
+                    "presentation-pages": "20",
+                    "presentations": [
+                        {
+                            "name": "Android-Threads-Async.pdf",
+                            "pages": "20"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/213649170",
+                        "https://vimeo.com/213649156"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Android:Exercises_Thread",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1232803"
+                    ],
+                    "name": "Android:Storage",
+                    "pages": "4",
+                    "presentation-pages": "26",
+                    "presentations": [
+                        {
+                            "name": "Android-Storage.pdf",
+                            "pages": "26"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/213634445",
+                        "https://vimeo.com/213634421"
+                    ]
+                }
+            ],
+            "title": "Android - the practical way"
+        },
+        {
+            "chapters": [
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Introduction_to_Databases",
+                    "pages": "7",
+                    "presentation-pages": "8",
+                    "presentations": [
+                        {
+                            "name": "L01_Introduction_to_databases.pdf",
+                            "pages": "8"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/194837636"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Introduction_to_Databases",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Retrieving_rows_of_data_-_SQL_SELECT",
+                    "pages": "7",
+                    "presentation-pages": "23",
+                    "presentations": [
+                        {
+                            "name": "L02_Retrieving_data.pdf",
+                            "pages": "23"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/194837668"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Retrieving_rows_of_data_-_SQL_SELECT",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Getting_started_with_SQLite",
+                    "pages": "7",
+                    "presentation-pages": "13",
+                    "presentations": [
+                        {
+                            "name": "L03_Getting_started_with_sqlite3.pdf",
+                            "pages": "13"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/194837742",
+                        "https://vimeo.com/194837717"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Getting_started_with_SQLite",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Changing_rows_of_data_-_SQL_UPDATE",
+                    "pages": "7",
+                    "presentation-pages": "10",
+                    "presentations": [
+                        {
+                            "name": "L04_Changing_data.pdf",
+                            "pages": "10"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/194837803",
+                        "https://vimeo.com/194837826"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Changing_rows_of_data_-_SQL_UPDATE",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Deleting_rows_of_data_-SQL_DELETE",
+                    "pages": "7",
+                    "presentation-pages": "6",
+                    "presentations": [
+                        {
+                            "name": "L05_Deleting_data.pdf",
+                            "pages": "6"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/194838245",
+                        "https://vimeo.com/194838268"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Deleting_rows_of_data_-SQL_DELETE",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Adding_rows_with_new_data_-_SQL_INSERT",
+                    "pages": "7",
+                    "presentation-pages": "5",
+                    "presentations": [
+                        {
+                            "name": "L06_Adding_new_data.pdf",
+                            "pages": "5"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/194838309",
+                        "https://vimeo.com/194838331"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Adding_rows_with_new_data_-_SQL_INSERT",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Assignment_1_-_The_basics",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Combining_rows_of_data_from_related_tables_-_SQL_JOIN",
+                    "pages": "7",
+                    "presentation-pages": "15",
+                    "presentations": [
+                        {
+                            "name": "L07_Related_data_in_related_tables.pdf",
+                            "pages": "15"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/194838371"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Combining_rows_of_data_from_related_tables_-_SQL_JOIN",
+                    "pages": "11",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Adding_constraints_to_prevent_garbage_data",
+                    "pages": "8",
+                    "presentation-pages": "23",
+                    "presentations": [
+                        {
+                            "name": "L08_Constraints.pdf",
+                            "pages": "23"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/194838411",
+                        "https://vimeo.com/194838444"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Adding_constraints_to_prevent_garbage_data",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1188415"
+                    ],
+                    "name": "Database:Scraping_data_from_the_web",
+                    "pages": "7",
+                    "presentation-pages": "26",
+                    "presentations": [
+                        {
+                            "name": "L09_Municipal_example.pdf",
+                            "pages": "26"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Exercise_-_Scraping_data_from_the_web",
+                    "pages": "12",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Database:Assignment_2_-_JOINs_and_Constraints",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                }
+            ],
+            "title": "Introduction to Databases"
+        },
+        {
+            "chapters": [
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/TODO",
+                        "https://vimeo.com/channels/TODO"
+                    ],
+                    "name": "Warm-up_with_some_Java_surprises",
+                    "pages": "11",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1152884"
+                    ],
+                    "name": "Design_patterns_-_introduction",
+                    "pages": "6",
+                    "presentation-pages": "22",
+                    "presentations": [
+                        {
+                            "name": "What_are_design_patterns.pdf",
+                            "pages": "22"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Object_oriented_principles",
+                    "pages": "10",
+                    "presentation-pages": "18",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_object_oriented_principles.pdf",
+                            "pages": "18"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/189919136",
+                        "https://vimeo.com/189919135",
+                        "https://vimeo.com/189919134",
+                        "https://vimeo.com/189919133"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1158851"
+                    ],
+                    "name": "Design_patterns_-_Builder",
+                    "pages": "8",
+                    "presentation-pages": "37",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_Builder_pattern.pdf",
+                            "pages": "16"
+                        },
+                        {
+                            "name": "Design_patterns_-_Bi-directional_builder.pdf",
+                            "pages": "21"
+                        }
+                    ],
+                    "video-count": "8",
+                    "videos": [
+                        "https://vimeo.com/190847690",
+                        "https://vimeo.com/190847688",
+                        "https://vimeo.com/190847686",
+                        "https://vimeo.com/190847685",
+                        "https://vimeo.com/190847684",
+                        "https://vimeo.com/190847683",
+                        "https://vimeo.com/190847682",
+                        "https://vimeo.com/190847681"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1159903"
+                    ],
+                    "name": "Design_patterns_-_Singleton",
+                    "pages": "6",
+                    "presentation-pages": "10",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_Singleton.pdf",
+                            "pages": "10"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1162293"
+                    ],
+                    "name": "Design_patterns_-_Exceptions_patterns",
+                    "pages": "4",
+                    "presentation-pages": "18",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_Exceptions.pdf",
+                            "pages": "18"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1165041"
+                    ],
+                    "name": "Design_patterns_-_Factory",
+                    "pages": "6",
+                    "presentation-pages": "33",
+                    "presentations": [
+                        {
+                            "name": "Dessign_patterns_-_Factories_-_Simple_Factory.pdf",
+                            "pages": "11"
+                        },
+                        {
+                            "name": "Design_patterns_-_Factories_-_Factory_Method.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Design_patterns_-_Factories_-_Abstract_Factory.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "6",
+                    "videos": [
+                        "https://vimeo.com/192786827",
+                        "https://vimeo.com/192786817",
+                        "https://vimeo.com/193709053",
+                        "https://vimeo.com/192786798",
+                        "https://vimeo.com/192786788",
+                        "https://vimeo.com/192786769"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1165076"
+                    ],
+                    "name": "Design_patterns_-_Decorator",
+                    "pages": "7",
+                    "presentation-pages": "17",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_Decorator.pdf",
+                            "pages": "17"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1168125"
+                    ],
+                    "name": "Design_patterns_-_Strategy",
+                    "pages": "7",
+                    "presentation-pages": "11",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_Strategy.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1168129"
+                    ],
+                    "name": "Design_patterns_-_Observer",
+                    "pages": "13",
+                    "presentation-pages": "23",
+                    "presentations": [
+                        {
+                            "name": "Design_patterns_-_Observer.pdf",
+                            "pages": "23"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Design_patterns_-_Dependency_Inversion_Principle",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/TODO"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Logging_-_Conditional_printing",
+                    "pages": "4",
+                    "presentation-pages": "32",
+                    "presentations": [
+                        {
+                            "name": "Logging_and_debug_printing.pdf",
+                            "pages": "32"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/TODO",
+                        "https://vimeo.com/TODO"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Introduction_to_JDBC",
+                    "pages": "7",
+                    "presentation-pages": "17",
+                    "presentations": [
+                        {
+                            "name": "L10_Accessing_databases_from_application.pdf",
+                            "pages": "17"
+                        }
+                    ],
+                    "video-count": "3",
+                    "videos": [
+                        "https://vimeo.com/194838475",
+                        "https://vimeo.com/194838509",
+                        "https://vimeo.com/194838527"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Exercise_-_Introduction_to_JDBC",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:JDBC-INSERT-UPDATE-SQLInjection",
+                    "pages": "7",
+                    "presentation-pages": "20",
+                    "presentations": [
+                        {
+                            "name": "L11_INSERT_and_UPDATE.pdf",
+                            "pages": "20"
+                        }
+                    ],
+                    "video-count": "3",
+                    "videos": [
+                        "https://vimeo.com/194838554",
+                        "https://vimeo.com/194838582",
+                        "https://vimeo.com/194838613"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Exercise_-_JDBC-INSERT-UPDATE-SQLInjection",
+                    "pages": "12",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:PreparedStatement",
+                    "pages": "8",
+                    "presentation-pages": "10",
+                    "presentations": [
+                        {
+                            "name": "L12_PreparedStatement.pdf",
+                            "pages": "10"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/194838649"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Exercise_-_PreparedStatement",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Commit_-_Rollback",
+                    "pages": "8",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "L13-Commit-Rollback.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/194838677"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Exercise_-_Commit_-_Rollback",
+                    "pages": "11",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "JavaDB:Assignment_-_SQL_injection",
+                    "pages": "12",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                }
+            ],
+            "title": "More programming with Java"
+        },
+        {
+            "chapters": [
+                {
+                    "channel-count": "3",
+                    "channels": [
+                        "https://vimeo.com/channels/1117477",
+                        "https://vimeo.com/channels/1171907",
+                        "https://vimeo.com/channels/1117477"
+                    ],
+                    "name": "Bash:Bash-Installation",
+                    "pages": "11",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/194834715",
+                        "https://vimeo.com/194834690",
+                        "https://vimeo.com/179020448",
+                        "https://vimeo.com/172736238"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1117487",
+                        "https://vimeo.com/channels/1171902"
+                    ],
+                    "name": "Bash:Bash-introduction",
+                    "pages": "11",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/179023407",
+                        "https://vimeo.com/172745629",
+                        "https://vimeo.com/194834650",
+                        "https://vimeo.com/179026524"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1117565",
+                        "https://vimeo.com/channels/1171900"
+                    ],
+                    "name": "Bash:Bash-structure",
+                    "pages": "10",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/179039198",
+                        "https://vimeo.com/194834612"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1172077",
+                        "https://vimeo.com/channels/1171891"
+                    ],
+                    "name": "Bash:Bash-Text_files",
+                    "pages": "11",
+                    "presentation-pages": "9",
+                    "presentations": [
+                        {
+                            "name": "02-Lecture-Bash_text_and_text_files.pdf",
+                            "pages": "9"
+                        }
+                    ],
+                    "video-count": "14",
+                    "videos": [
+                        "https://vimeo.com/179039196",
+                        "https://vimeo.com/179039197",
+                        "https://vimeo.com/179039195",
+                        "https://vimeo.com/179039193",
+                        "https://vimeo.com/194834575",
+                        "https://vimeo.com/194834548",
+                        "https://vimeo.com/194834537",
+                        "https://vimeo.com/179039198",
+                        "https://vimeo.com/179039198",
+                        "https://vimeo.com/179039198",
+                        "https://vimeo.com/179039196",
+                        "https://vimeo.com/179039197",
+                        "https://vimeo.com/179039195",
+                        "https://vimeo.com/179039193"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1118493",
+                        "https://vimeo.com/channels/1171874"
+                    ],
+                    "name": "Bash:Bash-Redirection",
+                    "pages": "9",
+                    "presentation-pages": "12",
+                    "presentations": [
+                        {
+                            "name": "L05-Bash-cygwin-redirecting.pdf",
+                            "pages": "12"
+                        }
+                    ],
+                    "video-count": "9",
+                    "videos": [
+                        "https://vimeo.com/179171190",
+                        "https://vimeo.com/179171187",
+                        "https://vimeo.com/194834524",
+                        "https://vimeo.com/194834506",
+                        "https://vimeo.com/179171192",
+                        "https://vimeo.com/179171191",
+                        "https://vimeo.com/179171193",
+                        "https://vimeo.com/179171190",
+                        "https://vimeo.com/179171187"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1118581",
+                        "https://vimeo.com/channels/1118573"
+                    ],
+                    "name": "Bash:Bash-Standard_streams",
+                    "pages": "14",
+                    "presentation-pages": "54",
+                    "presentations": [
+                        {
+                            "name": "Bash-streams-introduction.pdf",
+                            "pages": "11"
+                        },
+                        {
+                            "name": "Bash-using-streams.pdf",
+                            "pages": "16"
+                        },
+                        {
+                            "name": "Bash-streams-introduction.pdf",
+                            "pages": "11"
+                        },
+                        {
+                            "name": "Bash-using-streams.pdf",
+                            "pages": "16"
+                        }
+                    ],
+                    "video-count": "16",
+                    "videos": [
+                        "https://vimeo.com/199638421",
+                        "https://vimeo.com/199637543",
+                        "https://vimeo.com/179322617",
+                        "https://vimeo.com/179324168",
+                        "https://vimeo.com/179322616",
+                        "https://vimeo.com/194834120",
+                        "https://vimeo.com/179324168",
+                        "https://vimeo.com/179322615",
+                        "https://vimeo.com/194834064",
+                        "https://vimeo.com/179324164",
+                        "https://vimeo.com/179322613",
+                        "https://vimeo.com/194834099",
+                        "https://vimeo.com/179324163",
+                        "https://vimeo.com/179322614",
+                        "https://vimeo.com/194834038",
+                        "https://vimeo.com/179324163"
+                    ]
+                }
+            ],
+            "title": "Bash-introduction"
+        },
+        {
+            "chapters": [
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1090936",
+                        "https://vimeo.com/channels/1090954"
+                    ],
+                    "name": "Chapter:Computer_introduction",
+                    "pages": "7",
+                    "presentation-pages": "52",
+                    "presentations": [
+                        {
+                            "name": "Hardware.pdf",
+                            "pages": "11"
+                        },
+                        {
+                            "name": "File-type.pdf",
+                            "pages": "7"
+                        },
+                        {
+                            "name": "File-system.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Os.pdf",
+                            "pages": "12"
+                        },
+                        {
+                            "name": "Program.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "10",
+                    "videos": [
+                        "https://vimeo.com/167869104",
+                        "https://vimeo.com/167863269",
+                        "https://vimeo.com/167869164",
+                        "https://vimeo.com/167869142",
+                        "https://vimeo.com/167869201",
+                        "https://vimeo.com/167869189",
+                        "https://vimeo.com/167869243",
+                        "https://vimeo.com/167869229",
+                        "https://vimeo.com/167895261",
+                        "https://vimeo.com/167895288"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1094923",
+                        "https://vimeo.com/channels/1077932"
+                    ],
+                    "name": "Chapter:Programming_introduction",
+                    "pages": "7",
+                    "presentation-pages": "29",
+                    "presentations": [
+                        {
+                            "name": "Programming-introduction.pdf",
+                            "pages": "15"
+                        },
+                        {
+                            "name": "Compiler.pdf",
+                            "pages": "14"
+                        }
+                    ],
+                    "video-count": "8",
+                    "videos": [
+                        "https://vimeo.com/172574132",
+                        "https://vimeo.com/172574135",
+                        "https://vimeo.com/172574133",
+                        "https://vimeo.com/172574131",
+                        "https://vimeo.com/172574130",
+                        "https://vimeo.com/172574129",
+                        "https://vimeo.com/170178653",
+                        "https://vimeo.com/170178654"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:Setting_up_your_C_development_environment",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/172745629"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1151615"
+                    ],
+                    "name": "Chapter:Programming_in_C",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/188978161"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1152819"
+                    ],
+                    "name": "Chapter:Our_first_C_program",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/189309482"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1082637",
+                        "https://vimeo.com/channels/1082638"
+                    ],
+                    "name": "Chapter:Variables_and_types_in_C",
+                    "pages": "9",
+                    "presentation-pages": "80",
+                    "presentations": [
+                        {
+                            "name": "Variable.pdf",
+                            "pages": "9"
+                        },
+                        {
+                            "name": "Type.pdf",
+                            "pages": "19"
+                        },
+                        {
+                            "name": "Declaration.pdf",
+                            "pages": "6"
+                        },
+                        {
+                            "name": "Assignment.pdf",
+                            "pages": "20"
+                        },
+                        {
+                            "name": "Type-cast.pdf",
+                            "pages": "15"
+                        },
+                        {
+                            "name": "C-types.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "11",
+                    "videos": [
+                        "https://vimeo.com/169089977",
+                        "https://vimeo.com/169089982",
+                        "https://vimeo.com/169089980",
+                        "https://vimeo.com/169089979",
+                        "https://vimeo.com/169089973",
+                        "https://vimeo.com/169089975",
+                        "https://vimeo.com/169089970",
+                        "https://vimeo.com/169089972",
+                        "https://vimeo.com/169089967",
+                        "https://vimeo.com/169089968",
+                        "https://vimeo.com/189143874"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1086105",
+                        "https://vimeo.com/channels/1092546"
+                    ],
+                    "name": "Chapter:Expressions_and_operators_in_C",
+                    "pages": "7",
+                    "presentation-pages": "28",
+                    "presentations": [
+                        {
+                            "name": "Operator.pdf",
+                            "pages": "13"
+                        },
+                        {
+                            "name": "Expression.pdf",
+                            "pages": "15"
+                        }
+                    ],
+                    "video-count": "4",
+                    "videos": [
+                        "https://vimeo.com/170021875",
+                        "https://vimeo.com/170150428",
+                        "https://vimeo.com/170021881",
+                        "https://vimeo.com/170150680"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1086119",
+                        "https://vimeo.com/channels/1086100"
+                    ],
+                    "name": "Chapter:Control_flow_in_C",
+                    "pages": "9",
+                    "presentation-pages": "198",
+                    "presentations": [
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Block.pdf",
+                            "pages": "14"
+                        },
+                        {
+                            "name": "Block.pdf",
+                            "pages": "14"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        },
+                        {
+                            "name": "Control-statements.pdf",
+                            "pages": "34"
+                        }
+                    ],
+                    "video-count": "10",
+                    "videos": [
+                        "https://vimeo.com/170150317",
+                        "https://vimeo.com/170021873",
+                        "https://vimeo.com/170021872",
+                        "https://vimeo.com/170150605",
+                        "https://vimeo.com/170021869",
+                        "https://vimeo.com/170150567",
+                        "https://vimeo.com/170021867",
+                        "https://vimeo.com/170150521",
+                        "https://vimeo.com/170021866",
+                        "https://vimeo.com/170021877"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1154466"
+                    ],
+                    "name": "C:Functions",
+                    "pages": "17",
+                    "presentation-pages": "48",
+                    "presentations": [
+                        {
+                            "name": "Function-What_is.pdf",
+                            "pages": "9"
+                        },
+                        {
+                            "name": "Function-Invoking.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Function-Passing_information_to_a_function.pdf",
+                            "pages": "8"
+                        },
+                        {
+                            "name": "Function-Getting_something_back_from_a_function.pdf",
+                            "pages": "10"
+                        },
+                        {
+                            "name": "Function-Writing_your_own.pdf",
+                            "pages": "13"
+                        }
+                    ],
+                    "video-count": "5",
+                    "videos": [
+                        "https://vimeo.com/189765549",
+                        "https://vimeo.com/189765548",
+                        "https://vimeo.com/189765547",
+                        "https://vimeo.com/189765546",
+                        "https://vimeo.com/189765545"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1162007"
+                    ],
+                    "name": "Chapter:Error_handling_in_C",
+                    "pages": "9",
+                    "presentation-pages": "50",
+                    "presentations": [
+                        {
+                            "name": "Error_handling.pdf",
+                            "pages": "25"
+                        },
+                        {
+                            "name": "Error_handling.pdf",
+                            "pages": "25"
+                        }
+                    ],
+                    "video-count": "10",
+                    "videos": [
+                        "https://vimeo.com/191778973",
+                        "https://vimeo.com/191778972",
+                        "https://vimeo.com/191778970",
+                        "https://vimeo.com/191778971",
+                        "https://vimeo.com/191778969",
+                        "https://vimeo.com/191778967",
+                        "https://vimeo.com/191778965",
+                        "https://vimeo.com/191778963",
+                        "https://vimeo.com/191778961",
+                        "https://vimeo.com/191778960"
+                    ]
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1163961",
+                        "https://vimeo.com/channels/1163962"
+                    ],
+                    "name": "Chapter:C_Dynamic_memory",
+                    "pages": "16",
+                    "presentation-pages": "16",
+                    "presentations": [
+                        {
+                            "name": "Dynamic-Memory.pdf",
+                            "pages": "16"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/192444263",
+                        "https://vimeo.com/192444264"
+                    ]
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1171278"
+                    ],
+                    "name": "Chapter:C_testing",
+                    "pages": "18",
+                    "presentation-pages": "22",
+                    "presentations": [
+                        {
+                            "name": "Testing-C-code.pdf",
+                            "pages": "22"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "Chapter:C_memory_tools",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "C_Handin_1",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "C_Handin_2",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "C_Handin_3",
+                    "pages": "4",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "C_Handin_4",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                }
+            ],
+            "title": "Programming with C"
+        },
+        {
+            "chapters": [
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Output_and_return",
+                    "pages": "6",
+                    "presentation-pages": "21",
+                    "presentations": [
+                        {
+                            "name": "Bash-output-and-return.pdf",
+                            "pages": "21"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/199645155",
+                        "https://vimeo.com/199645144"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Output_and_return",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Control_flow",
+                    "pages": "11",
+                    "presentation-pages": "22",
+                    "presentations": [
+                        {
+                            "name": "Bash-control-flow.pdf",
+                            "pages": "22"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/199641262"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Control_flow",
+                    "pages": "13",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "2",
+                    "channels": [
+                        "https://vimeo.com/channels/1187203",
+                        "https://vimeo.com/channels/1187206"
+                    ],
+                    "name": "MoreBash:Scripts_-_Introduction",
+                    "pages": "6",
+                    "presentation-pages": "47",
+                    "presentations": [
+                        {
+                            "name": "Bash-scripts.pdf",
+                            "pages": "13"
+                        },
+                        {
+                            "name": "Bash-scripts-advanced.pdf",
+                            "pages": "34"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Scripts_-_Introduction",
+                    "pages": "7",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1240572"
+                    ],
+                    "name": "MoreBash:Declare_-_Typing_variables",
+                    "pages": "8",
+                    "presentation-pages": "8",
+                    "presentations": [
+                        {
+                            "name": "Bash-declare.pdf",
+                            "pages": "8"
+                        }
+                    ],
+                    "video-count": "1",
+                    "videos": [
+                        "https://vimeo.com/216172460"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Declare_-_Typing_variables",
+                    "pages": "9",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1232866"
+                    ],
+                    "name": "MoreBash:Functions_-_Introduction",
+                    "pages": "10",
+                    "presentation-pages": "22",
+                    "presentations": [
+                        {
+                            "name": "Bash-functions-introduction.pdf",
+                            "pages": "11"
+                        },
+                        {
+                            "name": "Bash-cygwin-functions.pdf",
+                            "pages": "11"
+                        }
+                    ],
+                    "video-count": "2",
+                    "videos": [
+                        "https://vimeo.com/213653550",
+                        "https://vimeo.com/213653542"
+                    ]
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Functions_-_Introduction",
+                    "pages": "8",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Scripts_-_Tools",
+                    "pages": "5",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Scripts_-_Tools",
+                    "pages": "6",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "1",
+                    "channels": [
+                        "https://vimeo.com/channels/1197423"
+                    ],
+                    "name": "MoreBash:Scripts_-_Network_Tools",
+                    "pages": "8",
+                    "presentation-pages": "37",
+                    "presentations": [
+                        {
+                            "name": "Network_tools.pdf",
+                            "pages": "37"
+                        }
+                    ],
+                    "video-count": "0",
+                    "videos": []
+                },
+                {
+                    "channel-count": "0",
+                    "channels": [],
+                    "name": "MoreBash:Exercises_-_Scripts_-_Network_Tools",
+                    "pages": "18",
+                    "presentation-pages": "0",
+                    "presentations": [],
+                    "video-count": "0",
+                    "videos": []
+                }
+            ],
+            "title": "Bash Programming"
+        }
+    ],
+    "git-repos": {
+        "git-repo-stat": [
+            {
+                "repo-branches": "1",
+                "repo-commits": "4",
+                "repo-name": "computer-introduction",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/computer-introduction.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "5",
+                "repo-name": "control-flow",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/control-flow.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "our-first-java-program",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/our-first-java-program.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "programming-introduction",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/programming-introduction.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "1",
+                "repo-name": "programming-in-java",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/programming-in-java.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "6",
+                "repo-name": "objects_in_java",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/objects_in_java.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "261",
+                "repo-name": "programming-with-c",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/programming-with-c.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "5",
+                "repo-name": "intro-java-assignment-1",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/intro-java-assignment-1.git"
+            },
+            {
+                "repo-branches": "0",
+                "repo-commits": "0",
+                "repo-name": "mediawiki-backup",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/mediawiki-backup.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "7",
+                "repo-name": "lab2-staging",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/lab2-staging.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "13",
+                "repo-name": "classes",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/classes.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "15",
+                "repo-name": "java-programming-assignment2-public",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/java-programming-assignment2-public.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "24",
+                "repo-name": "inheritance",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/inheritance.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "21",
+                "repo-name": "interfaces",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/interfaces.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "11",
+                "repo-name": "exceptions",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/exceptions.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "design_patterns_introduction",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design_patterns_introduction.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "design_patterns_builder",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design_patterns_builder.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "design-patterns-bi-directional-builder",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-bi-directional-builder.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "145",
+                "repo-name": "utils",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/utils.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "design-patterns-singleton",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-singleton.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "design-patterns-oo-design-principles",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-oo-design-principles.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "9",
+                "repo-name": "java-surprises",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/java-surprises.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "design-patterns-factories",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-factories.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "8",
+                "repo-name": "design-patterns-decorator",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-decorator.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "design-patterns-strategy",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-strategy.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "design-patterns-observer",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-observer.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "10",
+                "repo-name": "databases-introduction",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/databases-introduction.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "logging-and-conditional-printing",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/logging-and-conditional-printing.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "dependency-inversion-principle",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/dependency-inversion-principle.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "29",
+                "repo-name": "javadb",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/javadb.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "36",
+                "repo-name": "java-web",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/java-web.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "bash-script",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/bash-script.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "bash-control-flow",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/bash-control-flow.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "1",
+                "repo-name": "bash-output-and-return",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/bash-output-and-return.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "bash-network-tools",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/bash-network-tools.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "11",
+                "repo-name": "bash-examples",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/bash-examples.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "17",
+                "repo-name": "java-extra-lectures",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/java-extra-lectures.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "5",
+                "repo-name": "java-language",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/java-language.git"
+            },
+            {
+                "repo-branches": "0",
+                "repo-commits": "0",
+                "repo-name": "anti-patterns",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/anti-patterns.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "AddingViews",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/AddingViews.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "listviewexample",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/listviewexample.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "9",
+                "repo-name": "caveandmore",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/caveandmore.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "9",
+                "repo-name": "cavetest",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/cavetest.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "Android-ActivitySwitcher",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/Android-ActivitySwitcher.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "45",
+                "repo-name": "cave-sprint-1",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/cave-sprint-1.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "29",
+                "repo-name": "cave-sprint-2",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/cave-sprint-2.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "1",
+                "repo-name": "GreatPretender",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/GreatPretender.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "3",
+                "repo-name": "AndroidStorer",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/AndroidStorer.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "18",
+                "repo-name": "extra-tig059",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/extra-tig059.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "11",
+                "repo-name": "yrgo16",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/yrgo16.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "29",
+                "repo-name": "cave-sprint-3",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/cave-sprint-3.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "2",
+                "repo-name": "StudentList",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/StudentList.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "13",
+                "repo-name": "design-patterns-extra",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/design-patterns-extra.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "10",
+                "repo-name": "saa-mycket-saemre",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/saa-mycket-saemre.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "4",
+                "repo-name": "java-api-time",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/java-api-time.git"
+            },
+            {
+                "repo-branches": "1",
+                "repo-commits": "1",
+                "repo-name": "utils-blobs",
+                "repo-tags": "0",
+                "repo-url": "https://github.com/progund/utils-blobs.git"
+            }
+        ],
+        "languages": [
+            {
+                "name": "java",
+                "repos": "40"
+            },
+            {
+                "name": "c",
+                "repos": "2"
+            },
+            {
+                "name": "shell",
+                "repos": "6"
+            }
+        ],
+        "total": "56"
+    },
+    "pod": {
+        "podcasts": "14"
+    },
+    "source-code": [
+        {
+            "lines-of-code": "30432",
+            "number-of-files": "705",
+            "type": "Java"
+        },
+        {
+            "lines-of-code": "7045",
+            "number-of-files": "212",
+            "type": "C"
+        },
+        {
+            "lines-of-code": "3493",
+            "number-of-files": "92",
+            "type": "Bash"
+        }
+    ],
+    "vimeo-stats": {
+        "videos": "408"
+    },
+    "wiki-stats": {
+        "content-pages": "274",
+        "edits": "5977",
+        "pages": "581",
+        "uploaded-files": "194"
+    }
+}
