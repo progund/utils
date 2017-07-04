@@ -91,59 +91,62 @@ tofile()
 #    echo writin to: $TOFILE
 }
 
-print_tag()
+get_tag()
 {
-    tofile "<h2>$1: " $(cat $JD_FILE | jq -r ".$2")"</h2>"
+    
+    cat $JD_FILE | jq -r ".$1"
 }
 
-print_week_tag()
+get_week_tag()
 {
-    NOW=$(cat $JD_FILE | jq -r ".$2")
-    THEN=$(cat $JD_WEEK_AGO_FILE | jq -r ".$2")
-    tofile "<h2>$1: $(( $NOW - $THEN ))       ($THEN => $NOW)</h2>"  
+    NOW=$(cat $JD_FILE | jq -r ".$1")
+    THEN=$(cat $JD_WEEK_AGO_FILE | jq -r ".$1")
+    echo $(( $NOW - $THEN ))
 }
 
 
 gen_page_2()
 {
+    declare -A JD_LOCS
     TOFILE=$1
-    tofile "<html>"
-    tofile "<head>"
-    #tofile "<meta http-equiv=\"refresh\" content=\"10;index.html\"   >"
-    tofile "</head>"
-    tofile "<title>"
-    tofile "Worklog for Rikard and Henrik"
-    tofile "</title>"
-    tofile "<body>"
-    tofile "<center>"
-    tofile "<h1>Stats from our wiki</h1>"
-    print_tag "Number of Wiki books" "[\"book-summary\"].books"
-    print_tag "Number of pages in our Wiki books" "[\"book-summary\"].pages"
-    print_tag "Number of presentations" "[\"book-summary\"].\"uniq-presentations\""
-    print_tag "Number of presentation pages" "[\"book-summary\"].\"uniq-presentations-pages\""
-    print_tag "Number of linked videos" "[\"book-summary\"].\"uniq-videos\""
-    tofile "<h1>Stats from the source code use in our courses </h1>"
-    print_tag "Number of public repos" "[\"git-repos\"].total"
-    NR_OF_LANG=$(cat $JD_FILE |  jq -r '.["source-code"]|length')
+    export BOOKS=$(get_tag "[\"book-summary\"].books")
+    export PAGES=$(get_tag "[\"book-summary\"].pages")
+    export UNIQ_PRES=$(get_tag "[\"book-summary\"].\"uniq-presentations\"")
+    export UNIQ_PRES_PAGES=$(get_tag "[\"book-summary\"].\"uniq-presentations-pages\"")
+    export UNIQ_VIDS=$(get_tag "[\"book-summary\"].\"uniq-videos\"")
+    export PUBLIC_REPOS=$(get_tag "[\"git-repos\"].total")
+    export NR_OF_LANG=$(get_tag "[\"source-code\"]|length")
     #tofile "LANGS: $NR_OF_LANG"
     export CNT=0
     while [ $CNT -lt $NR_OF_LANG ]
     do
         #    tofile "CNT: $CNT"
-        JD_LOC=$(cat $JD_FILE | jq -r  ".[\"source-code\"][$CNT].\"lines-of-code\"")
-        JD_LANG=$(cat $JD_FILE | jq -r  ".[\"source-code\"][$CNT].\"type\"")
-        tofile "<h2>Lines of $JD_LANG code: $JD_LOC</h2>"
+        export JD_LANG=$(get_tag "[\"source-code\"][$CNT].type")
+        export JD_LOC=$(get_tag "[\"source-code\"][$CNT].\"lines-of-code\"")
+        JD_LOCS[$JD_LANG]=$JD_LOC
+        echo "LANG: { $JD_LANG | $JD_LOC | $CNT } =>  ${JD_LOCS[Java]}"
         CNT=$(( $CNT + 1 ))
     done
-    tofile "<h1>Stats from Vimeo</h1>"
-    print_tag "Number of Vimeo videos" "[\"vimeo-stats\"].\"videos\""
-    tofile "<h1>Weekly stats</h1>"
-    print_week_tag "Last weeks new pages:" "[\"book-summary\"].pages"
-    print_week_tag "Last weeks new presentations" "[\"book-summary\"].\"uniq-presentations\""
-    print_week_tag "Last weeks new videos" "[\"vimeo-stats\"].\"videos\""
-    tofile "</center>"
-    tofile "</body>"
-    tofile "</html>"
+    export W_PAGES=$(get_week_tag "[\"book-summary\"].pages")
+    export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
+    export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
+
+    export LOC_JAVA=${JD_LOCS[Java]}
+    
+    cat $THIS_SCRIPT_DIR/2.tmpl | sed \
+        -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
+        -e "s,__NR_PRESENTATIONS__,$UNIQ_PRES,g" \
+        -e "s,__NR_PRESENTATION_PAGES__,$UNIQ_PRES_PAGES,g" \
+        -e "s,__NR_LINKED_VIDEOS__,$UNIQ_VIDS,g" \
+        -e "s,__NR_PUBLIC_REPOS__,$PUBLIC_REPOS,g" \
+        -e "s,__LOC_JAVA__,${JD_LOCS[Java]},g" \
+        -e "s,__LOC_C__,${JD_LOCS[C]},g" \
+        -e "s,__LOC_BASH__,${JD_LOCS[Bash]},g" \
+        -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
+        -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
+        -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
+        -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" > $TOFILE
+
 }
 
 copy_if_not_here()
