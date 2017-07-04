@@ -335,7 +335,7 @@ main()
         BOOK_COUNT=$(( BOOK_COUNT + 1 ))
         log_to_file "    --> handle book: $book"
         check_book $book >> $STAT_FILE
-        log_to_file "    -- handle book: $book"
+        log_to_file "    -- handle book: $book ($?)"
     done
     log_to_file "  <-- looping through books"
     echo "  ],"  >> $STAT_FILE
@@ -378,8 +378,14 @@ main()
 
     echo "    conv ${STAT_FILE} to  ${JD_STAT_FILE}"
 
+    ls -al ${STAT_FILE}
+    ls -al ${JD_STAT_FILE}
     cat ${STAT_FILE} | python -mjson.tool > ${JD_STAT_FILE}
+    echo "    conv ${STAT_FILE} to  ${JD_STAT_FILE} returned $?"
 #    jsonlint  ${JD_STAT_FILE}
+    ls -al ${STAT_FILE}
+    cp ${STAT_FILE} /tmp/stat-keep.json
+    ls -al ${JD_STAT_FILE}
     return
     
     #
