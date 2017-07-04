@@ -16,8 +16,15 @@ get_wiki_page()
         echo "        \"name\": \"$page\","
         if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${page}.pdf ]
         then
+            HTML_DOC_ARGS="--charset iso-8859-1  --no-title --format pdf14 --numbered --firstpage toc"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS --fontsize 8  --fontspacing 1  --linkstyle plain --linkcolor 217A28"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS --toclevels 3  --headfootsize 8 --quiet --jpeg --color"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS --bodyfont Arial --left 1cm --top 1cm --bottom 1cm --right 1cm"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS   --header ... --footer .1. -t pdf"
             rm -f ${page}.pdf
-            curl -s "http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single" -o ${page}.pdf 
+            #curl -s "http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single" -o ${page}.pdf 
+            htmldoc "http://wiki.juneday.se/mediawiki/index.php?title=${page}" --outfile ${page}.pdf 2>/dev/null >/dev/null
+            logtofile "htmldoc returned $?"
         fi
         PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
         echo "        \"pages\": \"$PAGES\","
