@@ -137,6 +137,7 @@ gen_page_2()
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
         -e "s,__NR_PRESENTATIONS__,$UNIQ_PRES,g" \
         -e "s,__NR_PRESENTATION_PAGES__,$UNIQ_PRES_PAGES,g" \
+        -e "s,__NR_PAGES__,$PAGES,g" \
         -e "s,__NR_LINKED_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_PUBLIC_REPOS__,$PUBLIC_REPOS,g" \
         -e "s,__LOC_JAVA__,${JD_LOCS[Java]},g" \
