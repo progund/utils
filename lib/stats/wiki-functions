@@ -17,6 +17,7 @@ get_wiki_page()
         if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${page}.pdf ]
         then
             rm -f ${page}.pdf
+	    log_to_file	    "curl -s \"http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single\" -o ${page}.pdf "
             curl -s "http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single" -o ${page}.pdf 
         fi
         PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
@@ -165,7 +166,7 @@ check_book()
     TITLE=${!TITLE_VAR}
     TITLE_NO_BLANKS=$(echo $TITLE | sed 's, ,_,g')
 
-#    echo "PAGES: $PAGES / ${!PAGES}"
+    log_to_file "PAGES: $PAGES / ${!PAGES}"
     
     debug " * $TITLE"
     echo "  {"
