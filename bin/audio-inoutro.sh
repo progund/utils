@@ -73,6 +73,6 @@ fi
 echo "$USE_INTRO | $USE_OUTRO | $AUDIOS"
 
 #mp3wrap jd-${LECTURE} ${AUDIOS} 
-ffmpeg -i "concat:${AUDIOS}" -acodec libmp3lame jd${LECTURE}
+ffmpeg -i "concat:${AUDIOS}" -acodec libmp3lame jd-${LECTURE}
 #mkvmerge -o jd-${LECTURE}  ${AUDIOS}
 #id3cp ${LECTURE} jd-${LECTURE}
