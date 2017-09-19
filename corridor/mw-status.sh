@@ -111,6 +111,7 @@ gen_page_2()
     TOFILE=$1
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export PAGES=$(get_tag "[\"book-summary\"].pages")
+    export WPAGES=$(get_tag "[\"wiki-stats\"].\"content-pages\"")
     export UNIQ_PRES=$(get_tag "[\"book-summary\"].\"uniq-presentations\"")
     export UNIQ_PRES_PAGES=$(get_tag "[\"book-summary\"].\"uniq-presentations-pages\"")
     export UNIQ_VIDS=$(get_tag "[\"book-summary\"].\"uniq-videos\"")
@@ -128,6 +129,7 @@ gen_page_2()
         CNT=$(( $CNT + 1 ))
     done
     export W_PAGES=$(get_week_tag "[\"book-summary\"].pages")
+    export W_WPAGES=$(get_week_tag "[\"wiki-stats\"].\"content-pages\"")
     export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
@@ -145,6 +147,7 @@ gen_page_2()
         -e "s,__LOC_BASH__,${JD_LOCS[Bash]},g" \
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
+        -e "s,__NR_WEEKLY_WPAGES__,$W_WPAGES,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
         -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" > $TOFILE
 
