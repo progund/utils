@@ -124,9 +124,9 @@ gen_page_2()
     declare -A JD_LOCS
     TOFILE=$1
     export LOC_JAVA=$(get_lang_loc "Java")
-    export LOC_BASH=$(get_lang_loc "bash")
+    export LOC_BASH=$(get_lang_loc "Bash")
     export WLOC_JAVA=$(get_wlang_loc "Java")
-    export WLOC_BASH=$(get_wlang_loc "bash")
+    export WLOC_BASH=$(get_wlang_loc "Bash")
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export PAGES=$(get_tag "[\"book-summary\"].pages")
