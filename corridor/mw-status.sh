@@ -170,8 +170,8 @@ gen_page_2()
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
         -e "s,__NR_WEEKLY_WPAGES__,$W_WPAGES,g" \
-        -e "s,__WEEKLY_BASH_LOC__,$WLOC_BASH,g" \
-        -e "s,__WEEKLY_JAVA_LOC__,$WLOC_JAVA,g" \
+        -e "s,__WEEKLY_BASH_LOC__,$LOC_BASH,g" \
+        -e "s,__WEEKLY_JAVA_LOC__,$LOC_JAVA,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
         -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" > $TOFILE
 
