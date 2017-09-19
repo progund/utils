@@ -123,6 +123,8 @@ gen_page_2()
 {
     declare -A JD_LOCS
     TOFILE=$1
+    export LOC_JAVA=$(get_lang_loc "Java")
+    export LOC_BASH=$(get_lang_loc "bash")
     export WLOC_JAVA=$(get_wlang_loc "Java")
     export WLOC_BASH=$(get_wlang_loc "bash")
     export BOOKS=$(get_tag "[\"book-summary\"].books")
@@ -151,6 +153,9 @@ gen_page_2()
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
     export LOC_JAVA=${JD_LOCS[Java]}
+
+    export LOC_JAVA=$(( $WLOC_JAVA - $LOC_JAVA))
+    export LOC_BASH=$(( $WLOC_JAVA - $LOC_BASH))
     
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
