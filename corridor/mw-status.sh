@@ -155,7 +155,7 @@ gen_page_2()
     export LOC_JAVA=${JD_LOCS[Java]}
 
     export LOC_JAVA=$(( $LOC_JAVA - $WLOC_JAVA ))
-    export LOC_BASH=$((  $LOC_BASH - $WLOC_JAVA))
+    export LOC_BASH=$((  $LOC_BASH - $WLOC_BASH))
     
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
