@@ -127,10 +127,12 @@ gen_page_2()
         echo "LANG: { $JD_LANG | $JD_LOC | $CNT } =>  ${JD_LOCS[Java]}"
         CNT=$(( $CNT + 1 ))
     done
+    
     export W_PAGES=$(get_week_tag "[\"book-summary\"].pages")
     export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
+    
     export LOC_JAVA=${JD_LOCS[Java]}
     
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
@@ -146,6 +148,7 @@ gen_page_2()
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
+        -e "s,__WDATE__,$WEEK_AGO,g" \
         -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" > $TOFILE
 
 }
