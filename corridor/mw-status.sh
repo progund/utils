@@ -105,12 +105,32 @@ get_week_tag()
 }
 
 
+get_lang_loc()
+{
+    export lang=$1
+
+    cat $JD_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
+}
+
+get_wlang_loc()
+{
+    export lang=$1
+
+    cat $JD_WEEK_AGO_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
+}
+
 gen_page_2()
 {
     declare -A JD_LOCS
     TOFILE=$1
+    export LOC_JAVA=$(get_lang_loc "Java")
+    export LOC_BASH=$(get_lang_loc "Bash")
+    export WLOC_JAVA=$(get_wlang_loc "Java")
+    export WLOC_BASH=$(get_wlang_loc "Bash")
+    export BOOKS=$(get_tag "[\"book-summary\"].books")
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export PAGES=$(get_tag "[\"book-summary\"].pages")
+    export WPAGES=$(get_tag "[\"wiki-stats\"].\"content-pages\"")
     export UNIQ_PRES=$(get_tag "[\"book-summary\"].\"uniq-presentations\"")
     export UNIQ_PRES_PAGES=$(get_tag "[\"book-summary\"].\"uniq-presentations-pages\"")
     export UNIQ_VIDS=$(get_tag "[\"book-summary\"].\"uniq-videos\"")
@@ -129,11 +149,15 @@ gen_page_2()
     done
     
     export W_PAGES=$(get_week_tag "[\"book-summary\"].pages")
+    export W_WPAGES=$(get_week_tag "[\"wiki-stats\"].\"content-pages\"")
     export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
     
     export LOC_JAVA=${JD_LOCS[Java]}
+
+    export LOC_JAVA=$(( $LOC_JAVA - $WLOC_JAVA ))
+    export LOC_BASH=$((  $LOC_BASH - $WLOC_BASH))
     
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
@@ -147,6 +171,9 @@ gen_page_2()
         -e "s,__LOC_BASH__,${JD_LOCS[Bash]},g" \
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
+        -e "s,__NR_WEEKLY_WPAGES__,$W_WPAGES,g" \
+        -e "s,__WEEKLY_BASH_LOC__,$LOC_BASH,g" \
+        -e "s,__WEEKLY_JAVA_LOC__,$LOC_JAVA,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
         -e "s,__WDATE__,$WEEK_AGO,g" \
         -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" > $TOFILE
