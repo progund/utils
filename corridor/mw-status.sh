@@ -145,9 +145,14 @@ get_mlang_loc()
 #    cat $JD_WEEK_AGO_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
 }
 
-todaily()
+weekly_daily()
 {
     echo $(echo "scale=2; $1 / 7 " | bc -l)
+}
+
+monthly_daily()
+{
+    echo $(echo "scale=2; $1 / 30 " | bc -l)
 }
 
 gen_page_2()
@@ -157,9 +162,9 @@ gen_page_2()
     export LOC_JAVA=$(get_lang_loc "Java")
     export LOC_BASH=$(get_lang_loc "Bash")
     export WLOC_JAVA=$(get_wlang_loc "Java")
-    export WLOC_BASH_DAILY=$(todaily $WLOC_BASH)
-    export WLOC_JAVA_DAILY=$(todaily $WLOC_JAVA)
     export WLOC_BASH=$(get_wlang_loc "Bash")
+
+
     export MLOC_JAVA=$(get_mlang_loc "Java")
     export MLOC_BASH=$(get_mlang_loc "Bash")
 
@@ -189,10 +194,12 @@ gen_page_2()
     export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
-    export W_PAGES_DAILY=$(todaily "$W_PAGES_DAILY")
-    export W_WPAGES_DAILY=$(todaily "$W_WPAGES_DAILY")
-    export W_PRES_DAILY=$(todaily "$W_PRES_DAILY")
-    export W_VIDS_DAILY=$(todaily "$W_VIDS_DAILY")
+    export W_PAGES_DAILY=$(weekly_daily "$W_PAGES")
+    export W_WPAGES_DAILY=$(weekly_daily "$W_WPAGES")
+    export W_PRES_DAILY=$(weekly_daily "$W_PRES")
+    export W_VIDS_DAILY=$(weekly_daily "$W_VIDS")
+
+
 
 
     
@@ -201,6 +208,10 @@ gen_page_2()
     export M_PRES=$(get_month_tag "[\"book-summary\"].\"uniq-presentations\"")
     export M_VIDS=$(get_month_tag "[\"vimeo-stats\"].videos")
 
+    export M_PAGES_DAILY=$(monthly_daily "$M_PAGES")
+    export M_WPAGES_DAILY=$(monthly_daily "$M_WPAGES")
+    export M_PRES_DAILY=$(monthly_daily "$M_PRES")
+    export M_VIDS_DAILY=$(monthly_daily "$M_VIDS")
     echo "java: $LOC_JAVA | $WLOC_JAVA | $MLOC_JAVA"
     
     export LOC_JAVA=${JD_LOCS[Java]}
@@ -210,7 +221,12 @@ gen_page_2()
     
     export MLOC_JAVA=$(( $LOC_JAVA - $MLOC_JAVA))
     export MLOC_BASH=$(( $LOC_BASH - $MLOC_BASH))
-    
+
+    export WLOC_BASH_DAILY=$(weekly_daily $WLOC_BASH)
+    export WLOC_JAVA_DAILY=$(weekly_daily $WLOC_JAVA)
+    export MLOC_BASH_DAILY=$(monthly_daily $MLOC_BASH)
+    export MLOC_JAVA_DAILY=$(monthly_daily $MLOC_JAVA)
+
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
         -e "s,__NR_PRESENTATIONS__,$UNIQ_PRES,g" \
@@ -224,17 +240,23 @@ gen_page_2()
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
         -e "s,__NR_WEEKLY_PAGES_DAILY__,$W_PAGES_DAILY,g" \
+        -e "s,__NR_MONTHLY_PAGES_DAILY__,$M_PAGES_DAILY,g" \
         -e "s,__NR_WEEKLY_WPAGES__,$W_WPAGES,g" \
         -e "s,__NR_WEEKLY_WPAGES_DAILY__,$W_WPAGES_DAILY,g" \
+        -e "s,__NR_MONTHLY_WPAGES_DAILY__,$M_WPAGES_DAILY,g" \
         -e "s,__WEEKLY_BASH_LOC__,$WLOC_BASH,g" \
         -e "s,__WEEKLY_BASH_LOC_DAILY__,$WLOC_BASH_DAILY,g" \
+        -e "s,__MONTHLY_BASH_LOC_DAILY__,$MLOC_BASH_DAILY,g" \
         -e "s,__WEEKLY_JAVA_LOC__,$WLOC_JAVA,g" \
         -e "s,__WEEKLY_JAVA_LOC_DAILY__,$WLOC_JAVA_DAILY,g" \
+        -e "s,__MONTHLY_JAVA_LOC_DAILY__,$MLOC_JAVA_DAILY,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS_DAILY__,$W_PRES_DAILY,g" \
+        -e "s,__NR_MONTHLY_PRESENTATIONS_DAILY__,$M_PRES_DAILY,g" \
         -e "s,__WDATE__,$WEEK_AGO,g" \
         -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" \
         -e "s,__NR_WEEKLY_VIDEOS_DAILY__,$W_VIDS_DAILY,g" \
+        -e "s,__NR_MONTHLY_VIDEOS_DAILY__,$M_VIDS_DAILY,g" \
         -e "s,__NR_MONTHLY_PAGES__,$M_PAGES,g" \
         -e "s,__NR_MONTHLY_WPAGES__,$M_WPAGES,g" \
         -e "s,__MONTHLY_BASH_LOC__,$MLOC_BASH,g" \
