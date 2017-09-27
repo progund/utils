@@ -145,6 +145,11 @@ get_mlang_loc()
 #    cat $JD_WEEK_AGO_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
 }
 
+todaily()
+{
+    echo $(echo "scale=2; $1 / 7 " | bc -l)
+}
+
 gen_page_2()
 {
     declare -A JD_LOCS
@@ -152,9 +157,12 @@ gen_page_2()
     export LOC_JAVA=$(get_lang_loc "Java")
     export LOC_BASH=$(get_lang_loc "Bash")
     export WLOC_JAVA=$(get_wlang_loc "Java")
+    export WLOC_BASH_DAILY=$(todaily $WLOC_BASH)
+    export WLOC_JAVA_DAILY=$(todaily $WLOC_JAVA)
     export WLOC_BASH=$(get_wlang_loc "Bash")
     export MLOC_JAVA=$(get_mlang_loc "Java")
     export MLOC_BASH=$(get_mlang_loc "Bash")
+
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export PAGES=$(get_tag "[\"book-summary\"].pages")
@@ -181,6 +189,13 @@ gen_page_2()
     export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
+    export W_PAGES_DAILY=$(todaily "$W_PAGES_DAILY")
+    export W_WPAGES_DAILY=$(todaily "$W_WPAGES_DAILY")
+    export W_PRES_DAILY=$(todaily "$W_PRES_DAILY")
+    export W_VIDS_DAILY=$(todaily "$W_VIDS_DAILY")
+
+
+    
     export M_PAGES=$(get_month_tag "[\"book-summary\"].pages")
     export M_WPAGES=$(get_month_tag "[\"wiki-stats\"].\"content-pages\"")
     export M_PRES=$(get_month_tag "[\"book-summary\"].\"uniq-presentations\"")
@@ -208,12 +223,18 @@ gen_page_2()
         -e "s,__LOC_BASH__,${JD_LOCS[Bash]},g" \
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
+        -e "s,__NR_WEEKLY_PAGES_DAILY__,$W_PAGES_DAILY,g" \
         -e "s,__NR_WEEKLY_WPAGES__,$W_WPAGES,g" \
+        -e "s,__NR_WEEKLY_WPAGES_DAILY__,$W_WPAGES_DAILY,g" \
         -e "s,__WEEKLY_BASH_LOC__,$WLOC_BASH,g" \
+        -e "s,__WEEKLY_BASH_LOC_DAILY__,$WLOC_BASH_DAILY,g" \
         -e "s,__WEEKLY_JAVA_LOC__,$WLOC_JAVA,g" \
+        -e "s,__WEEKLY_JAVA_LOC_DAILY__,$WLOC_JAVA_DAILY,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
+        -e "s,__NR_WEEKLY_PRESENTATIONS_DAILY__,$W_PRES_DAILY,g" \
         -e "s,__WDATE__,$WEEK_AGO,g" \
         -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" \
+        -e "s,__NR_WEEKLY_VIDEOS_DAILY__,$W_VIDS_DAILY,g" \
         -e "s,__NR_MONTHLY_PAGES__,$M_PAGES,g" \
         -e "s,__NR_MONTHLY_WPAGES__,$M_WPAGES,g" \
         -e "s,__MONTHLY_BASH_LOC__,$MLOC_BASH,g" \
