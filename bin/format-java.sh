@@ -38,7 +38,25 @@ format_dir(){
     fi        
 }
 
-if [ "$1" = "--force" ] 
+usage() {
+    echo "format-java.sh OPTIONS [dir|file]"
+    echo ""
+    echo "OPTIONS"
+    echo "  --help|-h   prints this help message"
+    echo "  --force|-f  ask no questions"
+    echo ""
+    echo "If no dir or file specified: recursively find and format files in ."
+    echo "If dir specified: recursively find and format files in dir"
+    echo "If file specified: format file"
+    echo ""
+}
+
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]
+then
+    usage
+    exit 0
+fi
+if [ "$1" = "--force" ] || [ "$1" = "-f" ] 
 then
     FORCE=true
     shift
