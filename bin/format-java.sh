@@ -13,7 +13,7 @@ then
 fi
 
 format_java(){
-echo    java -jar google-java-format-1.4-all-deps.jar -i  $*
+    java -jar google-java-format-1.4-all-deps.jar -i  $*
 }
     
 
