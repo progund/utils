@@ -2,10 +2,12 @@
 
 TEMP_DIR=/tmp/junedaywiki
 DEST_DIR_BASE=/var/www/html/junedaywiki-stats
+PDF_DIR_BASE=/var/www/html/juneday-pdf
 PATH=${PATH}:.
 CURR_DIR=$(pwd)
 DOWNLOAD=true
-DEST_DIR=${DEST_DIR_BASE}/$(date '+%Y%m%d')/
+DATE=$(date '+%Y%m%d')
+DEST_DIR=${DEST_DIR_BASE}/${DATE}/
 
 mkdir -p "$DEST_DIR"
 export LOG_FILE=$DEST_DIR/juneday-stats.log
@@ -408,6 +410,12 @@ main()
     printf "\n --== %s ==-- \n" "Presentation pdfs"
     echo "$TOTAL_PRES_PAGE_COUNT"
 
+
+    #
+    # Copy all pdfs
+    #
+    mkdir -p ${PDF_DIR_BASE}/${DATE}
+    cp -r ${TEMP_DIR} ${PDF_DIR_BASE}/${DATE}
 }
 
 
