@@ -53,6 +53,7 @@ then
 fi
 
 TODAY=$(date '+%Y%m%d')
+TODAY=20170915
 WEEK_AGO=$(date --date "-7 days" '+%Y%m%d')
 
 #JD_DIR=$(find ${JD_STAT_DIR}/ -type d -name "20*" 2>/dev/null | sort | tail -1)
