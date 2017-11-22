@@ -233,7 +233,7 @@ gen_graph()
 
     day_one_html  >> $HTML_STATS
     
-    for dir in $(ls -1d 20* | sort -n)
+    for dir in $(ls -1d 20* | sort -n -r)
     do
         html_stat '<div class="rTableRow">'
 	log_to_file "---  gen_graph() -- dir: $dir"
@@ -388,6 +388,14 @@ main()
     ls -al ${STAT_FILE}
     cp ${STAT_FILE} /tmp/stat-keep.json
     ls -al ${JD_STAT_FILE}
+
+    #
+    # Copy all pdfs
+    #
+    mkdir -p ${PDF_DIR_BASE}/${DATE}
+    cp -r ${TEMP_DIR} ${PDF_DIR_BASE}/${DATE}
+
+
     return
     
     #
@@ -411,11 +419,6 @@ main()
     echo "$TOTAL_PRES_PAGE_COUNT"
 
 
-    #
-    # Copy all pdfs
-    #
-    mkdir -p ${PDF_DIR_BASE}/${DATE}
-    cp -r ${TEMP_DIR} ${PDF_DIR_BASE}/${DATE}
 }
 
 
