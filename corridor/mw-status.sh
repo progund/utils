@@ -55,11 +55,13 @@ fi
 TODAY=$(date '+%Y%m%d')
 TODAY=20170915
 WEEK_AGO=$(date --date "-7 days" '+%Y%m%d')
+MONTH_AGO=$(date --date "-30 days" '+%Y%m%d')
 
 #JD_DIR=$(find ${JD_STAT_DIR}/ -type d -name "20*" 2>/dev/null | sort | tail -1)
 JD_DIR=${JD_STAT_DIR}/$TODAY
 JD_FILE=${JD_DIR}/jd-stats.json
 JD_WEEK_AGO_FILE=${JD_STAT_DIR}/$WEEK_AGO/jd-stats.json
+JD_MONTH_AGO_FILE=${JD_STAT_DIR}/$MONTH_AGO/jd-stats.json
 
 #
 # Local etc file, used if present
@@ -105,13 +107,72 @@ get_week_tag()
     echo $(( $NOW - $THEN ))
 }
 
+get_month_tag()
+{
+    NOW=$(cat $JD_FILE | jq -r ".$1")
+    THEN=$(cat $JD_MONTH_AGO_FILE | jq -r ".$1")
+    echo $(( $NOW - $THEN ))
+}
+
+
+get_lang_loc_impl()
+{
+    export JSON_FILE=$1
+    export lang="$2"
+
+    cat $JSON_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
+}
+
+get_lang_loc()
+{
+    get_lang_loc_impl $JD_FILE "$1"
+
+#    cat $JD_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
+}
+
+get_wlang_loc()
+{
+    get_lang_loc_impl $JD_WEEK_AGO_FILE "$1"
+#    export lang=$1
+    
+#    cat $JD_WEEK_AGO_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
+}
+
+get_mlang_loc()
+{
+    get_lang_loc_impl $JD_MONTH_AGO_FILE "$1"
+#    export lang=$1
+    
+#    cat $JD_WEEK_AGO_FILE |  jq -r ."\"source-code\"[]|{\"lines-of-code\","type"}|select(.type==\"$lang\")|{\"lines-of-code\"}|.[]"
+}
+
+weekly_daily()
+{
+    echo $(echo "scale=2; $1 / 7 " | bc -l)
+}
+
+monthly_daily()
+{
+    echo $(echo "scale=2; $1 / 30 " | bc -l)
+}
 
 gen_page_2()
 {
     declare -A JD_LOCS
     TOFILE=$1
+    export LOC_JAVA=$(get_lang_loc "Java")
+    export LOC_BASH=$(get_lang_loc "Bash")
+    export WLOC_JAVA=$(get_wlang_loc "Java")
+    export WLOC_BASH=$(get_wlang_loc "Bash")
+
+
+    export MLOC_JAVA=$(get_mlang_loc "Java")
+    export MLOC_BASH=$(get_mlang_loc "Bash")
+
+    export BOOKS=$(get_tag "[\"book-summary\"].books")
     export BOOKS=$(get_tag "[\"book-summary\"].books")
     export PAGES=$(get_tag "[\"book-summary\"].pages")
+    export WPAGES=$(get_tag "[\"wiki-stats\"].\"content-pages\"")
     export UNIQ_PRES=$(get_tag "[\"book-summary\"].\"uniq-presentations\"")
     export UNIQ_PRES_PAGES=$(get_tag "[\"book-summary\"].\"uniq-presentations-pages\"")
     export UNIQ_VIDS=$(get_tag "[\"book-summary\"].\"uniq-videos\"")
@@ -128,16 +189,50 @@ gen_page_2()
         echo "LANG: { $JD_LANG | $JD_LOC | $CNT } =>  ${JD_LOCS[Java]}"
         CNT=$(( $CNT + 1 ))
     done
+    
     export W_PAGES=$(get_week_tag "[\"book-summary\"].pages")
+    export W_WPAGES=$(get_week_tag "[\"wiki-stats\"].\"content-pages\"")
     export W_PRES=$(get_week_tag "[\"book-summary\"].\"uniq-presentations\"")
     export W_VIDS=$(get_week_tag "[\"vimeo-stats\"].videos")
 
-    export LOC_JAVA=${JD_LOCS[Java]}
+    export W_PAGES_DAILY=$(weekly_daily "$W_PAGES")
+    export W_WPAGES_DAILY=$(weekly_daily "$W_WPAGES")
+    export W_PRES_DAILY=$(weekly_daily "$W_PRES")
+    export W_VIDS_DAILY=$(weekly_daily "$W_VIDS")
+
+
+
+
     
+    export M_PAGES=$(get_month_tag "[\"book-summary\"].pages")
+    export M_WPAGES=$(get_month_tag "[\"wiki-stats\"].\"content-pages\"")
+    export M_PRES=$(get_month_tag "[\"book-summary\"].\"uniq-presentations\"")
+    export M_VIDS=$(get_month_tag "[\"vimeo-stats\"].videos")
+
+    export M_PAGES_DAILY=$(monthly_daily "$M_PAGES")
+    export M_WPAGES_DAILY=$(monthly_daily "$M_WPAGES")
+    export M_PRES_DAILY=$(monthly_daily "$M_PRES")
+    export M_VIDS_DAILY=$(monthly_daily "$M_VIDS")
+    echo "java: $LOC_JAVA | $WLOC_JAVA | $MLOC_JAVA"
+    
+    export LOC_JAVA=${JD_LOCS[Java]}
+
+    export WLOC_JAVA=$(( $LOC_JAVA - $WLOC_JAVA))
+    export WLOC_BASH=$(( $LOC_BASH - $WLOC_BASH))
+    
+    export MLOC_JAVA=$(( $LOC_JAVA - $MLOC_JAVA))
+    export MLOC_BASH=$(( $LOC_BASH - $MLOC_BASH))
+
+    export WLOC_BASH_DAILY=$(weekly_daily $WLOC_BASH)
+    export WLOC_JAVA_DAILY=$(weekly_daily $WLOC_JAVA)
+    export MLOC_BASH_DAILY=$(monthly_daily $MLOC_BASH)
+    export MLOC_JAVA_DAILY=$(monthly_daily $MLOC_JAVA)
+
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
         -e "s,__NR_PRESENTATIONS__,$UNIQ_PRES,g" \
         -e "s,__NR_PRESENTATION_PAGES__,$UNIQ_PRES_PAGES,g" \
+        -e "s,__NR_PAGES__,$PAGES,g" \
         -e "s,__NR_LINKED_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_PUBLIC_REPOS__,$PUBLIC_REPOS,g" \
         -e "s,__LOC_JAVA__,${JD_LOCS[Java]},g" \
@@ -145,8 +240,32 @@ gen_page_2()
         -e "s,__LOC_BASH__,${JD_LOCS[Bash]},g" \
         -e "s,__NR_VIMEO_VIDEOS__,$UNIQ_VIDS,g" \
         -e "s,__NR_WEEKLY_PAGES__,$W_PAGES,g" \
+        -e "s,__NR_WEEKLY_PAGES_DAILY__,$W_PAGES_DAILY,g" \
+        -e "s,__NR_MONTHLY_PAGES_DAILY__,$M_PAGES_DAILY,g" \
+        -e "s,__NR_WEEKLY_WPAGES__,$W_WPAGES,g" \
+        -e "s,__NR_WEEKLY_WPAGES_DAILY__,$W_WPAGES_DAILY,g" \
+        -e "s,__NR_MONTHLY_WPAGES_DAILY__,$M_WPAGES_DAILY,g" \
+        -e "s,__WEEKLY_BASH_LOC__,$WLOC_BASH,g" \
+        -e "s,__WEEKLY_BASH_LOC_DAILY__,$WLOC_BASH_DAILY,g" \
+        -e "s,__MONTHLY_BASH_LOC_DAILY__,$MLOC_BASH_DAILY,g" \
+        -e "s,__WEEKLY_JAVA_LOC__,$WLOC_JAVA,g" \
+        -e "s,__WEEKLY_JAVA_LOC_DAILY__,$WLOC_JAVA_DAILY,g" \
+        -e "s,__MONTHLY_JAVA_LOC_DAILY__,$MLOC_JAVA_DAILY,g" \
         -e "s,__NR_WEEKLY_PRESENTATIONS__,$W_PRES,g" \
-        -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" > $TOFILE
+        -e "s,__NR_WEEKLY_PRESENTATIONS_DAILY__,$W_PRES_DAILY,g" \
+        -e "s,__NR_MONTHLY_PRESENTATIONS_DAILY__,$M_PRES_DAILY,g" \
+        -e "s,__WDATE__,$WEEK_AGO,g" \
+        -e "s,__NR_WEEKLY_VIDEOS__,$W_VIDS,g" \
+        -e "s,__NR_WEEKLY_VIDEOS_DAILY__,$W_VIDS_DAILY,g" \
+        -e "s,__NR_MONTHLY_VIDEOS_DAILY__,$M_VIDS_DAILY,g" \
+        -e "s,__NR_MONTHLY_PAGES__,$M_PAGES,g" \
+        -e "s,__NR_MONTHLY_WPAGES__,$M_WPAGES,g" \
+        -e "s,__MONTHLY_BASH_LOC__,$MLOC_BASH,g" \
+        -e "s,__MONTHLY_JAVA_LOC__,$MLOC_JAVA,g" \
+        -e "s,__NR_MONTHLY_PRESENTATIONS__,$M_PRES,g" \
+        -e "s,__MDATE__,$MONTH_AGO,g" \
+        -e "s,__NR_MONTHLY_VIDEOS__,$M_VIDS,g" \
+        > $TOFILE
 
 }
 
