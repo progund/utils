@@ -4,4 +4,4 @@
 
 
 DESKTOP_DIR=Juneday-Education
-DEST_DIR="~/Desktop/${DESKTOP_DIR}/source-code"
+DEST_DIR=~/Desktop/${DESKTOP_DIR}/source-code
