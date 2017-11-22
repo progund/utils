@@ -233,7 +233,7 @@ gen_graph()
 
     day_one_html  >> $HTML_STATS
     
-    for dir in $(ls -1d 20* | sort -n)
+    for dir in $(ls -1d 20* | sort -n -r)
     do
         html_stat '<div class="rTableRow">'
 	log_to_file "---  gen_graph() -- dir: $dir"
