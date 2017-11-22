@@ -388,6 +388,14 @@ main()
     ls -al ${STAT_FILE}
     cp ${STAT_FILE} /tmp/stat-keep.json
     ls -al ${JD_STAT_FILE}
+
+    #
+    # Copy all pdfs
+    #
+    mkdir -p ${PDF_DIR_BASE}/${DATE}
+    cp -r ${TEMP_DIR} ${PDF_DIR_BASE}/${DATE}
+
+
     return
     
     #
@@ -411,11 +419,6 @@ main()
     echo "$TOTAL_PRES_PAGE_COUNT"
 
 
-    #
-    # Copy all pdfs
-    #
-    mkdir -p ${PDF_DIR_BASE}/${DATE}
-    cp -r ${TEMP_DIR} ${PDF_DIR_BASE}/${DATE}
 }
 
 
