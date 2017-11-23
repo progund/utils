@@ -186,6 +186,28 @@ cat <<EOF
 EOF
 }
 
+day_sep_html()
+{
+cat <<EOF
+<div class="rTableRow">
+<div class="rTableCell">-</div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+<div class="rTableCell"> - </div>
+</div>
+EOF
+}
+
 
 
 gen_graph()
@@ -232,6 +254,7 @@ gen_graph()
     echo
 
     day_one_html  >> $HTML_STATS
+    day_sep_html  >> $HTML_STATS
     
     for dir in $(ls -1d 20* | sort -n -r)
     do
