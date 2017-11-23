@@ -2,10 +2,12 @@
 
 TEMP_DIR=/tmp/junedaywiki
 DEST_DIR_BASE=/var/www/html/junedaywiki-stats
+PDF_DIR_BASE=/var/www/html/juneday-pdf
 PATH=${PATH}:.
 CURR_DIR=$(pwd)
 DOWNLOAD=true
-DEST_DIR=${DEST_DIR_BASE}/$(date '+%Y%m%d')/
+DATE=$(date '+%Y%m%d')
+DEST_DIR=${DEST_DIR_BASE}/${DATE}/
 
 mkdir -p "$DEST_DIR"
 export LOG_FILE=$DEST_DIR/juneday-stats.log
@@ -254,7 +256,7 @@ gen_graph()
     day_one_html  >> $HTML_STATS
     day_sep_html  >> $HTML_STATS
     
-    for dir in $(ls -1d 20* | sort -n)
+    for dir in $(ls -1d 20* | sort -n -r)
     do
         html_stat '<div class="rTableRow">'
 	log_to_file "---  gen_graph() -- dir: $dir"
@@ -358,7 +360,7 @@ main()
         BOOK_COUNT=$(( BOOK_COUNT + 1 ))
         log_to_file "    --> handle book: $book"
         check_book $book >> $STAT_FILE
-        log_to_file "    -- handle book: $book"
+        log_to_file "    -- handle book: $book ($?)"
     done
     log_to_file "  <-- looping through books"
     echo "  ],"  >> $STAT_FILE
@@ -401,8 +403,22 @@ main()
 
     echo "    conv ${STAT_FILE} to  ${JD_STAT_FILE}"
 
+    ls -al ${STAT_FILE}
+    ls -al ${JD_STAT_FILE}
     cat ${STAT_FILE} | python -mjson.tool > ${JD_STAT_FILE}
+    echo "    conv ${STAT_FILE} to  ${JD_STAT_FILE} returned $?"
 #    jsonlint  ${JD_STAT_FILE}
+    ls -al ${STAT_FILE}
+    cp ${STAT_FILE} /tmp/stat-keep.json
+    ls -al ${JD_STAT_FILE}
+
+    #
+    # Copy all pdfs
+    #
+    mkdir -p ${PDF_DIR_BASE}/${DATE}
+    cp -r ${TEMP_DIR} ${PDF_DIR_BASE}/${DATE}
+
+
     return
     
     #
@@ -424,6 +440,7 @@ main()
     echo "Total: $TOTAL_PAGE_COUNT"
     printf "\n --== %s ==-- \n" "Presentation pdfs"
     echo "$TOTAL_PRES_PAGE_COUNT"
+
 
 }
 
