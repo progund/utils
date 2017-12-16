@@ -279,7 +279,7 @@ download_serialized()
 {
     mkdir -p $DEST_DIR
     CNT=1
-    for ser in $(${ADB} shell "$SHELL_SU_CMD ls ${DATA_PATH}/ | grep \.serialized$" 2>> $LOG_FILE)  
+    for ser in $(${ADB} shell "$SHELL_SU_CMD ls ${DATA_PATH}/ | grep \.serialized.data" 2>> $LOG_FILE)  
     do
         echo
         echo "Handling serialized file # $CNT: $ser"
