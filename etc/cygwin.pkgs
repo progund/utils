@@ -1,1 +1,1 @@
-gcc-core git cvs mercurial subversion curl wget perl-LWP-Protocol-https make emacs sqlite3 check gdb indent zip splint unzip p7zip python3 perl bc openssh rsync tree dos2unix nc w3m jq mysql tidy
+gcc-core gcc-g++ git cvs mercurial subversion curl wget perl-LWP-Protocol-https make emacs sqlite3 check gdb indent zip splint unzip p7zip python3 perl bc openssh rsync tree dos2unix nc w3m jq mysql tidy
