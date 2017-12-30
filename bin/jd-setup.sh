@@ -24,7 +24,14 @@ then
     $SUDO usermod -a -G dialout "$CUR_USER" 
 fi
 
-
+#
+# Bail out if not full install
+#
+if [ "$1" != "--full" ]
+then
+    exit 0
+fi
+    
 ${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
