@@ -43,5 +43,7 @@ then
     exit 2
 fi
 
-bin/jd-setup.sh
-
+#
+# Pass command line arguments to setup script (typically --full)
+#
+bin/jd-setup.sh $*
