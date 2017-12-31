@@ -53,7 +53,7 @@ then
 fi
 
 TODAY=$(date '+%Y%m%d')
-TODAY=20170915
+#TODAY=20170915
 WEEK_AGO=$(date --date "-7 days" '+%Y%m%d')
 MONTH_AGO=$(date --date "-30 days" '+%Y%m%d')
 
