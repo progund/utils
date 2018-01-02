@@ -10,9 +10,9 @@ Computer-introduction|https://github.com/progund/computer-introduction.git https
 
 Programming-with-C|https://github.com/progund/programming-with-c.git
 
-More-programming-with-Java|https://github.com/progund/design_patterns_introduction.git  https://github.com/progund/design_patterns_builder.git  https://github.com/progund/design-patterns-bi-directional-builder.git  https://github.com/progund/design-patterns-singleton.git  https://github.com/progund/design-patterns-oo-design-principles.git  https://github.com/progund/design-patterns-factories.git  https://github.com/progund/design-patterns-decorator.git  https://github.com/progund/design-patterns-strategy.git  https://github.com/progund/design-patterns-observer.git  https://github.com/progund/java-surprises.git
+More-programming-with-Java|https://github.com/progund/design_patterns_introduction.git  https://github.com/progund/design_patterns_builder.git  https://github.com/progund/design-patterns-bi-directional-builder.git  https://github.com/progund/design-patterns-singleton.git  https://github.com/progund/design-patterns-oo-design-principles.git  https://github.com/progund/design-patterns-factories.git  https://github.com/progund/design-patterns-decorator.git  https://github.com/progund/design-patterns-strategy.git  https://github.com/progund/design-patterns-observer.git  https://github.com/progund/java-surprises.git 
 
-
+Java-Extra-Lectures|https://github.com/progund/java-extra-lectures.git
 
 More-Bash|https://github.com/progund/bash-script.git  https://github.com/progund/bash-control-flow.git  https://github.com/progund/bash-output-and-return.git  https://github.com/progund/bash-network-tools.git
 
