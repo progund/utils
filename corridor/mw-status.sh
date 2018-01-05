@@ -53,6 +53,7 @@ then
 fi
 
 TODAY=$(date '+%Y%m%d')
+#TODAY=20170915
 WEEK_AGO=$(date --date "-7 days" '+%Y%m%d')
 MONTH_AGO=$(date --date "-30 days" '+%Y%m%d')
 
@@ -162,6 +163,7 @@ gen_page_2()
     export LOC_JAVA=$(get_lang_loc "Java")
     export LOC_BASH=$(get_lang_loc "Bash")
     export WLOC_JAVA=$(get_wlang_loc "Java")
+    export WLOC_C=$(get_wlang_loc "C")
     export WLOC_BASH=$(get_wlang_loc "Bash")
 
 
@@ -224,8 +226,11 @@ gen_page_2()
 
     export WLOC_BASH_DAILY=$(weekly_daily $WLOC_BASH)
     export WLOC_JAVA_DAILY=$(weekly_daily $WLOC_JAVA)
+    export WLOC_C_DAILY=$(weekly_daily $WLOC_C)
+
     export MLOC_BASH_DAILY=$(monthly_daily $MLOC_BASH)
     export MLOC_JAVA_DAILY=$(monthly_daily $MLOC_JAVA)
+    export MLOC_C_DAILY=$(monthly_daily $MLOC_C)
 
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
@@ -246,6 +251,8 @@ gen_page_2()
         -e "s,__NR_MONTHLY_WPAGES_DAILY__,$M_WPAGES_DAILY,g" \
         -e "s,__WEEKLY_BASH_LOC__,$WLOC_BASH,g" \
         -e "s,__WEEKLY_BASH_LOC_DAILY__,$WLOC_BASH_DAILY,g" \
+        -e "s,__WEEKLY_C_LOC__,$WLOC_C,g" \
+        -e "s,__WEEKLY_C_LOC_DAILY__,$WLOC_C_DAILY,g" \
         -e "s,__MONTHLY_BASH_LOC_DAILY__,$MLOC_BASH_DAILY,g" \
         -e "s,__WEEKLY_JAVA_LOC__,$WLOC_JAVA,g" \
         -e "s,__WEEKLY_JAVA_LOC_DAILY__,$WLOC_JAVA_DAILY,g" \
