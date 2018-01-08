@@ -38,7 +38,7 @@ source_code_stat()
     pushd git 2>/dev/null >/dev/null
     file_types_stat Java java 
     echo ","
-    file_types_stat C c h
+    file_types_stat C c cpp h
     echo ","
     file_types_stat Bash sh
     popd 2>/dev/null >/dev/null
