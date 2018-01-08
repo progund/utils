@@ -42,6 +42,7 @@ check_pres_pdfs_vids()
     PRES_CHANNEL_COUNT=0
     UNIQ_PDFS=$(echo "$PRES_PDFS"   | uniq | tr '[\n]' '[ ]')
     UNIQ_VID_COUNT=$(echo "$PRES_VIDEOS" | uniq | wc -l)
+    echo "$(date)   UNIQ_VID_COUNT: $UNIQ_VID_COUNT" >> /tmp/jd-stat-debug.txt
     UNIQ_CHANNEL_COUNT=$(echo "$PRES_CHANNELS" | uniq | wc -l )
 #    echo "VID: $PRES_VIDEOS"
  #   echo "CHA: $PRES_CHANNELS"
@@ -99,8 +100,14 @@ get_pres_and_vids()
     CHAPTER_PDF_PAGES=0
     LOCAL_PRES_VIDEO_COUNT=0
     HTML_PAGE="$1".html
-    LOCAL_PRES_PDFS=$(grep "href=" "$HTML_PAGE" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g')
+    LOCAL_PRES_PDFS=$(grep "href=" "$HTML_PAGE" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g'| uniq)
     LOCAL_PRES_VIDEOS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel)
+
+    echo "----> Find local videos in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
+    grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel >> /tmp/jd-stat-debug.txt
+    echo "<--- Find local videos in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
+    echo "$(date)   LOCAL_PRES_VIDEOS: $LOCAL_PRES_VIDEOS" >> /tmp/jd-stat-debug.txt
+
     LOCAL_PRES_CHANNELS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep  channel)
     CNT=0
     for page in $LOCAL_PRES_PDFS
@@ -160,6 +167,8 @@ get_pres_and_vids()
 
     PRES_PDFS="$PRES_PDFS $LOCAL_PRES_PDFS"
     PRES_VIDEOS="$PRES_VIDEOS $LOCAL_PRES_VIDEOS"
+    echo "$(date)   PRES_VIDEOS: $PRES_VIDEOS" >> /tmp/jd-stat-debug.txt
+    
     PRES_CHANNELS="$PRES_CHANNELS $LOCAL_PRES_CHANNELS"
 }
 

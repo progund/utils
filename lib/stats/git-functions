@@ -3,6 +3,7 @@ dload_source_code()
 {
     log_to_file "      --> dload_source_code()"
     curl -s https://api.github.com/orgs/progund/repos?per_page=400  > repos.json
+    echo "\"clone_url\": \"https://git.savannah.nongnu.org/git/searduino.git\"" >> repos.json
     REPOS=$(   grep clone_url repos.json  | sed -e 's,"clone_url": ,,' -e "s/[,\"]//g" )
     REPO_CNT=$(grep clone_url repos.json  | sed -e 's,"clone_url": ,,' -e "s/[,\"]//g"| wc -l )
 
@@ -21,7 +22,7 @@ dload_source_code()
             git pull 
             popd 2>/dev/null >/dev/null
         else
-            log_to_file "        -- cloning repo"
+            log_to_file "        -- cloning repo ${repo}"
             git clone "${repo}"
         fi
     done
