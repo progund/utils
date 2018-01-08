@@ -9,6 +9,18 @@ DOWNLOAD=true
 DATE=$(date '+%Y%m%d')
 DEST_DIR=${DEST_DIR_BASE}/${DATE}/
 
+if [ "$1" = "--test-conf" ]
+then
+    if [ ! -f $2 ]
+    then
+        echo "Missing test conf file: $2"
+        exit 2
+    fi
+    . $2
+    shift
+    shift
+fi
+
 mkdir -p "$DEST_DIR"
 export LOG_FILE=$DEST_DIR/juneday-stats.log
 
@@ -212,13 +224,14 @@ EOF
 
 gen_graph()
 {
-    REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages uniq-channels  uniq-videos podcasts"
-    REGEXPS_TAIL="videos content-pages pages "
-    SOURCE_SUFF="Java C Bash"
+#    REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages uniq-channels  uniq-videos podcasts"
+    REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages "
+    REGEXPS_TAIL="videos podcasts  "
+    SOURCE_SUFF="Java C Bash Doc"
     pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
 
     init_html > $HTML_STATS
-    
+
     log_to_file "---> gen_graph()"
 
     html_stat '<h2>Stats for Juneday</h2>'
@@ -231,15 +244,18 @@ gen_graph()
     html_stat '<div class="rTableHead"><strong>Pages</strong></div>'
     html_stat '<div class="rTableHead"><strong>Presentations</strong></div>'
     html_stat '<div class="rTableHead"><strong>Presentation pages</strong></div>'
-    html_stat '<div class="rTableHead"><strong>Vimeo channels</strong></div>'
-    html_stat '<div class="rTableHead"><strong>Vimeo videos</strong></div>'
-    html_stat '<div class="rTableHead"><strong>Podcasts</strong></div>'
+#    html_stat '<div class="rTableHead"><strong>Vimeo channels</strong></div>'
+#    html_stat '<div class="rTableHead"><strong>Vimeo videos</strong></div>'
     html_stat '<div class="rTableHead"><strong>Videos</strong></div>'
-    html_stat '<div class="rTableHead"><strong>Content pages</strong></div>'
-    html_stat '<div class="rTableHead"><strong>Actual pages</strong></div>'
-    html_stat '<div class="rTableHead"><strong>LOC (Java)</strong></div>'
-    html_stat '<div class="rTableHead"><strong>LOC (C)</strong></div>'
-    html_stat '<div class="rTableHead"><strong>LOC (Bash)</strong></div>'
+    html_stat '<div class="rTableHead"><strong>Podcasts</strong></div>'
+#    html_stat '<div class="rTableHead"><strong>Content pages</strong></div>'
+ #   html_stat '<div class="rTableHead"><strong>Actual pages</strong></div>'
+
+    for i in $SOURCE_SUFF
+    do
+        html_stat '<div class="rTableHead"><strong>LOC ('$i')</strong></div>'
+    done
+    html_stat '<div class="rTableHead"><strong>LOC (Total)</strong></div>'
     for re in $REGEXPS_HEAD  $REGEXPS_TAIL
     do
     #    html_stat '<div class="rTableHead"><strong>'$re'</strong></div>'
@@ -250,6 +266,7 @@ gen_graph()
      #   html_stat '<div class="rTableHead"><strong>'$i'</strong></div>'
 	printf "%s " "$i" 
     done
+    printf "Total" 
     html_stat '</div>'
     echo
 
@@ -277,12 +294,16 @@ gen_graph()
 	#
 	# src code
 	#
+        SOURCE_TOT=0
 	for i in $SOURCE_SUFF
 	do
 	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "`
+            if [ "$SOURCE_STUFF" = "" ]  || [ "$SOURCE_STUFF" = " " ]  ; then SOURCE_STUFF=0; fi
             html_stat '<div class="rTableCell">'$SOURCE_STUFF'</div>'
 	    echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "
+            SOURCE_TOT=$(( $SOURCE_TOT + $SOURCE_STUFF ))
 	done
+        html_stat '<div class="rTableCell">'$SOURCE_TOT'</div>'
 	echo
         html_stat '</div>'
     done
@@ -336,12 +357,13 @@ main()
 	exit 0
     fi
 
+
     if [ "$GRAPH" = "true" ]
     then
 	gen_graph > ${DEST_DIR_BASE}/jd-stat.data
 	exit 0
     fi
-
+    
     debug "BOOKS: $BOOKS"
     PRES_PDFS=""
     TOTAL_PAGE_COUNT=0
