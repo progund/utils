@@ -13,9 +13,15 @@ then
     shift
 fi
 
+
+
 LECTURE=$1
-INTRO=$(dirname $0)/../video/jd-intro-3.webm
-OUTRO=$(dirname $0)/../video/jd-outro-3.webm
+FILENAME=$(basename $LECTURE)
+SUFF="${FILENAME##*.}"
+
+
+INTRO=$(dirname $0)/../../utils-blobs/video/jd-intro-2560-1600.$SUFF
+OUTRO=$(dirname $0)/../../utils-blobs/video/jd-outro-2560-1600.$SUFF
 
 exit_if_missing()
 {
