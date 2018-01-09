@@ -41,6 +41,8 @@ source_code_stat()
     file_types_stat C c cpp h
     echo ","
     file_types_stat Bash sh
+    echo ","
+    file_types_stat Doc texi md latex
     popd 2>/dev/null >/dev/null
     echo "  ]"
 }
