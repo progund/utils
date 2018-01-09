@@ -6,14 +6,14 @@ SETTINGS=$SCRIPTDIR/../../../utils-private/etc/vimeo.rc
 if [ ! -f ${SETTINGS} ]
 then
     echo "Can't find file $SETTINGS"
-    echo "Trying to clone repo"
+#    echo "Trying to clone repo"
 #    git clone git@github.com:progund/utils-private.git
 #    RET=$?
 #    cd -
 #    if [ $RET -ne 0 ] || [ ! -f ${SETTINGS} ]
 #    then
         echo "failed, bailing out"
-#        exit 1
+        exit 1
 #    fi
 fi
 . ${SETTINGS}
