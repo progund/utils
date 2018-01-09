@@ -19,8 +19,14 @@ dload_source_code()
         then
             log_to_file "        -- updating repo"
             pushd $GIT_DIR 2>/dev/null >/dev/null
-            git pull 
+            git pull
+            RET=$?
             popd 2>/dev/null >/dev/null
+            if [ $RET -ne 0 ]
+            then
+                rm -fr $GIT_DIR
+                git clone "${repo}"
+            fi              
         else
             log_to_file "        -- cloning repo ${repo}"
             git clone "${repo}"
