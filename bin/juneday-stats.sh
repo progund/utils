@@ -189,8 +189,6 @@ cat <<EOF
 <div class="rTableCell"> 0 </div>
 <div class="rTableCell"> 0 </div>
 <div class="rTableCell"> 0 </div>
-<div class="rTableCell"> 0 </div>
-<div class="rTableCell"> 0 </div>
 <div class="rTableCell">0 </div>
 <div class="rTableCell">0 </div>
 <div class="rTableCell">0 </div>
@@ -214,8 +212,6 @@ cat <<EOF
 <div class="rTableCell"> - </div>
 <div class="rTableCell"> - </div>
 <div class="rTableCell"> - </div>
-<div class="rTableCell"> - </div>
-<div class="rTableCell"> - </div>
 </div>
 EOF
 }
@@ -226,8 +222,8 @@ gen_graph()
 {
 #    REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages uniq-channels  uniq-videos podcasts"
     REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages "
-    REGEXPS_TAIL="videos podcasts  "
-    SOURCE_SUFF="Java C Bash Doc"
+    REGEXPS_TAIL="videos podcasts   "
+    SOURCE_SUFF="Java C Bash"
     pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
 
     init_html > $HTML_STATS
@@ -255,7 +251,8 @@ gen_graph()
     do
         html_stat '<div class="rTableHead"><strong>LOC ('$i')</strong></div>'
     done
-    html_stat '<div class="rTableHead"><strong>LOC (Total)</strong></div>'
+    html_stat '<div class="rTableHead"><strong>LOC (Source Code Total)</strong></div>'
+    html_stat '<div class="rTableHead"><strong>LOC (Doc)</strong></div>'
     for re in $REGEXPS_HEAD  $REGEXPS_TAIL
     do
     #    html_stat '<div class="rTableHead"><strong>'$re'</strong></div>'
@@ -297,13 +294,17 @@ gen_graph()
         SOURCE_TOT=0
 	for i in $SOURCE_SUFF
 	do
-	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "`
-            if [ "$SOURCE_STUFF" = "" ]  || [ "$SOURCE_STUFF" = " " ]  ; then SOURCE_STUFF=0; fi
+	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g' -e 's,[ ]*,,g')" "`
+	    
+            if [ "$SOURCE_STUFF" = "" ]  ; then SOURCE_STUFF=0; fi
             html_stat '<div class="rTableCell">'$SOURCE_STUFF'</div>'
 	    echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g')" "
             SOURCE_TOT=$(( $SOURCE_TOT + $SOURCE_STUFF ))
 	done
         html_stat '<div class="rTableCell">'$SOURCE_TOT'</div>'
+	DOC_LOC=`echo -n $(grep -B 2 "\"type\": \"Doc" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g'  -e 's,[ ]*,,g')" "`
+        if [ "$DOC_LOC" = "" ]  || [ "$DOC_LOC" = " " ]  ; then DOC_LOC=0; fi
+        html_stat '<div class="rTableCell">'$DOC_LOC'</div>'
 	echo
         html_stat '</div>'
     done
