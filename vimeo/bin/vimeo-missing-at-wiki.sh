@@ -1,6 +1,8 @@
 #!/bin/bash
 
 SCRIPTDIR=$(dirname $0)
+
+# file with Beaerer defined in variable VIMEO_BEARER
 SETTINGS=$SCRIPTDIR/../../../utils-private/etc/vimeo.rc
 if [ ! -f ${SETTINGS} ]
 then
