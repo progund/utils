@@ -162,10 +162,11 @@ debug "=========================="
 
 if [ -f $DEST_DIR$VIDEO_TITLE.mp4 ]
 then
-    echo "$DEST_DIR$VIDEO_TITLE.mp4 already downloaded, skipping"
+    echo "    already downloaded, skipping ($DEST_DIR$VIDEO_TITLE.mp4)"
     exit 1
 else
-    curl $DLOAD_URL -o $DEST_DIR$VIDEO_TITLE.mp4
+    echo "    downloading $DLOAD_URL" 
+    curl -s $DLOAD_URL -o $DEST_DIR$VIDEO_TITLE.mp4
     RET=$?
     if [ $RET -ne 0 ]
     then
