@@ -1,4 +1,31 @@
 
+dload_repo()
+{
+    repo=$1
+    GIT_DIR=$(echo "$repo" | sed -e 's,https://github.com/progund/,,g' -e 's,.git,,g')
+    log_to_file "        -- dir: $GIT_DIR"
+    if [ -d $GIT_DIR ]
+    then
+        log_to_file "        -- updating repo ($repo)"
+        pushd $GIT_DIR 2>/dev/null >/dev/null
+        git pull
+        RET=$?
+        log_to_file "        -- pulling repo ${repo}: $RET"
+        popd 2>/dev/null >/dev/null
+        if [ $RET -ne 0 ]
+        then
+            log_to_file "        -- failed pulling repo ($repo), removing and cloning"
+            rm -fr $GIT_DIR
+            git clone "${repo}"
+            log_to_file "        -- cloning repo ${repo}: $?"
+        fi              
+    else
+        log_to_file "        -- cloning repo ${repo}"
+        git clone "${repo}"
+        log_to_file "        -- cloning repo ${repo}: $?"
+    fi
+}
+
 dload_source_code()
 {
     log_to_file "      --> dload_source_code()"
@@ -13,18 +40,7 @@ dload_source_code()
     log_to_file "        --> looping through repos"
     for repo in $REPOS
     do
-        GIT_DIR=$(echo "$repo" | sed -e 's,https://github.com/progund/,,g' -e 's,.git,,g')
-        log_to_file "        -- dir: $GIT_DIR"
-        if [ -d $GIT_DIR ]
-        then
-            log_to_file "        -- updating repo"
-            pushd $GIT_DIR 2>/dev/null >/dev/null
-            git pull 
-            popd 2>/dev/null >/dev/null
-        else
-            log_to_file "        -- cloning repo ${repo}"
-            git clone "${repo}"
-        fi
+        dload_repo $repo
     done
     log_to_file "        <-- looping through repos"
 
