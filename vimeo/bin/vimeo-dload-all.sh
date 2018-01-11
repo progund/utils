@@ -10,7 +10,13 @@ then
 fi
 . ${SETTINGS}
 
+#
+# default values
+#
 DEST_DIR=$(pwd)/vimeo/channels
+DLOAD_LIMIT=-1
+
+
 usage()
 {
     PROG_NAME=$(basename $0)
@@ -40,7 +46,7 @@ usage()
     echo ""
     echo "EXAMPLES"
     echo ""
-    echo "  $PROG_NAME --limit 10 --destination-dir /var/ww/html"
+    echo "  $PROG_NAME --limit-download 10 --destination-dir /var/ww/html"
     echo "     downloads at most 10 videos to /var/ww/html"
     echo "     put this in a cron job and you'll have a backup (some day)"
     echo "     of all your videos"
@@ -55,7 +61,7 @@ do
             exit 0
             ;;
         "--limit-download"|"-l")
-            DLOAD_CNT=$2
+            DLOAD_LIMIT=$2
             shift
             ;;
         "--destination-dir"|"-d")
@@ -91,6 +97,8 @@ dload()
 }
 
 VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
+DLOAD_CNT=0
+
 for channel in $VIMEO_CHANNELS
 do
     echo "Channel: $channel"
@@ -113,15 +121,27 @@ do
     for vid in $VIDEOS
     do
         echo "  Video: $vid"
+
+        if [ $DLOAD_LIMIT -gt 0 ] && [ $DLOAD_CNT -ge $DLOAD_LIMIT ]
+        then
+            echo "Maximum number of downloads ($DLOAD_LIMIT) reached. Leaving, thanks for now"
+            exit 0
+        fi
+
+
         video=$(echo $vid | sed 's,/, ,g' | awk ' { print $2} ')
 #        echo "VIDEOS | $vid | $video"
         mkdir -p $CH_DIR/videos/$video
         dload https://api.vimeo.com/videos/$video > $CH_DIR/videos/$video/video.json
         $SCRIPTDIR/vimeo-dload.sh --destination-dir $CH_DIR/videos/$video/ $video
         RET=$?
-        if [ $RET -eq 1 ]
+        if [ $RET -eq 0 ]
         then
-            echo " "
+            DLOAD_CNT=$(( $DLOAD_CNT + 1 ))            
+            echo "    $DLOAD_CNT downloaded so far, limit: $DLOAD_LIMIT"
+        elif [ $RET -eq 1 ]
+        then
+            echo "    already downloaded, not counting as download"
         elif [ $RET -ne 0 ]
         then
             echo "*** ERROR ***"
@@ -131,6 +151,4 @@ do
         fi
     done
 
-    #remove this
-    exit
 done
