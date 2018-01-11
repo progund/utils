@@ -93,7 +93,7 @@ dload()
 VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
 for channel in $VIMEO_CHANNELS
 do
-#    echo $channel
+    echo "Channel: $channel"
     CH_DIR=$DEST_DIR/$channel
     mkdir -p $CH_DIR/videos
 
@@ -112,6 +112,7 @@ do
  #   echo "VIDEOS: $VIDEOS"
     for vid in $VIDEOS
     do
+        echo "  Video: $vid"
         video=$(echo $vid | sed 's,/, ,g' | awk ' { print $2} ')
 #        echo "VIDEOS | $vid | $video"
         mkdir -p $CH_DIR/videos/$video
