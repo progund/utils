@@ -177,7 +177,7 @@ else
         echo "Return value: $RET"
         exit 2
     fi
-    echo "$VIDEO_TITLE.mp4"
+    echo "      $VIDEO_TITLE.mp4 to $DEST_DIR"
 fi
 
 exit 0
