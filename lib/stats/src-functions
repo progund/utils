@@ -40,9 +40,11 @@ source_code_stat()
     echo ","
     file_types_stat C c cpp h
     echo ","
-    file_types_stat Bash sh
+    file_types_stat Bash sh ac
     echo ","
     file_types_stat Doc texi md latex
+    echo ","
+    file_types_stat Build mk gradle am
     popd 2>/dev/null >/dev/null
     echo "  ]"
 }
