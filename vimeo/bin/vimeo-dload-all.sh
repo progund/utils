@@ -9,7 +9,79 @@ then
         echo "failed, bailing out"
 fi
 . ${SETTINGS}
+
+#
+# default values
+#
 DEST_DIR=$(pwd)/vimeo/channels
+DLOAD_LIMIT=-1
+
+
+usage()
+{
+    PROG_NAME=$(basename $0)
+    echo "NAME"
+    echo "  $PROG_NAME - downloads (all or limited) videos from Vimeo"
+    echo ""
+    echo "SYNOPSIS"
+    echo "  $PROG_NAME [OPTION]"
+    echo ""
+    echo "DESCRIPTION"
+    echo "  This script finds all the channels at vimeo.   "
+    echo "  For each found channel:" 
+    echo "    * download meta information about the channel"
+    echo "    * find the videos (in the channel"
+    echo "    * For each found video:"
+    echo "      * download meta information"
+    echo "      * download (if not already downloaded) video"
+    echo ""
+    echo "OPTION"
+    echo ""
+    echo "  --destination-dir <dir>, -d <dir> - stores files in <dir>"
+    echo ""
+    echo "  --limit <nr>, -l <nr> - limits the number of downloads to nr."
+    echo "            in case vimeo prevents many downloads. Only successful download"
+    echo "            counts so running this script with a limit (>0) will eventually"
+    echo "            end up having downloaded all videos."
+    echo ""
+    echo "EXAMPLES"
+    echo ""
+    echo "  $PROG_NAME --limit-download 10 --destination-dir /var/ww/html"
+    echo "     downloads at most 10 videos to /var/ww/html"
+    echo "     put this in a cron job and you'll have a backup (some day)"
+    echo "     of all your videos"
+    echo ""
+}
+
+while [ "$1" != "" ]
+do
+    case "$1" in
+        "--help"|"-h")
+            usage
+            exit 0
+            ;;
+        "--limit-download"|"-l")
+            DLOAD_LIMIT=$2
+            shift
+            ;;
+        "--destination-dir"|"-d")
+            DEST_DIR=$2
+            shift
+            mkdir -p $DEST_DIR
+            if [ $? -ne 0 ]
+            then
+                echo "Failed creating dir \"$DEST_DIR\""
+                exit 1
+            fi
+            ;;
+        *)
+            echo "SYNTAX ERROR ($1)"
+            exit 2
+            ;;
+    esac
+    shift
+done
+
 
 dload()
 {
@@ -25,9 +97,11 @@ dload()
 }
 
 VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
+DLOAD_CNT=0
+
 for channel in $VIMEO_CHANNELS
 do
-#    echo $channel
+    echo "Channel: $channel"
     CH_DIR=$DEST_DIR/$channel
     mkdir -p $CH_DIR/videos
 
@@ -46,13 +120,29 @@ do
  #   echo "VIDEOS: $VIDEOS"
     for vid in $VIDEOS
     do
+        echo "  Video: $vid"
+
+        if [ $DLOAD_LIMIT -gt 0 ] && [ $DLOAD_CNT -ge $DLOAD_LIMIT ]
+        then
+            echo "Maximum number of downloads ($DLOAD_LIMIT) reached. Leaving, thanks for now"
+            exit 0
+        fi
+
+
         video=$(echo $vid | sed 's,/, ,g' | awk ' { print $2} ')
 #        echo "VIDEOS | $vid | $video"
         mkdir -p $CH_DIR/videos/$video
         dload https://api.vimeo.com/videos/$video > $CH_DIR/videos/$video/video.json
         $SCRIPTDIR/vimeo-dload.sh --destination-dir $CH_DIR/videos/$video/ $video
         RET=$?
-        if [ $RET -ne 0 ]
+        if [ $RET -eq 0 ]
+        then
+            DLOAD_CNT=$(( $DLOAD_CNT + 1 ))            
+            echo "    $DLOAD_CNT downloaded so far, limit: $DLOAD_LIMIT"
+        elif [ $RET -eq 1 ]
+        then
+            echo "    already downloaded, not counting as download"
+        elif [ $RET -ne 0 ]
         then
             echo "*** ERROR ***"
             echo "Failed downlod video: $video"
@@ -61,6 +151,4 @@ do
         fi
     done
 
-    #remove this
-    exit
 done

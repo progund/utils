@@ -17,13 +17,16 @@ dload_repo()
             log_to_file "        -- failed pulling repo ($repo), removing and cloning"
             rm -fr $GIT_DIR
             git clone "${repo}"
+            RET=$?
             log_to_file "        -- cloning repo ${repo}: $?"
         fi              
     else
         log_to_file "        -- cloning repo ${repo}"
         git clone "${repo}"
+            RET=$?
         log_to_file "        -- cloning repo ${repo}: $?"
     fi
+    return $RET
 }
 
 dload_source_code()
