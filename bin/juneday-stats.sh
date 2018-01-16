@@ -192,6 +192,7 @@ cat <<EOF
 <div class="rTableCell">0 </div>
 <div class="rTableCell">0 </div>
 <div class="rTableCell">0 </div>
+<div class="rTableCell">0 </div>
 </div>
 EOF
 }
@@ -201,6 +202,7 @@ day_sep_html()
 cat <<EOF
 <div class="rTableRow">
 <div class="rTableCell">-</div>
+<div class="rTableCell"> - </div>
 <div class="rTableCell"> - </div>
 <div class="rTableCell"> - </div>
 <div class="rTableCell"> - </div>
@@ -223,7 +225,7 @@ gen_graph()
 #    REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages uniq-channels  uniq-videos podcasts"
     REGEXPS_HEAD="books pages uniq-presentations uniq-presentations-pages "
     REGEXPS_TAIL="videos podcasts   "
-    SOURCE_SUFF="Java C Bash"
+    SOURCE_SUFF="Java C Bash Build"
     pushd ${DEST_DIR_BASE} 2>/dev/null >/dev/null 
 
     init_html > $HTML_STATS
@@ -294,7 +296,7 @@ gen_graph()
         SOURCE_TOT=0
 	for i in $SOURCE_SUFF
 	do
-	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g' -e 's,[ ]*,,g')" "`
+	    SOURCE_STUFF=`echo -n $(grep -B 2 "\"type\": \"$i" "$dir/jd-stats.json" | head -1 | awk ' {  print $2 } ' | sed -e 's/"//g' -e 's/,//g' -e 's,[ ]*,,g')""`
 	    
             if [ "$SOURCE_STUFF" = "" ]  ; then SOURCE_STUFF=0; fi
             html_stat '<div class="rTableCell">'$SOURCE_STUFF'</div>'
