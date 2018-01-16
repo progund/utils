@@ -118,10 +118,17 @@ dload_sw_cygwin_cygwin()
     APT_CYG=$(which apt-cyg 2>/dev/null)
     if [ "$APT_CYG" = ""  ]
     then
-        echo "*** Uh oh, apt-cyg ($APT_CYG) seems to be missing or malfunctioning *** "
-        echo "***  This means, we're not able to download   ***"
-        echo "*** the  required software packages to cygwin ***"
-        echo "*** Contact the idiots at juneday ***"
+        echo "*****************************************************"
+        echo "*** Uh oh, apt-cyg ($APT_CYG) seems to be missing ***"
+        echo "*** or malfunctioning                             ***"
+        echo "*** This means, we're not able to download        ***"
+        echo "*** the  required software packages to cygwin     ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "*** ... contact the idiots at juneday             ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
         exit 3
     fi
 
@@ -129,19 +136,46 @@ dload_sw_cygwin_cygwin()
     RET=$?
     if [ "$RET" != "0"  ]
     then
-        echo "*** Uh oh, apt-cyg ($APT_CYG) seems to be of zero size *** "
-        echo "***  This means, we're not able to download   ***"
-        echo "*** the  required software packages to cygwin ***"
-        echo "*** Contact the idiots at juneday ***"
+        echo "*****************************************************"
+        echo "*** Uh oh, apt-cyg seems to be of zero size       *** "
+        echo "*** This means, we're not able to download        ***"
+        echo "*** the  required software packages to cygwin     ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***  1. remove the file /usr/bin/ap-cyg. In Bash: ***"
+        echo "***          rm /usr/bin/apt-cyg                   ***"
+        echo "***     And the re-run the script                 ***"
+        echo "***                                               ***"
+        echo "***  2. if this is the second time you're reading ***"
+        echo "***     you're most likely pissed of so,          ***"
+        echo "***     calm down and                             ***"
+        echo "***     ... contact the idiots at juneday         ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
         exit 4
     fi
     
     apt-cyg --version
     if [ $? -ne 0 ]
     then
-        echo "*** Uh oh, failed downloading or installing apt-cyg *** "
-        echo "***  This means, we're not able to download   ***"
-        echo "*** the  required software packages to cygwin ***"
+        echo "*****************************************************"
+        echo "*** Uh oh, apt-cyg seems to be of malfunctioning  *** "
+        echo "*** This means, we're not able to download        ***"
+        echo "*** the  required software packages to cygwin     ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***  1. remove the file /usr/bin/ap-cyg. In Bash: ***"
+        echo "***          rm /usr/bin/apt-cyg                   ***"
+        echo "***     And the re-run the script                 ***"
+        echo "***                                               ***"
+        echo "***  2. if this is the second time you're reading ***"
+        echo "***     you're most likely pissed of so,          ***"
+        echo "***     calm down and                             ***"
+        echo "***     ... contact the idiots at juneday         ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
         echo "*** Contact the idiots at juneday ***"
         exit 5
     fi
