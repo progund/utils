@@ -130,9 +130,9 @@ MacOS_MacOS_set_install_tool()
     elif [ $PORT_RET -eq 0 ]
     then
         MAC_INSTALL_TOOL=/opt/local/bin/port
-        MAC_INSTALL_INSTALL="/opt/local/bin/port install"
-        MAC_INSTALL_UPDATE="/opt/local/bin/port selfupdate"
-        MAC_INSTALL_UPGRADE="/opt/local/bin/port upgrade"
+        MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
+        MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
+        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
     elif [ $BREW_RET -eq 0 ]
     then
         MAC_INSTALL_TOOL=/usr/local/bin/brew
@@ -143,7 +143,7 @@ MacOS_MacOS_set_install_tool()
 dload_sw_MacOS_MacOS()
 {
     MacOS_MacOS_set_install_tool
-    sudo $MAC_INSTALL_INSTALL $PKGS
+    $MAC_INSTALL_INSTALL $PKGS
     exit_on_error "$?" "Failed installing software using $MAC_INSTALL_INSTALL $PKGS"
     
 }
@@ -156,9 +156,9 @@ install_atom_MacOS_MacOS()
 update_os_MacOS_MacOS()
 {
     MacOS_MacOS_set_install_tool
-    sudo $MAC_INSTALL_UPDATE
+    $MAC_INSTALL_UPDATE
     exit_on_error "$?" "Failed updating install tool using $MAC_INSTALL_UPDATE"
-    sudo $MAC_INSTALL_UPGRADE
+    $MAC_INSTALL_UPGRADE
     exit_on_error "$?" "Failed upgrading using $MAC_INSTALL_UPGRADE"
 }
 
