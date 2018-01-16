@@ -111,7 +111,7 @@ dload_sw_cygwin_cygwin()
     if [ $? -ne 0 ]
     then
         echo "Downloading apt-cyg"
-        lynx -source https://rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+        curl -LJO https://rawgit.com/transcode-open/apt-cyg/master/apt-cyg -o apt-cyg
         install apt-cyg /bin
     fi
 
