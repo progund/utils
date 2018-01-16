@@ -88,18 +88,79 @@ update_os_linux_fedora()
     exit_on_error "$?" "Failed upgrading system packages"
 }
 
+MacOS_MacOS_set_install_tool()
+{
+    if [ "$MAC_INSTALL_TOOL" != "" ]
+    then
+        return 
+    fi
+
+    /opt/local/bin/port version 2>/dev/null >/dev/null
+    PORT_RET=$?
+
+    /usr/local/bin/brew --version  2>/dev/null >/dev/null
+    BREW_RET=$?
+
+    if [ $PORT_RET -ne 0 ] && [ $BREW_RET -ne 0 ]
+    then
+        echo "*****************************************************"
+        echo "*** Uh oh, neither Homebrew or MacPorts seems     *** "
+        echo "*** to be installed. This means, we're not able   ***"
+        echo "*** to download the required software packages    ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***    Install HomeBrew or MacPorts and try again ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
+        exit 6
+    elif [ $PORT_RET -eq 0 ] && [ $BREW_RET -eq 0 ]
+    then
+        echo "*****************************************************"
+        echo "***    Both Homebrew or MacPorts seems            ***"
+        echo "*** to be installed. We're choosing to use:       ***"
+        echo "***                                               ***"
+        echo "***                HomeBrew                       ***"
+        echo "***                                               ***" 
+        echo "*****************************************************"
+        sleep 2 
+        MAC_INSTALL_TOOL=/usr/local/bin/brew
+        MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
+    elif [ $PORT_RET -eq 0 ]
+    then
+        MAC_INSTALL_TOOL=/opt/local/bin/port
+        MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
+        MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
+        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
+    elif [ $BREW_RET -eq 0 ]
+    then
+        MAC_INSTALL_TOOL=/usr/local/bin/brew
+    fi
+    
+}
+
 dload_sw_MacOS_MacOS()
 {
-    sudo port install $PKGS
+    MacOS_MacOS_set_install_tool
+    $MAC_INSTALL_INSTALL $PKGS
+    exit_on_error "$?" "Failed installing software using $MAC_INSTALL_INSTALL $PKGS"
+    
 }
 
 install_atom_MacOS_MacOS()
 {
+    MacOS_MacOS_set_install_tool
     echo "Not installing Atom for MacOS"
 }
 update_os_MacOS_MacOS()
 {
-    sudo port upgrade outdated
+    MacOS_MacOS_set_install_tool
+    $MAC_INSTALL_UPDATE
+    exit_on_error "$?" "Failed updating install tool using $MAC_INSTALL_UPDATE"
+    $MAC_INSTALL_UPGRADE
+    exit_on_error "$?" "Failed upgrading using $MAC_INSTALL_UPGRADE"
 }
 
 
@@ -111,19 +172,78 @@ dload_sw_cygwin_cygwin()
     if [ $? -ne 0 ]
     then
         echo "Downloading apt-cyg"
-        lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+        curl -LJO https://rawgit.com/transcode-open/apt-cyg/master/apt-cyg -o apt-cyg
         install apt-cyg /bin
     fi
 
+    APT_CYG=$(which apt-cyg 2>/dev/null)
+    if [ "$APT_CYG" = ""  ]
+    then
+        echo "*****************************************************"
+        echo "*** Uh oh, apt-cyg ($APT_CYG) seems to be missing ***"
+        echo "*** or malfunctioning                             ***"
+        echo "*** This means, we're not able to download        ***"
+        echo "*** the required software packages to cygwin      ***"
+        echo "***                                               ***" 
+        echo "***  1. remove the file /usr/bin/ap-cyg. In Bash: ***"
+        echo "***          rm /usr/bin/apt-cyg                  ***"
+        echo "***     And the re-run the script                 ***"
+        echo "***                                               ***"
+        echo "***  2. if this is the second time you're reading ***"
+        echo "***     you're most likely pissed of so,          ***"
+        echo "***     calm down and                             ***"
+        echo "***     ... contact the idiots at juneday         ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
+        exit 3
+    fi
+
+    test -s $APT_CYG
+    RET=$?
+    if [ "$RET" != "0"  ]
+    then
+        echo "*****************************************************"
+        echo "*** Uh oh, apt-cyg seems to be of zero size       *** "
+        echo "*** This means, we're not able to download        ***"
+        echo "*** the required software packages to cygwin      ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***  1. remove the file /usr/bin/ap-cyg. In Bash: ***"
+        echo "***          rm /usr/bin/apt-cyg                  ***"
+        echo "***     And the re-run the script                 ***"
+        echo "***                                               ***"
+        echo "***  2. if this is the second time you're reading ***"
+        echo "***     you're most likely pissed of so,          ***"
+        echo "***     calm down and                             ***"
+        echo "***     ... contact the idiots at juneday         ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
+        exit 4
+    fi
+    
     apt-cyg --version
     if [ $? -ne 0 ]
     then
-        echo "*** Uh oh, failed downloading or installing apt-cyg *** "
-        echo "***  This means, we're not able to download   ***"
-        echo "*** the  required software packages to cygwin ***"
-        echo "...sleeping 5 secs, hoping you will see this message"
-        sleep 5
-        return
+        echo "*****************************************************"
+        echo "*** Uh oh, apt-cyg seems to be of malfunctioning  *** "
+        echo "*** This means, we're not able to download        ***"
+        echo "*** the required software packages to cygwin      ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***  1. remove the file /usr/bin/ap-cyg. In Bash: ***"
+        echo "***          rm /usr/bin/apt-cyg                  ***"
+        echo "***     And the re-run the script                 ***"
+        echo "***                                               ***"
+        echo "***  2. if this is the second time you're reading ***"
+        echo "***     you're most likely pissed of so,          ***"
+        echo "***     calm down and                             ***"
+        echo "***     ... contact the idiots at juneday         ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
+        echo "*** Contact the idiots at juneday ***"
+        exit 5
     fi
 
     apt-cyg install $PKGS
