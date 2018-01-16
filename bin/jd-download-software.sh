@@ -122,7 +122,7 @@ dload_sw_cygwin_cygwin()
         echo "***  This means, we're not able to download   ***"
         echo "*** the  required software packages to cygwin ***"
         echo "*** Contact the idiots at juneday ***"
-        exit 4
+        exit 3
     fi
 
     test -s $APT_CYG
