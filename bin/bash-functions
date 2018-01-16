@@ -133,7 +133,7 @@ determine_os()
         echo ""
         echo "This might be a very good and useful software, "
         echo "possibly better than cygwin when it comes to git"
-        echo "but this is not something Juenday supports. "
+        echo "but this is not something Juneday supports. "
         echo ""
         echo "Your software"
         echo " * OS:    $(uname)"
