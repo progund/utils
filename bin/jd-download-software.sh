@@ -123,6 +123,7 @@ MacOS_MacOS_set_install_tool()
         echo "***                HomeBrew                       ***"
         echo "***                                               ***" 
         echo "*****************************************************"
+        sleep 2 
         MAC_INSTALL_TOOL=/usr/local/bin/brew
         MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
         MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
