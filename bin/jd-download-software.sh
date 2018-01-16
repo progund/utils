@@ -115,6 +115,15 @@ dload_sw_cygwin_cygwin()
         install apt-cyg /bin
     fi
 
+    if [ -s $(which apt-cyg) ]
+    then
+        echo "*** Uh oh, apt-cyg seems to be of zero size *** "
+        echo "***  This means, we're not able to download   ***"
+        echo "*** the  required software packages to cygwin ***"
+        echo "*** Contact the idiots at juneday ***"
+        exit 4
+    fi
+    
     apt-cyg --version
     if [ $? -ne 0 ]
     then
