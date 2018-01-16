@@ -13,10 +13,15 @@ usage()
     echo "DESCRIPTION"
     echo "  Download a video, given a vimeo video id, with the best available"
     echo "  quality. The name of the resulting file is taken from the video "
-    echo "  title at vimeo"
+    echo "  title at vimeo. Download is NOT done if the video already has been downloaded."
     echo ""
     echo "OPTIONS"
     echo "  --help, -h - prints this help text"
+    echo ""
+    echo "RETURN VALUES"
+    echo "  0 - success"
+    echo "  1 - video already downloaded"
+    echo "  2 or higher - indicates error... sorry no more info :("
     echo ""
     echo "ENVIRONMENT VARIABLES"
     echo "  DEBUG - enables debug printout"
@@ -157,9 +162,11 @@ debug "=========================="
 
 if [ -f $DEST_DIR$VIDEO_TITLE.mp4 ]
 then
-    echo "$DEST_DIR$VIDEO_TITLE.mp4 already downloaded, skipping"
+    echo "    already downloaded, skipping ($DEST_DIR$VIDEO_TITLE.mp4)"
+    exit 1
 else
-    curl $DLOAD_URL -o $DEST_DIR$VIDEO_TITLE.mp4
+    echo "    downloading $DLOAD_URL" 
+    curl -s $DLOAD_URL -o $DEST_DIR$VIDEO_TITLE.mp4
     RET=$?
     if [ $RET -ne 0 ]
     then
@@ -170,7 +177,7 @@ else
         echo "Return value: $RET"
         exit 2
     fi
-    echo "$VIDEO_TITLE.mp4"
+    echo "      $VIDEO_TITLE.mp4 to $DEST_DIR"
 fi
 
 exit 0
