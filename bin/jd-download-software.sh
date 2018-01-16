@@ -115,7 +115,7 @@ dload_sw_cygwin_cygwin()
         install apt-cyg /bin
     fi
 
-    APT_CYG=$(which apt-cyg)
+    APT_CYG=$(which apt-cyg 2>/dev/null)
     test -s $APT_CYG
     RET=$?
     if [ "$RET" != "0"  ]
