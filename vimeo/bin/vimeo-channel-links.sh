@@ -29,7 +29,8 @@ fi
 
 i=0;
 TMP_FILE=/tmp/vimeo-channels-$USER.json
-curl -H "Authorization: Bearer ${VIMEO_BEARER}" "https://api.vimeo.com/channels/$CHANNEL/videos?fields=name,link" -s \
+CH_NAME=$(curl -H A"uthorization: Bearer ${VIMEO_BEARER}" "https://api.vimeo.com/channels/$CHANNEL?fields=name"| jq '.name' | sed 's,",,g')
+curl -H "Authorization: Bearer ${VIMEO_BEARER}" "https://api.vimeo.com/channels/$CHANNEL/videos?fields=name,link&sort=manual" -s \
     | jq -r '.data[]|.name,.link' \
          > ${TMP_FILE}
 
@@ -40,6 +41,7 @@ cat ${TMP_FILE} | while read apa; \
        fi; \
     done
 
+echo "[https://vimeo.com/channels/$CHANNEL $CH_NAME]"
 cat ${TMP_FILE} | while read apa; \
     do if [[ $((i++%2==1)) -eq 0 ]]; \
        then name=$apa; \

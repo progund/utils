@@ -125,8 +125,34 @@ determine_os()
     then
         OS=cygwin
         DIST=cygwin
+    elif [ "$(uname  | grep -ic MINGW)" != "0" ]
+    then
+        echo "UNSUPPORTED OS, bash or ... well, something else"
+        echo "Based on the output from the command uname"
+        echo "we're guessing you're running \"Git Bash\""
+        echo ""
+        echo "This might be a very good and useful software, "
+        echo "possibly better than cygwin when it comes to git"
+        echo "but this is not something Juneday supports. "
+        echo ""
+        echo "Your software"
+        echo " * OS:    $(uname)"
+        echo " * bash:  $0"
+        echo ""
+        echo ""
+        echo "WHAT TO DO NOW?"
+        echo ""
+        echo "Install cygwin:"
+        echo " * follow the instructions on our wiki, at:"
+        echo ""
+        echo "         wiki.juneday.se"
+        echo ""
+        exit 1
     else
-        echo "UNSUPPORTED OS"
+        echo "UNSUPPORTED OS, bash or ... well, something else"
+        echo "Your software"
+        echo " * OS:    $(uname)"
+        echo " * bash:  $0"
         exit 1
     fi
 }

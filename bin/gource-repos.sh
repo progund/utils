@@ -58,6 +58,11 @@ get_repos()
             break
         fi
         dload_repo $repo
+        if [ $RET -ne 0 ]
+        then
+            echo "Failed cloing or pulling repo $repo"
+            exit 1
+        fi
     done
     popd
 }
@@ -80,7 +85,7 @@ log_repos()
             fi
             GLOG_DIR=gource-logs
             mkdir -p $GLOG_DIR
-            # inner 
+            # repo loop
             rm -f $GLOG_DIR/$year-$month-all.txt
             for dir in $(find ./* -type d -prune | sed 's,./,,g' | grep -v $GLOG_DIR)
             do
@@ -94,11 +99,10 @@ log_repos()
                     cat  $GIT_LOG  >> $GLOG_DIR/$year-$month-all.txt
                 fi
             done
-            echo
+            echo "repos done $year-$month"
+            cat  $GLOG_DIR/$year-$month-*.txt | sort -nk 1 >  $GLOG_DIR/$year-$month-all.txt
         done
     done
-    mv $GLOG_DIR/$year-$month-all.txt $GLOG_DIR/$year-$month-all-2.txt
-    sort $GLOG_DIR/$year-$month-all-2.txt >  $GLOG_DIR/$year-$month-all.txt
 
     popd
 }
@@ -126,15 +130,13 @@ make_video()
                echo "log file ($GIT_LOG_FOR_VIDEO) has zero size, ignoring"
                return
            fi
-           gource \
+           xvfb-run -a -s '-screen 0 1360x720x16' gource \
                $GIT_LOG_FOR_VIDEO $GOURCE_OPTIONS -o - \
                | ffmpeg $FFMPEG_OPTIONS $RESULTING_VIDEO
            echo "CREATED $RESULTING_VIDEO in $(pwd)"
-           exit
-           DEBUG=true
     else
         echo "log ($GIT_LOG_FOR_VIDEO) to video ($RESULTING_VIDEO): NOT PRODUCING"
-        echo "DEBUG: $DEBUG | RESULTING_VIDEO: $RESULTING_VIDEO"
+        echo "DEBUG: $DEBUG | $RESULTING_VIDEO: $RESULTING_VIDEO"
         if [ "$DEBUG" != "true" ] ; then echo FIRST; fi
         if [ -f $RESULTING_VIDEO ]; then echo LATTER; fi
     fi
@@ -167,7 +169,7 @@ do_gource_date()
     done
 
     mv $GIT_LOG_ALL $GIT_LOG_ALL.tmp
-    cat $GIT_LOG_ALL.tmp | sort > $GIT_LOG_ALL
+    cat $GIT_LOG_ALL.tmp | sort -nk 1 > $GIT_LOG_ALL
     VIDEO=$GOURCE_DEST_DIR/juneday-$START_DATE-$STOP_DATE.mp4
     make_video $(pwd)/$GIT_LOG_ALL $VIDEO
 
@@ -188,20 +190,16 @@ do_gource()
                 break
             fi
             mkdir -p $GLOG_DIR
-            # inner
-            for dir in $(find ./* -type d -prune | sed 's,./,,g' | grep -v $GLOG_DIR)
-            do
-                VIDEO=$GOURCE_DEST_DIR/juneday-$year-$month.mp4
-                if [ -f $GLOG_DIR/$year-$month-all.txt ]
-                then
-                    echo "Creating $VIDEO: make_video $(pwd)/$GLOG_DIR/$year-$month-all.txt $VIDEO"
-                    pwd
-#                    ls -al $(pwd)/$GLOG_DIR/$year-$month-all.txt
-                    make_video $(pwd)/$GLOG_DIR/$year-$month-all.txt $VIDEO
-                else
-                    echo " -------------- NOT DOING VIDEO FROM $GLOG_DIR/$year-$month-all.txt"
-                fi
-            done
+            VIDEO=$GOURCE_DEST_DIR/juneday-$year-$month.mp4
+            if [ -f $GLOG_DIR/$year-$month-all.txt ]
+            then
+                echo "Creating $VIDEO: make_video $(pwd)/$GLOG_DIR/$year-$month-all.txt $VIDEO"
+                pwd
+                #                    ls -al $(pwd)/$GLOG_DIR/$year-$month-all.txt
+                make_video $(pwd)/$GLOG_DIR/$year-$month-all.txt $VIDEO
+            else
+                echo " -------------- NOT DOING VIDEO FROM $GLOG_DIR/$year-$month-all.txt"
+            fi
         done
     done
     popd
