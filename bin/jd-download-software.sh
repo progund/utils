@@ -116,6 +116,15 @@ dload_sw_cygwin_cygwin()
     fi
 
     APT_CYG=$(which apt-cyg 2>/dev/null)
+    if [ "$APT_CYG" = ""  ]
+    then
+        echo "*** Uh oh, apt-cyg ($APT_CYG) seems to be missing *** "
+        echo "***  This means, we're not able to download   ***"
+        echo "*** the  required software packages to cygwin ***"
+        echo "*** Contact the idiots at juneday ***"
+        exit 4
+    fi
+
     test -s $APT_CYG
     RET=$?
     if [ "$RET" != "0"  ]
