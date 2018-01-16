@@ -121,9 +121,8 @@ dload_sw_cygwin_cygwin()
         echo "*** Uh oh, failed downloading or installing apt-cyg *** "
         echo "***  This means, we're not able to download   ***"
         echo "*** the  required software packages to cygwin ***"
-        echo "...sleeping 5 secs, hoping you will see this message"
-        sleep 5
-        return
+        echo "*** Contact the idiots at juneday ***"
+        exit 5
     fi
 
     apt-cyg install $PKGS
