@@ -127,10 +127,6 @@ MacOS_MacOS_set_install_tool()
         MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
         MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
         MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
-        MAC_INSTALL_TOOL=/opt/local/bin/port
-        MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
-        MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
-        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
     elif [ $PORT_RET -eq 0 ]
     then
         MAC_INSTALL_TOOL=/opt/local/bin/port
