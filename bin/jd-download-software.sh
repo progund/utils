@@ -123,7 +123,6 @@ MacOS_MacOS_set_install_tool()
         echo "***                HomeBrew                       ***"
         echo "***                                               ***" 
         echo "*****************************************************"
-        sleep 2 
         MAC_INSTALL_TOOL=Homebrew
         MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
         MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
@@ -136,7 +135,10 @@ MacOS_MacOS_set_install_tool()
         MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
     elif [ $BREW_RET -eq 0 ]
     then
-        MAC_INSTALL_TOOL=/usr/local/bin/brew
+        MAC_INSTALL_TOOL=Homebrew
+        MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
     fi
     
 }
@@ -254,6 +256,8 @@ update_os_cygwin_cygwin()
 {
     echo "Not updating for Cygwin"
 }
+
+
 if [ "$OS" = "MacOS" ]
 then
     MacOS_MacOS_set_install_tool
