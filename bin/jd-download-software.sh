@@ -266,6 +266,8 @@ then
         echo "***  Information about your system  ***"
         echo "***    OS:   $OS  "
         echo "***    DIST: $DIST "
+        echo "***    pwd:  $(pwd)"
+        echo "***    date: $(date)"
         echo "****************************************"
         exit 12
     fi
@@ -280,7 +282,10 @@ then
     echo "***  Information about your system  ***"
     echo "***    OS:       $OS  "
     echo "***    DIST:     $DIST "
+    echo "***    pwd:  $(pwd)"
+    echo "***    date: $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
+    
     echo "****************************************"
 fi
 PKGS=$(cat "${PKG_LIST_FILE}")
