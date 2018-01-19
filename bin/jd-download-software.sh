@@ -273,16 +273,15 @@ else
     PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
 fi
 if [ ! -f ${PKG_LIST_FILE} ]
-   echo ".... can't find a list of files "
-   echo "for your package manager"
-   echo "****************************************"
-   echo "***  Information about your system  ***"
-   echo "***    OS:       $OS  "
-   echo "***    DIST:     $DIST "
-   echo "***    PKG file: ${PKG_LIST_FILE}"
-   echo "****************************************"
 then
-
+    echo ".... can't find a list of files "
+    echo "for your package manager"
+    echo "****************************************"
+    echo "***  Information about your system  ***"
+    echo "***    OS:       $OS  "
+    echo "***    DIST:     $DIST "
+    echo "***    PKG file: ${PKG_LIST_FILE}"
+    echo "****************************************"
 fi
 PKGS=$(cat "${PKG_LIST_FILE}")
 
