@@ -155,6 +155,13 @@ determine_os()
         echo " * bash:  $0"
         exit 1
     fi
+
+    echo "****************************************"
+    echo "***  Information about your system  ***"
+    echo "***    OS:   $OS  ***"
+    echo "***    DIST: $DIST  ***"
+    echo "****************************************"
+    sleep 2
 }
 
 ask_question()
