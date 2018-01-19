@@ -158,8 +158,9 @@ determine_os()
 
     echo "****************************************"
     echo "***  Information about your system  ***"
-    echo "***    OS:   $OS  ***"
-    echo "***    DIST: $DIST  ***"
+    echo "***    OS:   $OS  "
+    echo "***    DIST: $DIST "
+    echo "***    LOG:  $LOG_FILE
     echo "****************************************"
     sleep 2
 }
