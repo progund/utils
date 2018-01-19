@@ -289,8 +289,8 @@ then
     echo "***    pwd:  $(pwd)"
     echo "***    date: $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
-    
     echo "****************************************"
+    exit 18
 fi
 PKGS=$(cat "${PKG_LIST_FILE}")
 
