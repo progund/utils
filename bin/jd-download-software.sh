@@ -261,6 +261,13 @@ update_os_cygwin_cygwin()
 PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
 PKGS=$(cat "${PKG_LIST_FILE}")
 
+echo "****************************************"
+echo "***  Information about your system  ***"
+echo "***    OS:   $OS  "
+echo "***    DIST: $DIST "
+echo "***    LOG:  $LOG_FILE"
+echo "****************************************"
+sleep 2
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
