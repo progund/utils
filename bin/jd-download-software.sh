@@ -310,4 +310,13 @@ sleep 2
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
+echo ""
+echo ""
+echo "Juneday script $0 has finished installing/updating"
+echo "... take a deep breath and start hacking"
+echo ""
+echo "Happy hacking!"
+exit 0
+
+
 
