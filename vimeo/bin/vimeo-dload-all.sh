@@ -6,15 +6,16 @@ SETTINGS=$SCRIPTDIR/../../../utils-private/etc/vimeo.rc
 if [ ! -f ${SETTINGS} ]
 then
     echo "Can't find file $SETTINGS"
-        echo "failed, bailing out"
+    echo "failed, bailing out"
+else
+    . ${SETTINGS}
 fi
-. ${SETTINGS}
 
 #
 # default values
 #
 DEST_DIR=$(pwd)/vimeo/channels
-DLOAD_LIMIT=-1
+DLOAD_LIMIT=20
 
 
 usage()
