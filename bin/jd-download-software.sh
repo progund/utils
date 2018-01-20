@@ -162,6 +162,7 @@ update_os_MacOS_MacOS()
     RET=$?
     if [ "$MAC_INSTALL_TOOL" = "MacPorts" ]
     then
+        echo "dicard exit code check on since MAC_INSTALL_TOOL ($MAC_INSTALL_TOOL) = MacPorts"
         # For some reason MacPorts upgrade outdated exits with 1 if no packages were updated ...
     else
         exit_on_error "$RET" "Failed upgrading using $MAC_INSTALL_UPGRADE"
