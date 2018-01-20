@@ -312,10 +312,16 @@ install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
 echo ""
 echo ""
+echo ""
+echo ""
+echo ""
+echo ""
 echo "Juneday script $0 has finished installing/updating"
-echo "... take a deep breath and start hacking"
+echo "All went well, so take a deep breath and start hacking"
+echo ""
 echo ""
 echo "Happy hacking!"
+echo ""
 exit 0
 
 
