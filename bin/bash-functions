@@ -155,6 +155,7 @@ determine_os()
         echo " * bash:  $0"
         exit 1
     fi
+
 }
 
 ask_question()

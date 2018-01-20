@@ -123,27 +123,28 @@ MacOS_MacOS_set_install_tool()
         echo "***                HomeBrew                       ***"
         echo "***                                               ***" 
         echo "*****************************************************"
-        sleep 2 
-        MAC_INSTALL_TOOL=/usr/local/bin/brew
+        MAC_INSTALL_TOOL=Homebrew
         MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
         MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
         MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
     elif [ $PORT_RET -eq 0 ]
     then
-        MAC_INSTALL_TOOL=/opt/local/bin/port
+        MAC_INSTALL_TOOL=MacPorts
         MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
         MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
         MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
     elif [ $BREW_RET -eq 0 ]
     then
-        MAC_INSTALL_TOOL=/usr/local/bin/brew
+        MAC_INSTALL_TOOL=Homebrew
+        MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
     fi
     
 }
 
 dload_sw_MacOS_MacOS()
 {
-    MacOS_MacOS_set_install_tool
     $MAC_INSTALL_INSTALL $PKGS
     exit_on_error "$?" "Failed installing software using $MAC_INSTALL_INSTALL $PKGS"
     
@@ -151,12 +152,10 @@ dload_sw_MacOS_MacOS()
 
 install_atom_MacOS_MacOS()
 {
-    MacOS_MacOS_set_install_tool
     echo "Not installing Atom for MacOS"
 }
 update_os_MacOS_MacOS()
 {
-    MacOS_MacOS_set_install_tool
     $MAC_INSTALL_UPDATE
     exit_on_error "$?" "Failed updating install tool using $MAC_INSTALL_UPDATE"
     $MAC_INSTALL_UPGRADE
@@ -258,9 +257,49 @@ update_os_cygwin_cygwin()
     echo "Not updating for Cygwin"
 }
 
-PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
+
+if [ "$OS" = "MacOS" ]
+then
+    MacOS_MacOS_set_install_tool
+    if [ "$MAC_INSTALL_TOOL" != "" ]
+    then
+        PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+    else
+        echo ".... can't find a package manager"
+        echo "****************************************"
+        echo "***  Information about your system  ***"
+        echo "***    OS:   $OS  "
+        echo "***    DIST: $DIST "
+        echo "***    pwd:  $(pwd)"
+        echo "***    date: $(date)"
+        echo "****************************************"
+        exit 12
+    fi
+else
+    PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
+fi
+if [ ! -f ${PKG_LIST_FILE} ]
+then
+    echo ".... can't find a list of files "
+    echo "for your package manager"
+    echo "****************************************"
+    echo "***  Information about your system  ***"
+    echo "***    OS:       $OS  "
+    echo "***    DIST:     $DIST "
+    echo "***    pwd:  $(pwd)"
+    echo "***    date: $(date)"
+    echo "***    PKG file: ${PKG_LIST_FILE}"
+    echo "****************************************"
+    exit 18
+fi
 PKGS=$(cat "${PKG_LIST_FILE}")
 
+echo "****************************************"
+echo "***  Information about your system  ***"
+echo "***    OS:   $OS  "
+echo "***    DIST: $DIST "
+echo "****************************************"
+sleep 2
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
