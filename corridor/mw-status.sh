@@ -167,6 +167,7 @@ gen_page_2()
     export WLOC_BASH=$(get_wlang_loc "Bash")
 
 
+    export MLOC_C=$(get_mlang_loc "C")
     export MLOC_JAVA=$(get_mlang_loc "Java")
     export MLOC_BASH=$(get_mlang_loc "Bash")
 
@@ -231,7 +232,7 @@ gen_page_2()
     export MLOC_BASH_DAILY=$(monthly_daily $MLOC_BASH)
     export MLOC_JAVA_DAILY=$(monthly_daily $MLOC_JAVA)
     export MLOC_C_DAILY=$(monthly_daily $MLOC_C)
-
+    
     cat $THIS_SCRIPT_DIR/2.tmpl | sed \
         -e "s,__NR_WIKI_BOOKS__,$BOOKS,g" \
         -e "s,__NR_PRESENTATIONS__,$UNIQ_PRES,g" \
