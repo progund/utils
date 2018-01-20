@@ -132,7 +132,7 @@ MacOS_MacOS_set_install_tool()
         MAC_INSTALL_TOOL=MacPorts
         MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
         MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
-        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
+        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade outdated"
     elif [ $BREW_RET -eq 0 ]
     then
         MAC_INSTALL_TOOL=Homebrew
