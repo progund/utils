@@ -159,7 +159,13 @@ update_os_MacOS_MacOS()
     $MAC_INSTALL_UPDATE
     exit_on_error "$?" "Failed updating install tool using $MAC_INSTALL_UPDATE"
     $MAC_INSTALL_UPGRADE
-    exit_on_error "$?" "Failed upgrading using $MAC_INSTALL_UPGRADE"
+    RET=$?
+    if [ "$MAC_INSTALL_TOOL" = "MacPorts" ]
+    then
+        # For some reason MacPorts upgrade outdated exits with 1 if no packages were updated ...
+    else
+        exit_on_error "$RET" "Failed upgrading using $MAC_INSTALL_UPGRADE"
+    fi
 }
 
 
