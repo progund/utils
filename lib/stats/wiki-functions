@@ -1,3 +1,4 @@
+TOTAL_PAGE_COUNT=0
 
 get_html()
 {
@@ -27,11 +28,11 @@ get_wiki_page()
             htmldoc "http://wiki.juneday.se/mediawiki/index.php?title=${page}" --outfile ${page}.pdf 2>/dev/null >/dev/null
             log_to_file "htmldoc returned $?"
         fi
-        PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
+        NR_PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
         echo "        \"pages\": \"$PAGES\","
         PDFS="$PDFS ${page}.pdf"
     done
-    TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + PAGES ))
+    TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + NR_PAGES ))
 
 }
 
