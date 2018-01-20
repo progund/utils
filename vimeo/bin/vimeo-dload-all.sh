@@ -6,15 +6,16 @@ SETTINGS=$SCRIPTDIR/../../../utils-private/etc/vimeo.rc
 if [ ! -f ${SETTINGS} ]
 then
     echo "Can't find file $SETTINGS"
-        echo "failed, bailing out"
+    echo "failed, bailing out"
+else
+    . ${SETTINGS}
 fi
-. ${SETTINGS}
 
 #
 # default values
 #
 DEST_DIR=$(pwd)/vimeo/channels
-DLOAD_LIMIT=-1
+DLOAD_LIMIT=20
 
 
 usage()
@@ -44,12 +45,23 @@ usage()
     echo "            counts so running this script with a limit (>0) will eventually"
     echo "            end up having downloaded all videos."
     echo ""
+    echo "  --loop -  loops until all videos are downloaded. Beware, "
+    echo "            vimeo will kick you out. Make sure to use a huge delay."
+    echo ""
+    echo "  --delay <sec> - delay (in seconds) between downloads when looping."
+    echo "            Defaults to 0"
+    echo ""
+    echo ""
     echo "EXAMPLES"
     echo ""
     echo "  $PROG_NAME --limit-download 10 --destination-dir /var/ww/html"
     echo "     downloads at most 10 videos to /var/ww/html"
     echo "     put this in a cron job and you'll have a backup (some day)"
     echo "     of all your videos"
+    echo ""
+    echo "  $PROG_NAME --limit-download 10 --destination-dir /var/ww/html --loop --delay 3600"
+    echo "     downloads at most 10 videos to /var/ww/html,"
+    echo "     sleep for one hour and continues until done downloading all videos."
     echo ""
 }
 
@@ -63,6 +75,13 @@ do
         "--limit-download"|"-l")
             DLOAD_LIMIT=$2
             shift
+            ;;
+        "--delay")
+            DELAY=$2
+            shift
+            ;;
+        "--loop")
+            LOOP=true
             ;;
         "--destination-dir"|"-d")
             DEST_DIR=$2
@@ -152,8 +171,15 @@ do
 
         if [ $DLOAD_LIMIT -gt 0 ] && [ $DLOAD_CNT -ge $DLOAD_LIMIT ]
         then
-            echo "Maximum number of downloads ($DLOAD_LIMIT) reached. Leaving, thanks for now"
-            exit 0
+            echo "Maximum number of downloads ($DLOAD_LIMIT) reached."
+            if [ "$LOOP" = "true" ]
+            then
+                echo " ... will sleep for $DELAY seconds"
+                sleep $DELAY
+            else
+                echo "Leaving, thanks for now"
+                exit 0
+            fi
         fi
 
         video=$(echo $vid | sed 's,/, ,g' | awk ' { print $2} ')
