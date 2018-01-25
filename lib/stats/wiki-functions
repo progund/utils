@@ -29,7 +29,7 @@ get_wiki_page()
             log_to_file "htmldoc returned $?"
         fi
         NR_PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
-        echo "        \"pages\": \"$PAGES\","
+        echo "        \"pages\": \"$NR_PAGES\","
         PDFS="$PDFS ${page}.pdf"
     done
     TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + NR_PAGES ))
