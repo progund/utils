@@ -132,7 +132,7 @@ MacOS_MacOS_set_install_tool()
         MAC_INSTALL_TOOL=MacPorts
         MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
         MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
-        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade"
+        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade outdated"
     elif [ $BREW_RET -eq 0 ]
     then
         MAC_INSTALL_TOOL=Homebrew
@@ -159,7 +159,14 @@ update_os_MacOS_MacOS()
     $MAC_INSTALL_UPDATE
     exit_on_error "$?" "Failed updating install tool using $MAC_INSTALL_UPDATE"
     $MAC_INSTALL_UPGRADE
-    exit_on_error "$?" "Failed upgrading using $MAC_INSTALL_UPGRADE"
+    RET=$?
+    if [ "$MAC_INSTALL_TOOL" = "MacPorts" ]
+    then
+        echo "dicard exit code check on since MAC_INSTALL_TOOL ($MAC_INSTALL_TOOL) = MacPorts"
+        # For some reason MacPorts upgrade outdated exits with 1 if no packages were updated ...
+    else
+        exit_on_error "$RET" "Failed upgrading using $MAC_INSTALL_UPGRADE"
+    fi
 }
 
 
@@ -303,4 +310,26 @@ sleep 2
 dload_sw_${OS}_${DIST}
 install_atom_${OS}_${DIST}
 update_os_${OS}_${DIST}
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "Juneday script $0 has finished installing/updating"
+echo "All went well, so take a deep breath and start hacking"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+echo "             Happy hacking!"
+echo ""
+echo ""
+echo ""
+echo ""
+echo ""
+exit 0
+
+
 
