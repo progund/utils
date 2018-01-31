@@ -6,15 +6,16 @@ SETTINGS=$SCRIPTDIR/../../../utils-private/etc/vimeo.rc
 if [ ! -f ${SETTINGS} ]
 then
     echo "Can't find file $SETTINGS"
-        echo "failed, bailing out"
+    echo "failed, bailing out"
+else
+    . ${SETTINGS}
 fi
-. ${SETTINGS}
 
 #
 # default values
 #
 DEST_DIR=$(pwd)/vimeo/channels
-DLOAD_LIMIT=-1
+DLOAD_LIMIT=20
 
 
 usage()
@@ -114,8 +115,23 @@ dload()
     fi
 }
 
-VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
+#VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
 DLOAD_CNT=0
+# set this to NOT 0 to force download. otherwise trying to use stored JSON files
+FORCE_DOWNLOAD=0
+CHANNEL_JSON=$DEST_DIR/channel.json
+
+if [ ! -f $CHANNELS_JSON ] || [ $FORCE_DOWNLOAD -gt 0 ]
+then
+    echo "    downloading... channels json"
+    curl -H "Authorization: Bearer ${VIMEO_BEARER}" "https://api.vimeo.com/me/channels?per_page=100&fields=uri,name&page=1" > $CHANNELS_JSON
+fi
+
+VIMEO_CHANNELS=$(cat $CHANNELS_JSON \
+        | grep "uri" \
+        | awk '{ print $2 }' \
+        | sed -e 's,",,g' -e 's,\/channels\/,,g' -e 's/,//g'\
+        | grep -v "per_page=")
 
 for channel in $VIMEO_CHANNELS
 do
@@ -123,9 +139,22 @@ do
     CH_DIR=$DEST_DIR/$channel
     mkdir -p $CH_DIR/videos
 
-    dload "https://api.vimeo.com/channels/$channel" > $CH_DIR/channel.json
-    dload "https://api.vimeo.com/channels/$channel/videos" > $CH_DIR/videos.json
-    VIDEOS=$(cat $CH_DIR/videos.json | jq '.data[].uri' | sed 's,",,g')
+    CHANNEL_JSON=$CH_DIR/channel.json
+    
+    if [ ! -f $CHANNEL_JSON ] || [ $FORCE_DOWNLOAD -gt 0 ]
+    then
+        echo "    downloading... channel json"
+        dload "https://api.vimeo.com/channels/$channel" > $CHANNEL_JSON
+    fi
+
+    VIDEOS_JSON=$CH_DIR/videos.json
+    if [ ! -f $VIDEOS_JSON ] || [ $FORCE_DOWNLOAD -gt 0 ]
+    then
+        echo "    downloading... videos json"
+        dload "https://api.vimeo.com/channels/$channel/videos" > $VIDEOS_JSON
+    fi
+
+    VIDEOS=$(cat $VIDEOS_JSON | jq '.data[].uri' | sed 's,",,g')
     RET=$?
     if [ $RET -ne 0 ]
     then
@@ -153,15 +182,14 @@ do
             fi
         fi
 
-
         video=$(echo $vid | sed 's,/, ,g' | awk ' { print $2} ')
 #        echo "VIDEOS | $vid | $video"
         mkdir -p $CH_DIR/videos/$video
-        dload https://api.vimeo.com/videos/$video > $CH_DIR/videos/$video/video.json
         $SCRIPTDIR/vimeo-dload.sh --destination-dir $CH_DIR/videos/$video/ $video
         RET=$?
         if [ $RET -eq 0 ]
         then
+            dload https://api.vimeo.com/videos/$video > $CH_DIR/videos/$video/video.json
             DLOAD_CNT=$(( $DLOAD_CNT + 1 ))            
             echo "    $DLOAD_CNT downloaded so far, limit: $DLOAD_LIMIT"
         elif [ $RET -eq 1 ]
