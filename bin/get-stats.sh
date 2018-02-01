@@ -119,8 +119,8 @@ FRESH_FILE=$(find $JD_STAT_JSON -cmin +10 | wc -l)
 verbose "Settings"
 verbose " * date:       $DATE"
 verbose " * force:      $FORCE"
-verbose " * big json:   $JD_STAT_JSON | $(ls -al $JD_STAT_JSON | wc -l)"
-verbose " * daily json: $DAILY_JSON  | $(ls -al $DAILY_JSON | wc -l)"
+verbose " * big json:   $JD_STAT_JSON | $(ls -al $JD_STAT_JSON 2>/dev/null | wc -l)"
+verbose " * daily json: $DAILY_JSON  | $(ls -al $DAILY_JSON 2>/dev/null | wc -l)"
 verbose " * fresh file: $FRESH_FILE"
 if [ ! -f $JD_STAT_JSON ] || [ "$FORCE" = "true" ] || [ $FRESH_FILE -ne 0 ]
 then
@@ -180,7 +180,7 @@ videos_sum()
 
 wiki_sum()
 {
-    cat $DAILY_JSON | jq '."wiki-stats"|."content-pages",."uploaded-files"'| while (true) ; do
+    cat $DAILY_JSON | jq '."wiki-stats"|."content-pages",."uploaded-files"'| sed 's,",,g' | while (true) ; do
         read CPAGES
         read UFILES
         if [ "$CPAGES" = "" ] ; then break ; fi
