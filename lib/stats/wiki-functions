@@ -28,11 +28,19 @@ get_wiki_page()
             htmldoc "http://wiki.juneday.se/mediawiki/index.php?title=${page}" --outfile ${page}.pdf 2>/dev/null >/dev/null
             log_to_file "htmldoc returned $?"
         fi
-        NR_PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
-        echo "        \"pages\": \"$NR_PAGES\","
+        PAGE_PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
+	log_to_file "PAGE_PAGES: $PAGE_PAGES"
+	log_to_file "WIKIBOOK_NR_PAGES:   $WIKIBOOK_NR_PAGES"
+	WIKIBOOK_NR_PAGES=$(( WIKIBOOK_NR_PAGES + PAGE_PAGES ))
+	log_to_file "WIKIBOOK_NR_PAGES:   $WIKIBOOK_NR_PAGES"
+        echo "        \"pages\": \"$PAGE_PAGES\","
         PDFS="$PDFS ${page}.pdf"
+	log_to_file "page $page: $PAGE_PAGES / books (so far): $WIKIBOOK_NR_PAGES"
+#[2018-01-31 13:31:48] page Chapter:Exceptions_-_Creating_your_own: 10 / books (so far): 956
+
     done
     TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + NR_PAGES ))
+    log_to_file "pages in book $book: $NR_PAGES"
 
 }
 
@@ -85,7 +93,7 @@ check_pdfs()
         echo "      {"
         echo "        \"name\": \"$pdf\", "
         PAGES=$(pdfinfo $pdf 2>/dev/null | grep Pages | awk ' { print $2}')
-        echo "        \"pages\": \"$PAGES\", "
+        echo "        \"pages\": \"$PAGES\""
         PAGE_COUNT=$(( PAGE_COUNT + PAGES ))
         echo "      },"
     done
@@ -102,14 +110,14 @@ get_pres_and_vids()
     LOCAL_PRES_VIDEO_COUNT=0
     HTML_PAGE="$1".html
     LOCAL_PRES_PDFS=$(grep "href=" "$HTML_PAGE" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g'| uniq)
-    LOCAL_PRES_VIDEOS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel)
+    LOCAL_PRES_VIDEOS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel | sort -u)
 
     echo "----> Find local videos in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
     grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel >> /tmp/jd-stat-debug.txt
     echo "<--- Find local videos in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
     echo "$(date)   LOCAL_PRES_VIDEOS: $LOCAL_PRES_VIDEOS" >> /tmp/jd-stat-debug.txt
 
-    LOCAL_PRES_CHANNELS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep  channel)
+    LOCAL_PRES_CHANNELS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep  channel | sort -u)
     CNT=0
     for page in $LOCAL_PRES_PDFS
     do
@@ -191,6 +199,7 @@ check_book()
     PDFS=""
     echo "    \"chapters\": ["
     local COUNT=0
+    WIKIBOOK_NR_PAGES=0
     for page in ${!PAGES}
     do
         if [ $COUNT -ne 0 ]
@@ -207,14 +216,22 @@ check_book()
         get_pres_and_vids "$page"
         echo "        } "
     done
-    echo "  ]"
+    echo "  ],"
+    echo "    \"pages\": \"$WIKIBOOK_NR_PAGES\""
     echo " }"
     
 #    echo "   \"presentations-pages-total\": \"$PRES_PAGE_COUNT\""
 
 #    check_pdfs $book
-
+    PAGE_COUNT=$WIKIBOOK_NR_PAGES
     PAGE_COUNTS["${book}"]="${PAGE_COUNT}"
+
+    log_to_file "Books (so far"
+    for i in "${!PAGE_COUNTS[@]}"
+    do
+	log_to_file " * $i / ${PAGE_COUNTS[$i]}"
+    done
+    
     TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + PAGE_COUNT ))
     rm -f  "${TITLE_NO_BLANKS}.pdf"
     pdfmerge $PDFS "${TITLE_NO_BLANKS}.pdf" 2>/dev/null >/dev/null
