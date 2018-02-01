@@ -156,8 +156,8 @@ books()
     cat $DAILY_JSON  | jq '.books[]|.title,.pages' | sed 's,",,g' | while (true) ; do
         read NAME
         read PAGES
-        if [ "$NAME" = "" ] ; then break ; fi
-        printf " %-40s %.d\n" "$NAME:" $PAGES
+        if [ "$PAGES" = "" ] ; then break ; fi
+        printf " %-30s %5d\n" "$NAME:" $PAGES
     done
 }
 
@@ -167,15 +167,24 @@ books_sum()
         read BOOKS
         read PAGES
         if [ "$BOOKS" = "" ] ; then break ; fi
-        printf " Number of books: %d\n" $BOOKS 
-        printf " Number of pages in books: %d\n" $PAGES
+        printf " Number of books:          %5d\n" $BOOKS 
+        printf " Number of pages in books: %5d\n" $PAGES
     done
 }
 
 videos_sum()
 {
-    echo -n " Videos at Vimeo: "
+    echo -n " Linked videos (Vimeo): "
     cat $DAILY_JSON  | jq '."vimeo-stats".videos' | sed 's,",,g'
+
+    $(dirname $0)/../vimeo/bin/vimeo-durations.sh \
+        | grep -A 3 -e "Total duration" -e "Videos" \
+        | sed -e 's,^, ,g'  \
+        | grep -v "Videos[ ]*$" \
+        | grep -v "\-\-" \
+        | sed 's,Videos:,Total nr of videos:   ,g' \
+        | grep -v "^[ ]*$" \
+        | sed 's,^[ ]*\([0-9][0-9]*\) , * \1 ,g'
 }
 
 wiki_sum()
@@ -214,16 +223,16 @@ pod_sum()
 
 title "Date: $DATE"
 
-if [ "$BOOKS" = "true" ]
-then
-    title "Books"
-    books
-fi
-
 if [ "$BOOKS_SUM" = "true" ]
 then
     title "Books summary"
     books_sum
+fi
+
+if [ "$BOOKS" = "true" ]
+then
+    title "Books"
+    books
 fi
 
 if [ "$VIDEOS_SUM" = "true" ]
