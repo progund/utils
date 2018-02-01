@@ -136,7 +136,7 @@ fi
 if [ ! -f $DAILY_JSON ]
 then
     verbose "Creating daily JSON file \"$DAILY_JSON\" from \"$JD_STAT_JSON\""
-    echo 'cat $JD_STAT_JSON | jq ".\"juneday-stats\"[] | select(.date==\"$DATE\").\"daily-stats\"" > $DAILY_JSON'
+#    echo 'cat $JD_STAT_JSON | jq ".\"juneday-stats\"[] | select(.date==\"$DATE\").\"daily-stats\"" > $DAILY_JSON'
     cat $JD_STAT_JSON | jq ".\"juneday-stats\"[] | select(.date==\"$DATE\").\"daily-stats\"" > $DAILY_JSON
 else
     verbose "Reusing daily JSON \"$DAILY_JSON\""
@@ -191,15 +191,17 @@ wiki_sum()
 
 code_sum()
 {
-    echo " Number of repositories: $(cat $DAILY_JSON | jq '."git-repos".total')" | sed 's,",,g'
-
+    REPOS=$(cat $DAILY_JSON | jq '."git-repos".total' | sed -e 's,",,g')
+    COMMITS=$(cat $DAILY_JSON  | jq  ".\"git-repos\".\"git-repo-stat\"[].\"repo-commits\"" | sed -e 's,",,g' | tr '\n' '+' | sed 's,+$,\n,g' | bc)
+    printf " Number of repositories:  %5d\n" "$REPOS"
+    printf " Number of commits:       %5d\n" "$COMMITS" 
     TOT_LOC=$(cat $DAILY_JSON | jq '."source-code"[]."lines-of-code"' | sed 's,",,g' | tr '\n' '+' | sed 's,+$,\n,g' | bc -l)
-    echo " Programming languages: $TOT_LOC"
+    echo " Lines of code (total):   $TOT_LOC"
     cat $DAILY_JSON | jq '."source-code"[]|.type,."lines-of-code"'| sed 's,",,g' | while (true) ; do
         read TYPE
         read LOC
         if [ "$TYPE" = "" ] ; then break ; fi
-        printf "   %-10s %d\n" "$TYPE:" $LOC
+        printf "   %-10s %6d\n" "$TYPE:" $LOC
     done
 }
 
