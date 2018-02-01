@@ -35,6 +35,9 @@ usage()
     echo "       -ps, --podcast-summary"
     echo "           print podcast summary"
     echo ""
+    echo "       -a, --all-summaries"
+    echo "           print all summaries"
+    echo ""
     echo "       -h, --help"
     echo "           print this help message"
     echo ""
@@ -80,6 +83,14 @@ do
             ;;
         "--force"|"-f")
             FORCE=true
+            ;;
+        "--all-summaries"|"-a")
+            BOOKS=true
+            BOOKS_SUM=true
+            VIDEOS_SUM=true
+            WIKI_SUM=true
+            CODE_SUM=true
+            POD_SUM=true
             ;;
         *)
             echo "SYNTAX ERROR: $1"
