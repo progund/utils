@@ -419,9 +419,9 @@ main()
     echo "    , " >> $STAT_FILE
     log_to_file "  <-- Creating stats from vimeo"
 
-    log_to_file "  --> Creating stats from vimeo"
+    log_to_file "  --> Creating stats from podbean"
     get_pod_stat >> $STAT_FILE
-    log_to_file "  <-- Creating stats from vimeo"
+    log_to_file "  <-- Creating stats from podbean"
 
     
     echo "}" >> $STAT_FILE
