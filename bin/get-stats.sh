@@ -124,8 +124,8 @@ verbose " * daily json: $DAILY_JSON  | $(ls -al $DAILY_JSON 2>/dev/null | wc -l)
 verbose " * fresh file: $FRESH_FILE"
 if [ ! -f $JD_STAT_JSON ] || [ "$FORCE" = "true" ] || [ $FRESH_FILE -ne 0 ]
 then
-    verbose "Removing \"$JD_STAT_JSON\""
-    rm -f $JD_STAT_JSON
+    verbose "Removing \"$JD_STAT_JSON\" and \"$DAILY_JSON\""
+    rm -f $JD_STAT_JSON $DAILY_JSON
     verbose "Downloading \"$JD_STAT_JSON\""
     verbose " * url: $JD_STAT_URL/$JD_STAT_JSON"
     wget $JD_STAT_URL/$JD_STAT_JSON
