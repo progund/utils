@@ -124,8 +124,8 @@ verbose " * daily json: $DAILY_JSON  | $(ls -al $DAILY_JSON 2>/dev/null | wc -l)
 verbose " * fresh file: $FRESH_FILE"
 if [ ! -f $JD_STAT_JSON ] || [ "$FORCE" = "true" ] || [ $FRESH_FILE -ne 0 ]
 then
-    verbose "Removing \"$JD_STAT_JSON\""
-    rm -f $JD_STAT_JSON
+    verbose "Removing \"$JD_STAT_JSON\" and \"$DAILY_JSON\""
+    rm -f $JD_STAT_JSON $DAILY_JSON
     verbose "Downloading \"$JD_STAT_JSON\""
     verbose " * url: $JD_STAT_URL/$JD_STAT_JSON"
     wget $JD_STAT_URL/$JD_STAT_JSON
@@ -136,7 +136,7 @@ fi
 if [ ! -f $DAILY_JSON ]
 then
     verbose "Creating daily JSON file \"$DAILY_JSON\" from \"$JD_STAT_JSON\""
-    echo 'cat $JD_STAT_JSON | jq ".\"juneday-stats\"[] | select(.date==\"$DATE\").\"daily-stats\"" > $DAILY_JSON'
+#    echo 'cat $JD_STAT_JSON | jq ".\"juneday-stats\"[] | select(.date==\"$DATE\").\"daily-stats\"" > $DAILY_JSON'
     cat $JD_STAT_JSON | jq ".\"juneday-stats\"[] | select(.date==\"$DATE\").\"daily-stats\"" > $DAILY_JSON
 else
     verbose "Reusing daily JSON \"$DAILY_JSON\""
@@ -156,8 +156,8 @@ books()
     cat $DAILY_JSON  | jq '.books[]|.title,.pages' | sed 's,",,g' | while (true) ; do
         read NAME
         read PAGES
-        if [ "$NAME" = "" ] ; then break ; fi
-        printf " %-40s %.d\n" "$NAME:" $PAGES
+        if [ "$PAGES" = "" ] ; then break ; fi
+        printf " %-30s %5d\n" "$NAME:" $PAGES
     done
 }
 
@@ -167,15 +167,24 @@ books_sum()
         read BOOKS
         read PAGES
         if [ "$BOOKS" = "" ] ; then break ; fi
-        printf " Number of books: %d\n" $BOOKS 
-        printf " Number of pages in books: %d\n" $PAGES
+        printf " Number of books:          %5d\n" $BOOKS 
+        printf " Number of pages in books: %5d\n" $PAGES
     done
 }
 
 videos_sum()
 {
-    echo -n " Videos at Vimeo: "
+    echo -n " Linked videos (Vimeo): "
     cat $DAILY_JSON  | jq '."vimeo-stats".videos' | sed 's,",,g'
+
+    $(dirname $0)/../vimeo/bin/vimeo-durations.sh \
+        | grep -A 3 -e "Total duration" -e "Videos" \
+        | sed -e 's,^, ,g'  \
+        | grep -v "Videos[ ]*$" \
+        | grep -v "\-\-" \
+        | sed 's,Videos:,Total nr of videos:   ,g' \
+        | grep -v "^[ ]*$" \
+        | sed 's,^[ ]*\([0-9][0-9]*\) , * \1 ,g'
 }
 
 wiki_sum()
@@ -191,15 +200,17 @@ wiki_sum()
 
 code_sum()
 {
-    echo " Number of repositories: $(cat $DAILY_JSON | jq '."git-repos".total')" | sed 's,",,g'
-
+    REPOS=$(cat $DAILY_JSON | jq '."git-repos".total' | sed -e 's,",,g')
+    COMMITS=$(cat $DAILY_JSON  | jq  ".\"git-repos\".\"git-repo-stat\"[].\"repo-commits\"" | sed -e 's,",,g' | tr '\n' '+' | sed 's,+$,\n,g' | bc)
+    printf " Number of repositories:  %5d\n" "$REPOS"
+    printf " Number of commits:       %5d\n" "$COMMITS" 
     TOT_LOC=$(cat $DAILY_JSON | jq '."source-code"[]."lines-of-code"' | sed 's,",,g' | tr '\n' '+' | sed 's,+$,\n,g' | bc -l)
-    echo " Programming languages: $TOT_LOC"
+    echo " Lines of code (total):   $TOT_LOC"
     cat $DAILY_JSON | jq '."source-code"[]|.type,."lines-of-code"'| sed 's,",,g' | while (true) ; do
         read TYPE
         read LOC
         if [ "$TYPE" = "" ] ; then break ; fi
-        printf "   %-10s %d\n" "$TYPE:" $LOC
+        printf "   %-10s %6d\n" "$TYPE:" $LOC
     done
 }
 
@@ -212,16 +223,16 @@ pod_sum()
 
 title "Date: $DATE"
 
-if [ "$BOOKS" = "true" ]
-then
-    title "Books"
-    books
-fi
-
 if [ "$BOOKS_SUM" = "true" ]
 then
     title "Books summary"
     books_sum
+fi
+
+if [ "$BOOKS" = "true" ]
+then
+    title "Books"
+    books
 fi
 
 if [ "$VIDEOS_SUM" = "true" ]
