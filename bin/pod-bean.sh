@@ -34,7 +34,7 @@ exit_on_error()
 get_rss()
 {
     log "Getting RSS file"
-    wget http://juneday.podbean.com/feed/ -O $RSS_FILE
+    wget -q http://juneday.podbean.com/feed/ -O $RSS_FILE
     exit_on_error $?
 }
 
@@ -55,7 +55,7 @@ download_links()
         if [ ! -f $OFILE ] || [ $(file $OFILE | grep HTML | wc -l) -eq 0 ]
         then
             log "    - downloading"
-            wget $link -O $OFILE
+            wget -q $link -O $OFILE
             exit_on_error $?
         else
             log "    - already downloaded"
@@ -66,7 +66,7 @@ download_links()
         if [ ! -f $MP3_FILE ] || [ $(file $MP3_FILE | grep -i audio | wc -l) -eq 0 ]
         then
             log "    - downloading"
-            wget $MP3_URL -O $MP3_FILE
+            wget -q $MP3_URL -O $MP3_FILE
             exit_on_error $?
         else
             log "    - already downloaded"
