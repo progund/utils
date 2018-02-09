@@ -17,6 +17,9 @@ fi
 DEST_DIR=$(pwd)/vimeo/channels
 DLOAD_LIMIT=20
 
+# set this to NOT 0 to force download. otherwise trying to use stored JSON files
+FORCE_DOWNLOAD=0
+
 
 usage()
 {
@@ -83,6 +86,9 @@ do
         "--loop")
             LOOP=true
             ;;
+        "--force"|"-f")
+            FORCE_DOWNLOAD=1
+            ;;
         "--destination-dir"|"-d")
             DEST_DIR=$2
             shift
@@ -101,31 +107,80 @@ do
     shift
 done
 
+check_vimeo_request_limit()
+{
+    VFILE=$1
+    VIM_ERROR=$(cat $VFILE | grep -i error | grep -i "too many api" | wc -l)
+    echo -n "    Checking file \"$VFILE\" for errors:"
+    if [ $VIM_ERROR -ne 0 ]
+    then
+        echo "*** VIMEO REQUEST ERROR ***   file contained Too may requests info. Returning error ($VIM_ERROR)"
+    else
+        echo " OK "
+    fi
+    return $VIM_ERROR
+}
 
 dload()
 {
-    curl -s -H "Authorization: Bearer ${VIMEO_BEARER}" "$*"
-    RET=$?
-    if [ $RET -ne 0 ]
+    URL="$1"
+    OFILE="$2"
+
+    #
+    # if file contained error text, remove it
+    #
+    if [ -f $OFILE ]
     then
-        echo "*** ERROR ***"
-        echo "Failed downloading \"$*\""
-        echo "Return value: $RET"
-        exit 2
+        check_vimeo_request_limit $OFILE
+        if [ $? -ne 0 ]
+        then
+            rm $OFILE
+        fi
+    fi
+    
+    
+    if [ ! -f $OFILE ] || [ $FORCE_DOWNLOAD -gt 0 ]
+    then
+        echo "    Downloading url \"$URL\" (----> \"$OFILE\")"
+        curl -s -H "Authorization: Bearer ${VIMEO_BEARER}" "$URL" > $OFILE
+        RET=$?
+        if [ $RET -ne 0 ]
+        then
+            echo "*** ERROR ***"
+            echo "Failed downloading \"$*\""
+            echo "Return value: $RET"
+            exit 2
+        fi
+
+        #
+        # if file contained error text, remove it and exit
+        #
+        if [ -f $OFILE ]
+        then
+            check_vimeo_request_limit $OFILE
+            RET=$?
+            echo "    status after downloading of file $OFILE:   $RET"
+            if [ $RET -ne 0 ]
+            then
+                echo "    -- uh oh, too many requests problem, exit"
+                rm $OFILE
+                exit 2
+            else
+                echo "    -- all went fine "
+            fi
+        fi
+
+    else
+        echo "    Skipping download of \"$URL\" (----> \"$OFILE\")"
     fi
 }
 
-#VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
+VIMEO_CHANNELS=$($SCRIPTDIR/vimeo-channels.sh)
 DLOAD_CNT=0
-# set this to NOT 0 to force download. otherwise trying to use stored JSON files
-FORCE_DOWNLOAD=0
 CHANNEL_JSON=$DEST_DIR/channel.json
+CHANNELS_JSON=$DEST_DIR/channels.json
 
-if [ ! -f $CHANNELS_JSON ] || [ $FORCE_DOWNLOAD -gt 0 ]
-then
-    echo "    downloading... channels json"
-    curl -H "Authorization: Bearer ${VIMEO_BEARER}" "https://api.vimeo.com/me/channels?per_page=100&fields=uri,name&page=1" > $CHANNELS_JSON
-fi
+dload "https://api.vimeo.com/me/channels?per_page=100&fields=uri,name&page=1" "$CHANNELS_JSON"
 
 VIMEO_CHANNELS=$(cat $CHANNELS_JSON \
         | grep "uri" \
@@ -141,21 +196,14 @@ do
 
     CHANNEL_JSON=$CH_DIR/channel.json
     
-    if [ ! -f $CHANNEL_JSON ] || [ $FORCE_DOWNLOAD -gt 0 ]
-    then
-        echo "    downloading... channel json"
-        dload "https://api.vimeo.com/channels/$channel" > $CHANNEL_JSON
-    fi
+    dload "https://api.vimeo.com/channels/$channel" "$CHANNEL_JSON"
 
     VIDEOS_JSON=$CH_DIR/videos.json
-    if [ ! -f $VIDEOS_JSON ] || [ $FORCE_DOWNLOAD -gt 0 ]
-    then
-        echo "    downloading... videos json"
-        dload "https://api.vimeo.com/channels/$channel/videos" > $VIDEOS_JSON
-    fi
+    dload "https://api.vimeo.com/channels/$channel/videos" "$VIDEOS_JSON"
 
     VIDEOS=$(cat $VIDEOS_JSON | jq '.data[].uri' | sed 's,",,g')
     RET=$?
+    echo "    jq parsing went: $RET"
     if [ $RET -ne 0 ]
     then
         echo "*** ERROR ***"
@@ -185,11 +233,12 @@ do
         video=$(echo $vid | sed 's,/, ,g' | awk ' { print $2} ')
 #        echo "VIDEOS | $vid | $video"
         mkdir -p $CH_DIR/videos/$video
-        $SCRIPTDIR/vimeo-dload.sh --destination-dir $CH_DIR/videos/$video/ $video
+
+        $SCRIPTDIR/vimeo-dload.sh --destination-dir $CH_DIR/videos/$video/ $video "mp4"
         RET=$?
         if [ $RET -eq 0 ]
         then
-            dload https://api.vimeo.com/videos/$video > $CH_DIR/videos/$video/video.json
+            dload "https://api.vimeo.com/videos/$video"  "$CH_DIR/videos/$video/video.json"
             DLOAD_CNT=$(( $DLOAD_CNT + 1 ))            
             echo "    $DLOAD_CNT downloaded so far, limit: $DLOAD_LIMIT"
         elif [ $RET -eq 1 ]
