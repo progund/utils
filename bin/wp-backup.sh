@@ -4,7 +4,7 @@
 DATE=$(date '+%Y%m%d')
 LOG_FILE=logs/wp-backup-$DATE.log
 
-DEBUG=true
+#DEBUG=true
 
 init()
 {
