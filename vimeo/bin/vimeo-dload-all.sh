@@ -19,6 +19,8 @@ DLOAD_LIMIT=20
 
 # set this to NOT 0 to force download. otherwise trying to use stored JSON files
 FORCE_DOWNLOAD=0
+FORCE_JSON_DOWNLOAD=0
+FORCE_VIDEO_DOWNLOAD=0
 
 
 usage()
@@ -54,6 +56,12 @@ usage()
     echo "  --delay <sec> - delay (in seconds) between downloads when looping."
     echo "            Defaults to 0"
     echo ""
+    echo "  --force - always download all files. Not used atm."
+    echo ""
+    echo "  --force-json - always download json files (channels and videos)"
+    echo ""
+    echo "  --force-video - always download video files. Not used atm."
+    echo ""
     echo ""
     echo "EXAMPLES"
     echo ""
@@ -88,6 +96,12 @@ do
             ;;
         "--force"|"-f")
             FORCE_DOWNLOAD=1
+            ;;
+        "--force-json"|"-fj")
+            FORCE_JSON_DOWNLOAD=1
+            ;;
+        "--force-video"|"-fv")
+            FORCE_VIDEO_DOWNLOAD=1
             ;;
         "--destination-dir"|"-d")
             DEST_DIR=$2
@@ -139,7 +153,7 @@ dload()
     fi
     
     
-    if [ ! -f $OFILE ] || [ $FORCE_DOWNLOAD -gt 0 ]
+    if [ ! -f $OFILE ] || [ $FORCE_JSON_DOWNLOAD -gt 0 ]
     then
         echo "    Downloading url \"$URL\" (----> \"$OFILE\")"
         curl -s -H "Authorization: Bearer ${VIMEO_BEARER}" "$URL" > $OFILE
@@ -180,13 +194,28 @@ DLOAD_CNT=0
 CHANNEL_JSON=$DEST_DIR/channel.json
 CHANNELS_JSON=$DEST_DIR/channels.json
 
-dload "https://api.vimeo.com/me/channels?per_page=100&fields=uri,name&page=1" "$CHANNELS_JSON"
+rm "${CHANNELS_JSON}".*
+for pnr in $(seq 1 10)
+do
+    echo "Download "https://api.vimeo.com/me/channels?per_page=100&filter=moderated&fields=uri,name&page=$pnr""
+    dload "https://api.vimeo.com/me/channels?per_page=100&filter=moderated&fields=uri,name&page=$pnr" "${CHANNELS_JSON}.$pnr"
+    LAST_PAGE=$(cat "${CHANNELS_JSON}.$pnr" | grep error_code | grep 2286 | wc -l)
+    if [ $LAST_PAGE -ne 0 ]
+    then
+        echo "Last page reached, breaking out of the loop"
+        break
+    fi
+done
 
-VIMEO_CHANNELS=$(cat $CHANNELS_JSON \
+#https://api.vimeo.com/me/channels?per_page=100&filter=moderated&fields=uri,name&page=1
+
+VIMEO_CHANNELS=$(cat ${CHANNELS_JSON}.* \
         | grep "uri" \
         | awk '{ print $2 }' \
         | sed -e 's,",,g' -e 's,\/channels\/,,g' -e 's/,//g'\
         | grep -v "per_page=")
+
+#echo "Channels: $VIMEO_CHANNELS"
 
 for channel in $VIMEO_CHANNELS
 do
