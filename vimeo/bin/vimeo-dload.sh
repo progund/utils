@@ -14,9 +14,10 @@ usage()
     echo "  Download a video, given a vimeo video id, with the best available"
     echo "  quality. The name of the resulting file is taken from the video "
     echo "  title at vimeo. Download is NOT done if the video already has been downloaded."
-    echo ""
+    echo "  "
     echo "OPTIONS"
     echo "  --help, -h - prints this help text"
+    echo "  --destination-dir, -d <DIR> - stores file in directory DIR"
     echo ""
     echo "RETURN VALUES"
     echo "  0 - success"
@@ -160,7 +161,20 @@ debug "----------------------------------------"
 debug "VIDEO_LINK_IDS: $VIDEO_LINK_IDS"
 debug "=========================="
 
-if [ -f $DEST_DIR$VIDEO_TITLE.mp4 ]
+
+#
+# check mp4 format using file (0 means incorrect format)
+FORMAT_IS_MP4=$(file $DEST_DIR$VIDEO_TITLE.mp4 | grep -i mp4 | wc -l)
+echo -n "    Checking format of file $DEST_DIR$VIDEO_TITLE.mp4: "
+if [ $FORMAT_IS_MP4 -eq 1 ]
+then
+    echo "  OK"
+else
+    echo "  ERROR, removing file"
+    rm $DEST_DIR$VIDEO_TITLE.mp4
+fi
+
+if [ -f $DEST_DIR$VIDEO_TITLE.mp4 ] 
 then
     echo "    already downloaded, skipping ($DEST_DIR$VIDEO_TITLE.mp4)"
     exit 1
@@ -177,6 +191,7 @@ else
         echo "Return value: $RET"
         exit 2
     fi
+
     echo "      $VIDEO_TITLE.mp4 to $DEST_DIR"
 fi
 
