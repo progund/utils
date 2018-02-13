@@ -1,5 +1,6 @@
 #!/bin/bash
 
+LOG_FILE=/tmp/db-html.log
 
 DB_FILE=$1
 if [ ! -f $DB_FILE ] || [ -z $DB_FILE ]
@@ -32,7 +33,6 @@ log()
 }
 
 log "---=== $(date) ===---"
-LOG_FILE=/tmp/db-html.log
 
 echo
 echo "Reading database $DB_FILE"
