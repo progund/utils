@@ -85,5 +85,6 @@ extract_links
 download_links
 close
 
+exit 0
 
 
