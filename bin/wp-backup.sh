@@ -110,4 +110,5 @@ init
 handle_wp programmeringspedagogik 
 handle_wp programmingpedagogy
 
+exit 0
 
