@@ -32,8 +32,6 @@ find_missing()
     do
         echo -n "$vid: "
         curl -s -H "Authorization: Bearer $VIMEO_BEARER" "https://api.vimeo.com/videos/$vid?fields=name" | jq '.name'
-        #echo
-        exit
     done
 }
 
