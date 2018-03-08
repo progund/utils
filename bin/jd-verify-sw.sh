@@ -49,7 +49,7 @@ V_PACKAGES=$(cat $PKG_VERFICATION_NAMES_COMMON)
 
 verify_prog()
 {
-    echo -n " * $pkg"
+    printf " * %-20s" "$pkg"
     which $pkg 2> /dev/null > /dev/null
     RET=$?
     if [ $RET -eq 0 ]
