@@ -72,11 +72,11 @@ PKG_VERFICATION_NAMES_DIST=${THIS_SCRIPT_DIR}/../etc/verification-${DIST}.pkgs
 if [ -f $PKG_VERFICATION_NAMES_DIST ]
 then
     V_PACKAGES="$(cat $PKG_VERFICATION_NAMES_DIST)"
+    echo "Verifying $DIST specific packages"
+    echo "-----------------------------"
+    for pkg in $V_PACKAGES
+    do
+        verify_prog $pkg
+    done
 fi
-echo "Verifying $DIST specific packages"
-echo "-----------------------------"
-for pkg in $V_PACKAGES
-do
-    verify_prog $pkg
-done
 
