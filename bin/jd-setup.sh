@@ -27,7 +27,28 @@ fi
 #
 # Bail out if not full install
 #
-if [ "$1" != "--full" ]
+while [ "$*" != "" ]
+do
+    case "$1" in
+        "--full")
+            FULL_MODE=true
+            ;;
+        "--verify")
+            VERIFY_MODE=true
+            ;;
+        *)
+            echo "SYNTAX ERROR: $1"
+            ;;
+    esac
+    shit
+done
+
+if [ "$FULL_MODE" = "true" ]
+then
+    ${THIS_SCRIPT_DIR}/jd-verify-sw.sh
+fi
+    
+if [ "$VERIFY_MODE" = "true" ]
 then
     exit 0
 fi
