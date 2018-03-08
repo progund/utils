@@ -60,6 +60,7 @@ verify_prog()
     fi
 }
 
+echo
 echo "Verifying common packages"
 echo "-----------------------------"
 for pkg in $V_PACKAGES
@@ -72,6 +73,7 @@ PKG_VERFICATION_NAMES_DIST=${THIS_SCRIPT_DIR}/../etc/verification-${DIST}.pkgs
 if [ -f $PKG_VERFICATION_NAMES_DIST ]
 then
     V_PACKAGES="$(cat $PKG_VERFICATION_NAMES_DIST)"
+    echo
     echo "Verifying $DIST specific packages"
     echo "-----------------------------"
     for pkg in $V_PACKAGES
