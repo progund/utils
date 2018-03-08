@@ -36,10 +36,18 @@ else
     PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
 fi
 
-#echo "PKG_LIST_FILE: $PKG_LIST_FILE"
+PKG_VERFICATION_NAMES_COMMON=${THIS_SCRIPT_DIR}/../etc/verification-common.pkgs
+V_PACKAGES=$(cat $PKG_VERFICATION_NAMES_COMMON)
 
-echo "Verifying packages (from file: $PKG_LIST_FILE)"
-for pkg in $(cat $PKG_LIST_FILE)
+
+PKG_VERFICATION_NAMES_DIST=${THIS_SCRIPT_DIR}/../etc/verification-${DIST}.pkgs
+if [ -f $PKG_VERFICATION_NAMES_DIST ]
+then
+    V_PACKAGES="$V_PACKAGES $(cat $PKG_VERFICATION_NAMES_DIST)"
+fi
+
+echo "Verifying packages"
+for pkg in $V_PACKAGES
 do
     echo -n " * $pkg"
     which $pkg 2> /dev/null > /dev/null
