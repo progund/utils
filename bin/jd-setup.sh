@@ -43,16 +43,17 @@ do
     shift
 done
 
-if [ "$FULL_MODE" = "true" ]
+    
+if [ "$VERIFY_MODE" = "true" ]
 then
     ${THIS_SCRIPT_DIR}/jd-verify-sw.sh
 fi
     
-if [ "$VERIFY_MODE" = "true" ]
+if [ "$FULL_MODE" != "true" ]
 then
     exit 0
 fi
-    
+
 ${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
