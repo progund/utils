@@ -67,6 +67,7 @@ do
     verify_prog $pkg
 done
 
+V_PACKAGES=""
 PKG_VERFICATION_NAMES_DIST=${THIS_SCRIPT_DIR}/../etc/verification-${DIST}.pkgs
 if [ -f $PKG_VERFICATION_NAMES_DIST ]
 then
