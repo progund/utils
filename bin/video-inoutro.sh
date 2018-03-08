@@ -20,8 +20,8 @@ FILENAME=$(basename $LECTURE)
 SUFF="${FILENAME##*.}"
 
 
-INTRO=$(dirname $0)/../../utils-blobs/video/jd-intro-2560-1600.$SUFF
-OUTRO=$(dirname $0)/../../utils-blobs/video/jd-outro-2560-1600.$SUFF
+INTRO=$(dirname $0)/../../utils-blobs/video/jd-intro-2560-1440.$SUFF
+OUTRO=$(dirname $0)/../../utils-blobs/video/jd-outro-2560-1440.$SUFF
 
 exit_if_missing()
 {
