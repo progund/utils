@@ -19,9 +19,9 @@ ${THIS_SCRIPT_DIR}/jd-download-software.sh
 exit_on_error "$?" "Failed downloading system software"
 
 # For Arduino
-if [ "$OS" = "linux" ]
+if [ "$OS" = "linux" ] && [ "$CUR_USER" != "" ]
 then
-    $SUDO usermod -a -G dialout "$CUR_USER" 
+    $SUDO usermod -a -G dialout "$CUR_USER" 2>/dev/null
 fi
 
 #

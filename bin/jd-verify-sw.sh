@@ -82,3 +82,9 @@ then
     done
 fi
 
+echo " ************************************"
+echo " ***                              ***"
+echo " *** Verifying installed software ***"
+echo " ***                              ***"
+echo " ************************************"
+

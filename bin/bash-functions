@@ -182,6 +182,61 @@ ask_question()
     fi
     return $RET
 }
+MacOS_MacOS_set_install_tool()
+{
+    if [ "$MAC_INSTALL_TOOL" != "" ]
+    then
+        return 
+    fi
+
+    /opt/local/bin/port version 2>/dev/null >/dev/null
+    PORT_RET=$?
+
+    /usr/local/bin/brew --version  2>/dev/null >/dev/null
+    BREW_RET=$?
+
+    if [ $PORT_RET -ne 0 ] && [ $BREW_RET -ne 0 ]
+    then
+        echo "*****************************************************"
+        echo "*** Uh oh, neither Homebrew or MacPorts seems     *** "
+        echo "*** to be installed. This means, we're not able   ***"
+        echo "*** to download the required software packages    ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***    Install HomeBrew or MacPorts and try again ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
+        exit 6
+    elif [ $PORT_RET -eq 0 ] && [ $BREW_RET -eq 0 ]
+    then
+        echo "*****************************************************"
+        echo "***    Both Homebrew or MacPorts seems            ***"
+        echo "*** to be installed. We're choosing to use:       ***"
+        echo "***                                               ***"
+        echo "***                HomeBrew                       ***"
+        echo "***                                               ***" 
+        echo "*****************************************************"
+        MAC_INSTALL_TOOL=Homebrew
+        MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
+    elif [ $PORT_RET -eq 0 ]
+    then
+        MAC_INSTALL_TOOL=MacPorts
+        MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
+        MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
+        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade outdated"
+    elif [ $BREW_RET -eq 0 ]
+    then
+        MAC_INSTALL_TOOL=Homebrew
+        MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
+    fi
+    
+}
+
 
 check_x
 source_file ${THIS_SCRIPT_DIR}/settings
