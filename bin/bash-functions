@@ -182,6 +182,7 @@ ask_question()
     fi
     return $RET
 }
+
 MacOS_MacOS_set_install_tool()
 {
     if [ "$MAC_INSTALL_TOOL" != "" ]
