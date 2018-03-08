@@ -84,7 +84,12 @@ fi
 
 echo " ************************************"
 echo " ***                              ***"
-echo " *** Verifying installed software ***"
+echo " ***      Verification done       ***"
+echo " ***                              ***"
+echo " ***                              ***"
+echo " ***   If you encountered any     ***"
+echo " ***    problem, talk to your     ***"
+echo " ***      admin/teacher/...       ***"
 echo " ***                              ***"
 echo " ************************************"
 
