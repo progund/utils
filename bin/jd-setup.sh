@@ -40,7 +40,7 @@ do
             echo "SYNTAX ERROR: $1"
             ;;
     esac
-    shit
+    shift
 done
 
 if [ "$FULL_MODE" = "true" ]
