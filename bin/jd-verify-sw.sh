@@ -1,5 +1,12 @@
 #!/bin/bash
 
+echo " ************************************"
+echo " ***                              ***"
+echo " *** Verifying installed software ***"
+echo " ***                              ***"
+echo " ************************************"
+
+
 THIS_SCRIPT_DIR=$(dirname $0)
 BASH_FUNCTIONS=${THIS_SCRIPT_DIR}/bash-functions
 if [ -f ${BASH_FUNCTIONS} ]
@@ -40,23 +47,35 @@ PKG_VERFICATION_NAMES_COMMON=${THIS_SCRIPT_DIR}/../etc/verification-common.pkgs
 V_PACKAGES=$(cat $PKG_VERFICATION_NAMES_COMMON)
 
 
-PKG_VERFICATION_NAMES_DIST=${THIS_SCRIPT_DIR}/../etc/verification-${DIST}.pkgs
-if [ -f $PKG_VERFICATION_NAMES_DIST ]
-then
-    V_PACKAGES="$V_PACKAGES $(cat $PKG_VERFICATION_NAMES_DIST)"
-fi
-
-echo "Verifying packages"
-for pkg in $V_PACKAGES
-do
+verify_prog()
+{
     echo -n " * $pkg"
     which $pkg 2> /dev/null > /dev/null
     RET=$?
-#    echo "RET: $RET"
     if [ $RET -eq 0 ]
     then
         echo " OK"
     else
         echo " failed"
     fi
+}
+
+echo "Verifying common packages"
+echo "-----------------------------"
+for pkg in $V_PACKAGES
+do
+    verify_prog $pkg
 done
+
+PKG_VERFICATION_NAMES_DIST=${THIS_SCRIPT_DIR}/../etc/verification-${DIST}.pkgs
+if [ -f $PKG_VERFICATION_NAMES_DIST ]
+then
+    V_PACKAGES="$(cat $PKG_VERFICATION_NAMES_DIST)"
+fi
+echo "Verifying $DIST specific packages"
+echo "-----------------------------"
+for pkg in $V_PACKAGES
+do
+    verify_prog $pkg
+done
+
