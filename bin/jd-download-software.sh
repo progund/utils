@@ -251,8 +251,11 @@ dload_sw_cygwin_cygwin()
         echo "*** Contact the idiots at juneday ***"
         exit 5
     fi
-
-    apt-cyg install $PKGS
+    for pkg in $PKGS
+    do
+        echo "Installing $pkg"
+        apt-cyg install $pkg
+    done
 }
 
 install_atom_cygwin_cygwin()
