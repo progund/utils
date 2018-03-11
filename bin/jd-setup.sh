@@ -19,19 +19,41 @@ ${THIS_SCRIPT_DIR}/jd-download-software.sh
 exit_on_error "$?" "Failed downloading system software"
 
 # For Arduino
-if [ "$OS" = "linux" ]
+if [ "$OS" = "linux" ] && [ "$CUR_USER" != "" ]
 then
-    $SUDO usermod -a -G dialout "$CUR_USER" 
+    $SUDO usermod -a -G dialout "$CUR_USER" 2>/dev/null
 fi
 
 #
 # Bail out if not full install
 #
-if [ "$1" != "--full" ]
+while [ "$*" != "" ]
+do
+    case "$1" in
+        "--full")
+            FULL_MODE=true
+            ;;
+        "--verify")
+            VERIFY_MODE=true
+            ;;
+        *)
+            echo "SYNTAX ERROR: $1"
+            ;;
+    esac
+    shift
+done
+
+    
+if [ "$VERIFY_MODE" = "true" ]
+then
+    ${THIS_SCRIPT_DIR}/jd-verify-sw.sh
+fi
+    
+if [ "$FULL_MODE" != "true" ]
 then
     exit 0
 fi
-    
+
 ${THIS_SCRIPT_DIR}/jd-dload-techbooks.sh
 exit_on_error "$?" "Failed downloading juneday educational repositories"
 
