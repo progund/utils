@@ -69,7 +69,7 @@ current_channel_format()
                echo -n " | [$URL $name] "; \
                    fi; \
                    done
-    echo
+    echo " | [[:Media:dummy.pdf|Dummy (PDF)]]"
 }
 
 echo
