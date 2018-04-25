@@ -60,7 +60,7 @@ cat ${TMP_FILE} | while read apa; \
 
 current_channel_format()
 {
-    echo -n " [https://vimeo.com/couchmode/channels/$CHANNEL $CH_NAME (Playlist)] "
+    echo -n " [https://vimeo.com/couchmode/channels/$CHANNEL $CH_NAME (Full playlist)] "
     cat ${TMP_FILE} | while read apa; \
         do if [[ $((i++%2==1)) -eq 0 ]]; \
            then name=$apa; \
