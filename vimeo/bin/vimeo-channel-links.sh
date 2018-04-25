@@ -34,6 +34,10 @@ curl -H "Authorization: Bearer ${VIMEO_BEARER}" "https://api.vimeo.com/channels/
     | jq -r '.data[]|.name,.link' \
          > ${TMP_FILE}
 
+echo
+echo
+echo "HTML"
+echo
 cat ${TMP_FILE} | while read apa; \
     do if [[ $((i++%2==1)) -eq 0 ]]; \
        then name=$apa; \
@@ -41,6 +45,10 @@ cat ${TMP_FILE} | while read apa; \
        fi; \
     done
 
+echo
+echo
+echo "Old channel fomat"
+echo
 echo "[https://vimeo.com/channels/$CHANNEL $CH_NAME]"
 cat ${TMP_FILE} | while read apa; \
     do if [[ $((i++%2==1)) -eq 0 ]]; \
@@ -48,3 +56,27 @@ cat ${TMP_FILE} | while read apa; \
        else URL=$apa;echo "* [$URL $name]"; \
        fi; \
     done
+
+
+current_channel_format()
+{
+    echo -n " [https://vimeo.com/couchmode/channels/$CHANNEL $CH_NAME (Playlist)] "
+    cat ${TMP_FILE} | while read apa; \
+        do if [[ $((i++%2==1)) -eq 0 ]]; \
+           then name=$apa; \
+           else
+               URL=$apa;
+               echo -n " | [$URL $name] "; \
+                   fi; \
+                   done
+    echo
+}
+
+echo
+echo
+echo "Current channel fomat (stored in primary clipboard)"
+echo
+ch_format=$(current_channel_format)
+echo $ch_format | xclip -i -selection clipboard
+echo $ch_format
+
