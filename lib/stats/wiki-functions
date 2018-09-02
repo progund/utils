@@ -229,12 +229,12 @@ check_book()
     echo " }"
     
 #    echo "   \"presentations-pages-total\": \"$PRES_PAGE_COUNT\""
-
+     
 #    check_pdfs $book
     PAGE_COUNT=$WIKIBOOK_NR_PAGES
     PAGE_COUNTS["${book}"]="${PAGE_COUNT}"
 
-    log_to_file "Books (so far"
+    log_to_file "Books so far"
     for i in "${!PAGE_COUNTS[@]}"
     do
 	log_to_file " * $i / ${PAGE_COUNTS[$i]}"
