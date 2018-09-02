@@ -112,7 +112,7 @@ get_pres_and_vids()
     LOCAL_PRES_VIDEO_COUNT=0
     HTML_PAGE="$1".html
     echo "----->  Find local pdfs in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
-    echo "-----   Find local pdfs using:  grep \"href=\" \"$HTML_PAGE\" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g'| sort -u | uniq " >> /tmp/jd-stat-debug.txt
+    echo "-----   Find local pdfs using:  grep \"href=\" \"$HTML_PAGE\" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,\",,g'| sort -u | uniq " >> /tmp/jd-stat-debug.txt
     LOCAL_PRES_PDFS=$(grep "href=" "$HTML_PAGE" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g'| sort -u | uniq)
     echo "<-----  Find local pdfs in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
 
