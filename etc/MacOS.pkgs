@@ -1,1 +1,1 @@
-  avr-binutils   avr-gcc   avrdude   bash   bzip2   cmake   coreutils   ctags   curl   doxygen   findutils   gawk   ghc   git   gsed   intltool   ncurses   perl5   python27   readline   rsync   sqlite3   texi2html   texinfo   wget   zlib jq tree
+bash   bzip2 curl   findutils   gawk gsed   intltool   ncurses   wget tree
