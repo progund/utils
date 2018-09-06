@@ -40,7 +40,7 @@ done
 
 install_atom_linux_fedora()
 {
-    if [ "$(dnf list atom | grep -i atom | wc -l)" != "0" ]
+    if [ "$(dnf list atom 2>/dev/null | grep -i atom | wc -l)" != "0" ]
     then
         echo "Atom already installed"
         return 0
@@ -280,7 +280,6 @@ echo "* Download software"
 dload_sw_${OS}_${DIST}
 echo "* Install Atom (if possible)"
 install_atom_${OS}_${DIST}
-echo "* Install Atom (if possible) finished "
 echo "* Update OS (if possible)"
 update_os_${OS}_${DIST}
 echo ""
