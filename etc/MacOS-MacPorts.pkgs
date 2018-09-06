@@ -1,1 +1,1 @@
-     bash   bzip2   cmake   coreutils   ctags   curl   doxygen   findutils   gawk   ghc   git   gsed   intltool   ncurses   perl5   python27   readline   rsync   sqlite3   texi2html   texinfo   wget   zlib jq tree w3m
+bash   bzip2 gsed ncurses   wget   zlib tree w3m
