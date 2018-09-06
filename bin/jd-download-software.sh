@@ -258,7 +258,6 @@ then
     echo "***  Information about your system  ***"
     echo "***    OS:       $OS  "
     echo "***    DIST:     $DIST "
-    echo "***    Course:   $COURSE  (if unset a generic set of packages will be installed)"
     echo "***    pwd:      $(pwd)"
     echo "***    date:     $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
@@ -269,8 +268,12 @@ PKGS=$(cat "${PKG_LIST_FILE}")
 
 echo "****************************************"
 echo "***  Information about your system  ***"
-echo "***    OS:   $OS  "
-echo "***    DIST: $DIST "
+echo "***    OS:       $OS  "
+echo "***    DIST:     $DIST "
+echo "***    Course:   $COURSE  (if unset a generic set of packages will be installed)"
+echo "***    pwd:      $(pwd)"
+echo "***    date:     $(date)"
+echo "***    PKG file: ${PKG_LIST_FILE}"
 echo "****************************************"
 sleep 2
 dload_sw_${OS}_${DIST}
