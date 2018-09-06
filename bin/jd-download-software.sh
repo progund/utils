@@ -278,9 +278,9 @@ echo "****************************************"
 sleep 2
 echo "* Download software"
 dload_sw_${OS}_${DIST}
-echo "* Install Atom (if possible)"
+echo "* Install Atom (if possible and needed)"
 install_atom_${OS}_${DIST}
-echo "* Update OS (if possible)"
+echo "* Update OS (if possible and needed)"
 update_os_${OS}_${DIST}
 echo ""
 echo ""
