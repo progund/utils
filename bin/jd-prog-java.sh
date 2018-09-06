@@ -40,6 +40,6 @@ dload
 #
 # The additional argument to --course must be located at utils/etc/ in reop https://github.com/progund/utils
 #
-jd-bootstrap.sh --course programming-with-java
+./${BOOTSTRAP_SCRIPT} --course programming-with-java
 
 
