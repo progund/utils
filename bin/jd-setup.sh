@@ -15,15 +15,6 @@ fi
 
 source_file ${THIS_SCRIPT_DIR}/settings
 
-${THIS_SCRIPT_DIR}/jd-download-software.sh
-exit_on_error "$?" "Failed downloading system software"
-
-# For Arduino
-if [ "$OS" = "linux" ] && [ "$CUR_USER" != "" ]
-then
-    $SUDO usermod -a -G dialout "$CUR_USER" 2>/dev/null
-fi
-
 #
 # Bail out if not full install
 #
@@ -36,12 +27,26 @@ do
         "--verify")
             VERIFY_MODE=true
             ;;
+        "--course")
+            COURSE="--course $2"
+            shift
+            ;;
         *)
             echo "SYNTAX ERROR: $1"
             ;;
     esac
     shift
 done
+
+${THIS_SCRIPT_DIR}/jd-download-software.sh $COURSE 
+exit_on_error "$?" "Failed downloading system software using \"${THIS_SCRIPT_DIR}/jd-download-software.sh $COURSE \""
+
+# For Arduino
+if [ "$OS" = "linux" ] && [ "$CUR_USER" != "" ]
+then
+    $SUDO usermod -a -G dialout "$CUR_USER" 2>/dev/null
+fi
+
 
     
 if [ "$VERIFY_MODE" = "true" ]
