@@ -276,8 +276,11 @@ echo "***    date:     $(date)"
 echo "***    PKG file: ${PKG_LIST_FILE}"
 echo "****************************************"
 sleep 2
+echo "* Download software"
 dload_sw_${OS}_${DIST}
+echo "* Install Atom (if possible)"
 install_atom_${OS}_${DIST}
+echo "* Update OS (if possible)"
 update_os_${OS}_${DIST}
 echo ""
 echo ""
