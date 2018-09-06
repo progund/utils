@@ -21,6 +21,23 @@ else
 fi
 
 
+while [ "$*" != "" ]
+do
+    case "$1" in
+        "--course")
+            COURSE=$2
+            shift
+            ;;
+        *)
+            echo "SYNTAX ERROR: $1"
+            exit 13
+            ;;
+    esac
+    shift
+done
+
+
+
 install_atom_linux_fedora()
 {
     if [ "$(dnf list atom | grep -i atom | wc -l)" != "0" ]
@@ -218,7 +235,7 @@ then
     MacOS_MacOS_set_install_tool
     if [ "$MAC_INSTALL_TOOL" != "" ]
     then
-        PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
     else
         echo ".... can't find a package manager"
         echo "****************************************"
@@ -231,18 +248,19 @@ then
         exit 12
     fi
 else
-    PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
+    PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
 fi
 if [ ! -f ${PKG_LIST_FILE} ]
 then
     echo ".... can't find a list of files "
-    echo "for your package manager"
+    echo "for your package manager (and possibly course)"
     echo "****************************************"
     echo "***  Information about your system  ***"
     echo "***    OS:       $OS  "
     echo "***    DIST:     $DIST "
-    echo "***    pwd:  $(pwd)"
-    echo "***    date: $(date)"
+    echo "***    Course:   $COURSE  (if unset a generic set of packages will be installed)"
+    echo "***    pwd:      $(pwd)"
+    echo "***    date:     $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
     echo "****************************************"
     exit 18
