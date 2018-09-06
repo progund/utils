@@ -1,0 +1,1 @@
+gcc arduino valgrind default-jdk curl wget  sqlite git cvs subversion mercurial bzr emacs vim make firefox check gdb splint p7zip python python3 rsync jq tidy w3m tree indent
