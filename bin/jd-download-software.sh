@@ -267,7 +267,7 @@ then
     echo "****************************************"
     exit 18
 fi
-PKGS=$(cat "${PKG_LIST_FILE}" "${COURSE_PKG_LIST_FILE}"  )
+PKGS=$(cat ${PKG_LIST_FILE} ${COURSE_PKG_LIST_FILE} )
 
 echo "****************************************"
 echo "***  Information about your system  ***"
