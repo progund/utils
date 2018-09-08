@@ -1,1 +1,1 @@
-bash bash-completion   bzip2 curl findutils   gawk   gnu-sed   ncurses wget w3m
+bash bash-completion   bzip2   curl      findutils   gawk gnu-sed   intltool   ncurses   readline wget   zlib tree w3m zip bc
