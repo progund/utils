@@ -235,7 +235,8 @@ then
     MacOS_MacOS_set_install_tool
     if [ "$MAC_INSTALL_TOOL" != "" ]
     then
-        PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
     else
         echo ".... can't find a package manager"
         echo "****************************************"
@@ -248,7 +249,8 @@ then
         exit 12
     fi
 else
-    PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
+    PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
+    COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
 fi
 if [ ! -f ${PKG_LIST_FILE} ]
 then
@@ -261,10 +263,12 @@ then
     echo "***    pwd:      $(pwd)"
     echo "***    date:     $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
+    echo "***    Course PKG file: ${SOURCE_PKG_LIST_FILE}"
     echo "****************************************"
     exit 18
 fi
-PKGS=$(cat "${PKG_LIST_FILE}")
+PKGS=$(cat ${PKG_LIST_FILE})
+PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
 
 echo "****************************************"
 echo "***  Information about your system  ***"
@@ -274,6 +278,8 @@ echo "***    Course:   $COURSE  (if unset a generic set of packages will be inst
 echo "***    pwd:      $(pwd)"
 echo "***    date:     $(date)"
 echo "***    PKG file: ${PKG_LIST_FILE}"
+echo "***    CoursePKG file: ${COURSE_PKG_LIST_FILE}"
+echo "***    Packages: ${PKGS}"
 echo "****************************************"
 sleep 2
 echo "* Download software"
@@ -302,6 +308,3 @@ echo ""
 echo ""
 echo ""
 exit 0
-
-
-
