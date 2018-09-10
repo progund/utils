@@ -242,8 +242,8 @@ MacOS_MacOS_set_install_tool()
 # Fix for homebrew %¤# install directive
 #
 brew_install() {
-    echo "brew_install $*"
-    sleep 3
+#    echo "brew_install $*"
+ #   sleep 3
     for macpkg in $*
     do
         /usr/local/bin/brew ls --versions $1 && /usr/local/bin/brew upgrade $1 || /usr/local/bin/brew install $1
