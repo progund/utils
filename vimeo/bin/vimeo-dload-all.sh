@@ -228,7 +228,7 @@ do
     dload "https://api.vimeo.com/channels/$channel" "$CHANNEL_JSON"
 
     VIDEOS_JSON=$CH_DIR/videos.json
-    dload "https://api.vimeo.com/channels/$channel/videos" "$VIDEOS_JSON"
+    dload "https://api.vimeo.com/channels/$channel/videos?sort=manual" "$VIDEOS_JSON"
 
     VIDEOS=$(cat $VIDEOS_JSON | jq '.data[].uri' | sed 's,",,g')
     RET=$?
