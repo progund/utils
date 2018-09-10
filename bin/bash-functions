@@ -246,7 +246,7 @@ brew_install() {
  #   sleep 3
     for macpkg in $*
     do
-        /usr/local/bin/brew ls --versions $1 && /usr/local/bin/brew upgrade $1 || /usr/local/bin/brew install $1
+        /usr/local/bin/brew ls --versions 2>/dev/null $1 && /usr/local/bin/brew upgrade $1 || /usr/local/bin/brew install $1
     done
 }
 
