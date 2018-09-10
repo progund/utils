@@ -109,7 +109,6 @@ dload_sw_MacOS_MacOS()
 {
     $MAC_INSTALL_INSTALL $PKGS
     exit_on_error "$?" "Failed installing software using $MAC_INSTALL_INSTALL $PKGS"
-    
 }
 
 install_atom_MacOS_MacOS()
