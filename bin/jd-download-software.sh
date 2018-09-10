@@ -107,7 +107,7 @@ update_os_linux_fedora()
 
 dload_sw_MacOS_MacOS()
 {
-    echo "dload_sw_MacOS_MacOS: $MAC_INSTALL_INSTALL $PKGS" 
+#    echo "dload_sw_MacOS_MacOS: $MAC_INSTALL_INSTALL $PKGS" 
     $MAC_INSTALL_INSTALL $PKGS
     exit_on_error "$?" "Failed installing software using $MAC_INSTALL_INSTALL $PKGS"
 }
