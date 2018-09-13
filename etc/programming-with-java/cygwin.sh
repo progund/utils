@@ -37,5 +37,5 @@ then
 fi
 
 echo "Finished installing groovy"
-return 0
+exit 0
 
