@@ -278,7 +278,7 @@ echo "***    Course:   $COURSE  (if unset a generic set of packages will be inst
 echo "***    pwd:      $(pwd)"
 echo "***    date:     $(date)"
 echo "***    PKG file: ${PKG_LIST_FILE}"
-echo "***    CoursePKG file: ${COURSE_PKG_LIST_FILE}"
+echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
 echo "***    Packages: ${PKGS}"
 echo "****************************************"
 sleep 2
