@@ -5,6 +5,12 @@
 echo " *****************************************"
 echo " * Installing groovy via separate script *"
 echo " *****************************************"
+
+# This script is an adaption of the instruction at:
+# http://groovy-lang.org/install.html#_install_binary
+#
+
+
 curl -s get.sdkman.io | bash
 RET=$?
 if [ $RET -ne 0 ]
