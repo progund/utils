@@ -270,7 +270,7 @@ fi
 PKGS=$(cat ${PKG_LIST_FILE})
 PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
 
-INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.sh
+INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
 
 echo "****************************************"
 echo "***  Information about your system  ***"
