@@ -270,6 +270,8 @@ fi
 PKGS=$(cat ${PKG_LIST_FILE})
 PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
 
+INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.sh
+
 echo "****************************************"
 echo "***  Information about your system  ***"
 echo "***    OS:       $OS  "
@@ -281,9 +283,19 @@ echo "***    PKG file: ${PKG_LIST_FILE}"
 echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
 echo "***    Packages: ${PKGS}"
 echo "****************************************"
-sleep 2
+
 echo "* Download software"
 dload_sw_${OS}_${DIST}
+
+if [ -x ${INSTALL_SH} ]
+then
+    echo "* Download software (for ${OS} ${DIST}) with specific script"
+    echo "   ${INSTALL_SH}"
+    bash ${INSTALL_SH}
+else
+    echo "* No script for ${OS} ${DIST} found. Skip executing."
+fi
+
 echo "* Install Atom (if possible and needed)"
 install_atom_${OS}_${DIST}
 echo "* Update OS (if possible and needed)"
