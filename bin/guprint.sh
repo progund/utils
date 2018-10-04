@@ -122,7 +122,7 @@ then
     #
     # interactive part
     #
-    echo -n "Enter your \"x-account\" (e g xslawe): "
+    echo -n "Enter your \"x-account\" (e g xslave): "
     read ACCOUNT_NAME
 fi
 
