@@ -19,38 +19,82 @@ exit_on_error()
     fi
 }
 
-if [ "$(uname  | grep -ic linux)" = "0" ]
+if [ "$(uname  | grep -ic linux)" != "0" ] 
 then
-    echo "This script only supports GNU/Linux"
+    OS=linux
+elif [ "$(uname  | grep -ic darwin)" != "0" ]
+then
+    OS=macos
+else
+    echo "This script only supports GNU/Linux and MacOS"
     exit 1
 fi
 
-if [ -f /etc/fedora-release ]
+if [ $OS = "linux" ] 
 then
-    DIST=fedora
-elif [ -f /etc/fedora-release ]
-then
-    DIST=redhat
-elif [ -f /etc/os-release ]
-then
-    if [ "$( grep NAME /etc/os-release | grep -i -c ubuntu)" != "0" ]
+    if [ -f /etc/fedora-release ]
     then
-        DIST=ubuntu
+	DIST=fedora
+    elif [ -f /etc/fedora-release ]
+    then
+	DIST=redhat
+    elif [ -f /etc/os-release ]
+    then
+	if [ "$( grep NAME /etc/os-release | grep -i -c ubuntu)" != "0" ]
+	then
+            DIST=ubuntu
+	else
+            DIST=debian
+	fi
     else
-        DIST=debian
+	echo "UNSUPPORTED GNU/Linux distribution"
+	exit 2
     fi
 else
-    echo "UNSUPPORTED GNU/Linux distribution"
-    exit 2
+    :
 fi
 
-echo "Requiring sudo permissions"
+cups_start() {
+    if [ "$OS" = "linux" ]
+    then
+        if [ "$DIST" = "fedora" ]
+        then
+	    sudo service cups start
+        else
+            # non fedora => ubuntu or debian (otherwise an earlier error)
+	sudo /etc/init.d/cups start
+        fi
+    else
+        # macos
+        sudo launchctl start org.cups.cupsd
+    fi
+}
+
+cups_stop() {
+    if [ "$OS" = "linux" ]
+    then
+        if [ "$DIST" = "fedora" ]
+        then
+	    sudo service cups stop
+        else
+            # non fedora => ubuntu or debian (otherwise an earlier error)
+	sudo /etc/init.d/cups stop
+        fi
+    else
+        # macos
+        sudo launchctl stop org.cups.cupsd
+    fi
+}
+
+echo "Requesting sudo permissions"
 sudo ls >/dev/null 2>/dev/null
 exit_on_error $? "Failed getting sudo permissions"
-
+echo
+echo "Got sudo permissions.... let's go"
+echo 
 TMP_DIR=/tmp/guprint-$$
 
-STR_SIZE=20
+STR_SIZE=30
 printf "%-${STR_SIZE}s"  "Create tmp dir: "
 mkdir $TMP_DIR
 exit_on_error $? "Failed creating tmp dir ($TMP_DIR)"
@@ -82,6 +126,11 @@ then
     read ACCOUNT_NAME
 fi
 
+printf "%-${STR_SIZE}s"  "Stoping cups: "
+cups_stop 2>/dev/null >/dev/null
+exit_on_error $? "Failed stoping cups"
+echo " OK"
+
 printf "%-${STR_SIZE}s"  "Renaming printer conf: "
 mv printers.conf printers.conf.orig
 exit_on_error $? "Failed unpacking drivers ${DRIVERS_TAR_GZ}"
@@ -89,6 +138,8 @@ echo " OK"
 
 printf "%-${STR_SIZE}s"  "Replacing account name: "
 cat printers.conf.orig | sed "s,account,${ACCOUNT_NAME},g" > printers.conf
+exit_on_error $? "Failed replacing account name"
+echo " OK"
 
 printf "%-${STR_SIZE}s"  "Copying printers.conf: "
 sudo cp printers.conf /etc/cups/
@@ -100,14 +151,26 @@ sudo cp GUprint.ppd /etc/cups/ppd/
 exit_on_error $? "Failed copying GUprint.ppd"
 echo " OK"
 
-printf "%-${STR_SIZE}s\n"  "Restarting cups: "
-if [ "$DIST" = "fedora" ]
+if [ "$OS" = "macos" ]
 then
-    sudo service cups restart
-else
-    # non fedora => ubuntu or debian (otherwise an earlier error)
-    sudo /etc/init.d/cups restart
+    printf "%-${STR_SIZE}s"  "Copying toshiba specific stuff: "
+    sudo mv Library/Printers/toshiba/ /Library/Printers/
+    exit_on_error $? "Failed copying toshiba stuff"
+    echo " OK"
+    
+    printf "%-${STR_SIZE}s"  "Changing permissions on toshiba stuff: "
+    sudo chown -R root:admin /Library/Printers/toshiba/
+    exit_on_error $? "Failed changing permissions on toshiba stuff"
+    echo " OK"
+    
 fi
+
+printf "%-${STR_SIZE}s"  "Starting cups: "
+cups_start 2>/dev/null >/dev/null
+exit_on_error $? "Failed starting cups"
+echo " OK"
+
+
 echo ""
 echo "We've set up a printer"
 echo " * name:    GUPrint"
