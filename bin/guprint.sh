@@ -141,10 +141,15 @@ cat printers.conf.orig | sed "s,account,${ACCOUNT_NAME},g" > printers.conf
 exit_on_error $? "Failed replacing account name"
 echo " OK"
 
-printf "%-${STR_SIZE}s"  "Copying printers.conf: "
-sudo cp printers.conf /etc/cups/
-exit_on_error $? "Failed copying printers.conf"
-echo " OK"
+if [ $(sudo grep 'GUPrint' /etc/cups/printers.conf | wc -l) -eq 0 ] ;
+then
+    printf "%-${STR_SIZE}s"  "Adding GUPrint printers.conf: "
+    sudo sh -c "cat printers.conf >> /etc/cups/printers.conf"
+    exit_on_error $? "Failed adding GUPrint to printers.conf"
+    echo " OK"
+else
+    printf "%-${STR_SIZE}s\n"  "GUPrint already defined in printers.conf, not adding"
+fi
 
 printf "%-${STR_SIZE}s"  "Copying GUPrint.ppd: "
 sudo cp GUprint.ppd /etc/cups/ppd/
