@@ -126,29 +126,38 @@ then
     read ACCOUNT_NAME
 fi
 
+export $ACCOUNT_NAME
 printf "%-${STR_SIZE}s"  "Stoping cups: "
 cups_stop 2>/dev/null >/dev/null
 exit_on_error $? "Failed stoping cups"
 echo " OK"
 
 printf "%-${STR_SIZE}s"  "Renaming printer conf: "
-mv printers.conf printers.conf.orig
+cp printers.conf printers.conf.orig
 exit_on_error $? "Failed unpacking drivers ${DRIVERS_TAR_GZ}"
 echo " OK"
 
-printf "%-${STR_SIZE}s"  "Replacing account name: "
-cat printers.conf.orig | sed "s,account,${ACCOUNT_NAME},g" > printers.conf
-exit_on_error $? "Failed replacing account name"
-echo " OK"
+#printf "%-${STR_SIZE}s"  "Replacing account name: "
+#cat printers.conf.orig | sed "s,account,${ACCOUNT_NAME},g" > printers.conf
+#exit_on_error $? "Failed replacing account name"
+#echo " OK"
 
 if [ $(sudo grep 'GUPrint' /etc/cups/printers.conf | wc -l) -eq 0 ] ;
 then
     printf "%-${STR_SIZE}s"  "Adding GUPrint printers.conf: "
-    sudo sh -c "cat printers.conf >> /etc/cups/printers.conf"
+    sudo sh -c "cat printers.conf.orig >> /etc/cups/printers.conf"
     exit_on_error $? "Failed adding GUPrint to printers.conf"
     echo " OK"
 else
-    printf "%-${STR_SIZE}s\n"  "GUPrint already defined in printers.conf, not adding"
+    printf "%-${STR_SIZE}s:"  "Saving backup of printers.conf "
+    sudo cp /etc/cups/printers.conf /etc/cups/printers.conf.orig 
+    exit_on_error $? "Failed backing up printers.conf"
+    echo " OK"
+
+    printf "%-${STR_SIZE}s:"  "Updating GUPrint account "
+    sudo sh -c "cat /etc/cups/printers.conf.orig | sed \"s,/[a-z]*@guprintsrv,/${ACCOUNT_NAME}@guprintsrv,g\" > /etc/cups/printers.conf" 
+    exit_on_error $? "Failed updating GUPrint in printers.conf"
+    echo " OK"
 fi
 
 printf "%-${STR_SIZE}s"  "Copying GUPrint.ppd: "
