@@ -278,18 +278,25 @@ if [ "${COURSE_PKG_LIST_FILE}" != "" ]
 then
     PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
 fi
-INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
 
+if [ "${COURSE}" != "" ]
+then
+    INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
+else
+    INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${DIST}.sh
+fi
 echo "****************************************"
 echo "***  Information about your system  ***"
-echo "***    OS:       $OS  "
-echo "***    DIST:     $DIST "
-echo "***    Course:   $COURSE  (if unset a generic set of packages will be installed)"
-echo "***    pwd:      $(pwd)"
-echo "***    date:     $(date)"
-echo "***    PKG file: ${PKG_LIST_FILE}"
+echo "***    OS:           $OS  "
+echo "***    DIST:         $DIST "
+echo "***    Course:       $COURSE  (if unset a generic set of packages will be installed)"
+echo "***    pwd:          $(pwd)"
+echo "***    date:         $(date)"
+echo "***    PKG file:     ${PKG_LIST_FILE}"
 echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
-echo "***    Packages: ${PKGS}"
+echo "***    Packages:     ${PKGS}"
+echo "***    install file: ${INSTALL_SH}"
+
 echo "****************************************"
 
 echo "* Download software"
