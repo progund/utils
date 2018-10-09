@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASHRC=~/.bashrc
+BASH_PROFILE=~/.bash_profile
 
 DEBUG=true
 debug() {
@@ -12,7 +12,6 @@ debug() {
 
 alias_text()
 {
-    echo "alias_text() $1 | $2"
     ALIAS_NAME="$1"
     ALIAS_CMD="$2"
 
@@ -28,13 +27,13 @@ add_alias()
     NAME="$1"
     CMD="$2"
 
-    echo "Checking $BASHRC"
-    if [ $(grep -c "alias ${NAME}" $BASHRC) -eq 0 ]
+    echo "Checking $BASH_PROFILE"
+    if [ $(grep -c "alias ${NAME}" $BASH_PROFILE) -eq 0 ]
     then
-        echo "Adding to $BASHRC"
-        alias_text ${NAME} "${CMD}" >> $BASHRC
+        echo "Adding to $BASH_PROFILE"
+        alias_text ${NAME} "${CMD}" >> $BASH_PROFILE
     else
-        echo "NOT adding to $BASHRC"
+        echo "NOT adding to $BASH_PROFILE"
     fi
 }
 
