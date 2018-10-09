@@ -20,7 +20,7 @@ add_alias()
 
     if [ $(grep -c "alias ${NAME}" $BASHRC) -ne 0 ]
     then
-        alias_text ${NAME} "${CMD}" 
+        alias_text ${NAME} "${CMD}" >> $BASHRC
     fi
 }
 
