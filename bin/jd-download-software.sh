@@ -236,7 +236,10 @@ then
     if [ "$MAC_INSTALL_TOOL" != "" ]
     then
         PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.pkgs
-        COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        if [ "${COURSE}" != "" ]
+        then
+            COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        fi
     else
         echo ".... can't find a package manager"
         echo "****************************************"
@@ -250,7 +253,10 @@ then
     fi
 else
     PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
-    COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
+    if [ "${COURSE}" != "" ]
+    then
+        COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
+    fi
 fi
 if [ ! -f ${PKG_LIST_FILE} ]
 then
@@ -263,13 +269,15 @@ then
     echo "***    pwd:      $(pwd)"
     echo "***    date:     $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
-    echo "***    Course PKG file: ${SOURCE_PKG_LIST_FILE}"
+    echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
     echo "****************************************"
     exit 18
 fi
 PKGS=$(cat ${PKG_LIST_FILE})
-PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
-
+if [ "${COURSE_PKG_LIST_FILE}" != "" ]
+then
+    PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
+fi
 INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
 
 echo "****************************************"
