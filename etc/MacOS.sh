@@ -2,6 +2,11 @@
 
 BASH_PROFILE=~/.bash_profile
 
+if [ ! -f ${BASH_PROFILE} ]
+then
+    touch ${BASH_PROFILE}
+fi
+
 DEBUG=true
 debug() {
     if [ "$DEBUG" = "true" ]
