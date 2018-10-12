@@ -302,7 +302,7 @@ echo "****************************************"
 echo "* Download software"
 dload_sw_${OS}_${DIST}
 
-echo "* Execute scripts (if any)"
+echo "* Execute scripts (if $(pwd)/${INSTALL_SH} exists )"
 if [ -f ${INSTALL_SH} ]
 then
     echo "  * Download software (for ${OS} ${DIST}) with specific script"
