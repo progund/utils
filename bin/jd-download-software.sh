@@ -302,13 +302,14 @@ echo "****************************************"
 echo "* Download software"
 dload_sw_${OS}_${DIST}
 
+echo "* Execute scripts (if any)"
 if [ -f ${INSTALL_SH} ]
 then
-    echo "* Download software (for ${OS} ${DIST}) with specific script"
+    echo "  * Download software (for ${OS} ${DIST}) with specific script"
     echo "   ${INSTALL_SH}"
     bash ${INSTALL_SH}
 else
-    echo "* No script for ${OS} ${DIST} found. Skip executing."
+    echo "  * No script for ${OS} ${DIST} found. Skip executing."
 fi
 
 echo "* Install Atom (if possible and needed)"
