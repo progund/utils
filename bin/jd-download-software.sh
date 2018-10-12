@@ -279,12 +279,9 @@ then
     PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
 fi
 
-if [ "${COURSE}" != "" ]
-then
-    INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
-else
-    INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${DIST}.sh
-fi
+COURSE_INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
+INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${DIST}.sh
+
 echo "****************************************"
 echo "***  Information about your system  ***"
 echo "***    OS:           $OS  "
@@ -296,13 +293,14 @@ echo "***    PKG file:     ${PKG_LIST_FILE}"
 echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
 echo "***    Packages:     ${PKGS}"
 echo "***    install file: ${INSTALL_SH}"
+echo "***    course install file: ${COURSE_INSTALL_SH}"
 
 echo "****************************************"
 
 echo "* Download software"
 dload_sw_${OS}_${DIST}
 
-echo "* Execute scripts (if $(pwd)/${INSTALL_SH} exists )"
+echo "* Execute generic script (if $(pwd)/${INSTALL_SH} exists )"
 if [ -f ${INSTALL_SH} ]
 then
     echo "  * Download software (for ${OS} ${DIST}) with specific script"
@@ -310,6 +308,16 @@ then
     bash ${INSTALL_SH}
 else
     echo "  * No script for ${OS} ${DIST} found. Skip executing."
+fi
+
+echo "* Execute course script (if $(pwd)/${INSTALL_SH} exists )"
+if [ -f ${COURSE_INSTALL_SH} ]
+then
+    echo "  * Download software (for ${OS} ${DIST}) with specific script"
+    echo "   ${COURSE_INSTALL_SH}"
+    bash ${COURSE_INSTALL_SH}
+else
+    echo "  * No script for ${OS} ${DIST} ${COURSE} found. Skip executing."
 fi
 
 echo "* Install Atom (if possible and needed)"
