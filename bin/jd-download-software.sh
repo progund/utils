@@ -302,7 +302,7 @@ echo "****************************************"
 echo "* Download software"
 dload_sw_${OS}_${DIST}
 
-if [ -x ${INSTALL_SH} ]
+if [ -f ${INSTALL_SH} ]
 then
     echo "* Download software (for ${OS} ${DIST}) with specific script"
     echo "   ${INSTALL_SH}"
