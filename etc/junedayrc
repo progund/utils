@@ -1,16 +1,22 @@
-########################################################
-#                                                      #
-#       Resource file for bash for use with            #
-#          Juneday's educational material              #
-#                                                      #
-#  (c) 2018 juneday.se                                 #
-#                                                      #
-#  License: GPLv3                                      #
-#  www.gnu.org/licenses/gpl-3.0.en.html                #
-#                                                      #
-#  Sorry, we're not printing the license text which we #
-#  should.... but come on, this file is small          #
-########################################################
+##############################################################################
+#                                                                            #
+#       Resource file for bash for use with                                  #
+#          Juneday's educational material                                    #
+#                                                                            #
+#  (c) 2018 juneday.se                                                       #
+#                                                                            #
+#  License: GPLv3                                                            #
+#  www.gnu.org/licenses/gpl-3.0.en.html                                      #
+#                                                                            #
+#  Sorry, we're not printing the license text which we                       #
+#  should.... but come on, this file is small                                #
+#                                                                            #
+#                                                                            #
+#  Using this resource file:                                                 #
+#                                                                            #
+#   http://wiki.juneday.se/mediawiki/index.php/Junedays_scripting_guidelines #
+#                                                                            #
+##############################################################################
 
 determine_os()
 {
