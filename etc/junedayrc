@@ -18,6 +18,18 @@
 #                                                                            #
 ##############################################################################
 
+bailout()
+{
+    if [ "$0" = "bash" ]
+    then
+        #        echo "Not bailing out since (mostlikely) bash sourced us"
+        :
+    else
+        echo "Juneday's resourse script is cowardly bailing out, sorry!"
+        exit 1
+    fi
+}
+
 determine_os()
 {
     if [ "$(uname  | grep -ic linux)" != "0" ]
@@ -39,8 +51,8 @@ determine_os()
             fi
         else
             echo "UNSUPPORTED Linux distribution"
-            exit 1
-        fi
+            bailout
+       fi
     elif [ "$(uname  | grep -ic darwin)" != "0" ]
     then
         OS=MacOS
@@ -71,13 +83,13 @@ determine_os()
         echo ""
         echo "         wiki.juneday.se"
         echo ""
-#        exit 1
+        bailout
     else
         echo "UNSUPPORTED OS, bash or ... well, something else"
         echo "Your software"
         echo " * OS:    $(uname)"
         echo " * bash:  $0"
- #       exit 1
+        bailout
     fi
 
 }
@@ -90,7 +102,6 @@ setup_cygwin_cygwin()
 setup_MacOS_MacOS()
 {
     :
-
 }
 
 setup_linux()
@@ -108,8 +119,17 @@ setup_linux_ubuntu()
     setup_linux
 }
 
+setup_common()
+{
+    alias echo='builtin echo'
+    alias awk='gawk'
+    alias date='gdate'
+}
+
 #
 # "main"
 #
 determine_os
 setup_${OS}_${DIST}
+
+show echo
