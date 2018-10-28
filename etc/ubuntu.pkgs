@@ -1,1 +1,1 @@
-curl wget w3m tree curl p7zip indent zip bc libwww-perl coreutils nc tidy inetutils 
+curl wget w3m tree curl p7zip indent zip bc libwww-perl coreutils tidy inetutils-telnet inetutils-inetd inetutils-ping    inetutils-tools netcat-traditional git python gconf-service 
