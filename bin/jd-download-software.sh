@@ -236,7 +236,10 @@ then
     if [ "$MAC_INSTALL_TOOL" != "" ]
     then
         PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}-${MAC_INSTALL_TOOL}.pkgs
-        COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        if [ "${COURSE}" != "" ]
+        then
+            COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}-${MAC_INSTALL_TOOL}.pkgs
+        fi
     else
         echo ".... can't find a package manager"
         echo "****************************************"
@@ -250,7 +253,10 @@ then
     fi
 else
     PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${DIST}.pkgs
-    COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
+    if [ "${COURSE}" != "" ]
+    then
+        COURSE_PKG_LIST_FILE=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.pkgs
+    fi
 fi
 if [ ! -f ${PKG_LIST_FILE} ]
 then
@@ -263,37 +269,55 @@ then
     echo "***    pwd:      $(pwd)"
     echo "***    date:     $(date)"
     echo "***    PKG file: ${PKG_LIST_FILE}"
-    echo "***    Course PKG file: ${SOURCE_PKG_LIST_FILE}"
+    echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
     echo "****************************************"
     exit 18
 fi
 PKGS=$(cat ${PKG_LIST_FILE})
-PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
+if [ "${COURSE_PKG_LIST_FILE}" != "" ]
+then
+    PKGS="$PKGS $(cat ${COURSE_PKG_LIST_FILE} )"
+fi
 
-INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
+COURSE_INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${COURSE}/${DIST}.sh
+INSTALL_SH=${THIS_SCRIPT_DIR}/../etc/${DIST}.sh
 
 echo "****************************************"
 echo "***  Information about your system  ***"
-echo "***    OS:       $OS  "
-echo "***    DIST:     $DIST "
-echo "***    Course:   $COURSE  (if unset a generic set of packages will be installed)"
-echo "***    pwd:      $(pwd)"
-echo "***    date:     $(date)"
-echo "***    PKG file: ${PKG_LIST_FILE}"
+echo "***    OS:           $OS  "
+echo "***    DIST:         $DIST "
+echo "***    Course:       $COURSE  (if unset a generic set of packages will be installed)"
+echo "***    pwd:          $(pwd)"
+echo "***    date:         $(date)"
+echo "***    PKG file:     ${PKG_LIST_FILE}"
 echo "***    Course PKG file: ${COURSE_PKG_LIST_FILE}"
-echo "***    Packages: ${PKGS}"
+echo "***    Packages:     ${PKGS}"
+echo "***    install file: ${INSTALL_SH}"
+echo "***    course install file: ${COURSE_INSTALL_SH}"
+
 echo "****************************************"
 
 echo "* Download software"
 dload_sw_${OS}_${DIST}
 
-if [ -x ${INSTALL_SH} ]
+echo "* Execute generic script (if $(pwd)/${INSTALL_SH} exists )"
+if [ -f ${INSTALL_SH} ]
 then
-    echo "* Download software (for ${OS} ${DIST}) with specific script"
+    echo "  * Download software (for ${OS} ${DIST}) with specific script"
     echo "   ${INSTALL_SH}"
     bash ${INSTALL_SH}
 else
-    echo "* No script for ${OS} ${DIST} found. Skip executing."
+    echo "  * No script for ${OS} ${DIST} found. Skip executing."
+fi
+
+echo "* Execute course script (if $(pwd)/${INSTALL_SH} exists )"
+if [ -f ${COURSE_INSTALL_SH} ]
+then
+    echo "  * Download software (for ${OS} ${DIST}) with specific script"
+    echo "   ${COURSE_INSTALL_SH}"
+    bash ${COURSE_INSTALL_SH}
+else
+    echo "  * No script for ${OS} ${DIST} ${COURSE} found. Skip executing."
 fi
 
 echo "* Install Atom (if possible and needed)"
