@@ -133,6 +133,7 @@ updaterc() {
     JUNEDAY_RC_URL=https://raw.githubusercontent.com/progund/utils/master/etc/junedayrc
 
     mv ${JUNEDAY_RC} ${JUNEDAY_RC}-${DATE}
+    echo "Downloading junedayrc"
     curl -LJ -o ${JUNEDAY_RC} ${JUNEDAY_RC_URL}
     RET=$?
     if [ $RET -ne 0 ]
