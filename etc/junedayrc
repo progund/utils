@@ -127,13 +127,13 @@ setup_common()
     alias date='gdate'
 }
 
-updaterc() {
+update-juneday() {
     DATE=$(date '+%Y-%m-%d')
     JUNEDAY_RC=~/.junedayrc
     JUNEDAY_RC_URL=https://raw.githubusercontent.com/progund/utils/master/etc/junedayrc
 
     mv ${JUNEDAY_RC} ${JUNEDAY_RC}-${DATE}
-    echo "Downloading junedayrc"
+    echo "Downloading junedayrc"P
     curl -LJ -o ${JUNEDAY_RC} ${JUNEDAY_RC_URL}
     RET=$?
     if [ $RET -ne 0 ]
