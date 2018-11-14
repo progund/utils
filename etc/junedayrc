@@ -151,4 +151,3 @@ update-juneday() {
 determine_os
 setup_${OS}_${DIST}
 
-show echo
