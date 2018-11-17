@@ -26,7 +26,7 @@ bailout()
         :
     else
         echo "Juneday's resourse script is cowardly bailing out, sorry!"
-        exit 1
+#        exit 1
     fi
 }
 
@@ -106,7 +106,8 @@ setup_MacOS_MacOS()
 
 setup_linux()
 {
-    echo "setting up environment for linux (${OS} ${DIST})"
+ #   echo "setting up environment for linux (${OS} ${DIST})"
+ :
 }
 
 setup_linux_fedora()
@@ -121,9 +122,27 @@ setup_linux_ubuntu()
 
 setup_common()
 {
-    alias echo='builtin echo'
+#    alias echo='builtin echo'
     alias awk='gawk'
     alias date='gdate'
+}
+
+update-juneday() {
+    DATE=$(date '+%Y-%m-%d')
+    JUNEDAY_RC=~/.junedayrc
+    JUNEDAY_RC_URL=https://raw.githubusercontent.com/progund/utils/master/etc/junedayrc
+
+    mv ${JUNEDAY_RC} ${JUNEDAY_RC}-${DATE}
+    echo "Downloading junedayrc"P
+    curl -LJ -o ${JUNEDAY_RC} ${JUNEDAY_RC_URL}
+    RET=$?
+    if [ $RET -ne 0 ]
+    then
+        mv ${JUNEDAY_RC}-${DATE} ${JUNEDAY_RC}
+        echo "Failed updating juneday's rc file. Return value: $RET"
+    else
+        source ${JUNEDAY_RC}
+    fi
 }
 
 #
@@ -132,4 +151,3 @@ setup_common()
 determine_os
 setup_${OS}_${DIST}
 
-show echo
