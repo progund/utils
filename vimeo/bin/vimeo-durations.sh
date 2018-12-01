@@ -31,9 +31,9 @@ do_dur()
     AVG_DUR=$(( TOTAL_DURATION / NUM_VIDS ))
     echo "Videos"
     echo "-----------------"
-    echo "$NUM_VIDS videos" 
+    echo "Videos: $NUM_VIDS" 
     echo 
-    echo "Total duration"
+    echo "Total duration:"
     echo "-----------------"
     echo "$TOTAL_DURATION seconds"
     eval "echo $(date -ud "@$TOTAL_DURATION" +'$((%s/3600/24)) days %H hours %M minutes %S seconds')"    
