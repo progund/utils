@@ -1,0 +1,24 @@
+
+# emacs save files
+*~
+
+# emacs save files
+*.class
+
+# media files (keep repo small)
+*.png
+*.jpg
+*.mkv
+*.wem
+*.mp4
+*.avi
+*.mp3
+*.ogg
+*.flac
+*.gz
+*.tar
+*.zip
+
+
+
+
