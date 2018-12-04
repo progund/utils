@@ -1,0 +1,7 @@
+#
+# if you want to set variables
+#
+
+
+DESKTOP_DIR=Juneday-Education
+DEST_DIR=~/Desktop/${DESKTOP_DIR}/source-code
