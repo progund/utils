@@ -1,0 +1,153 @@
+##############################################################################
+#                                                                            #
+#       Resource file for bash for use with                                  #
+#          Juneday's educational material                                    #
+#                                                                            #
+#  (c) 2018 juneday.se                                                       #
+#                                                                            #
+#  License: GPLv3                                                            #
+#  www.gnu.org/licenses/gpl-3.0.en.html                                      #
+#                                                                            #
+#  Sorry, we're not printing the license text which we                       #
+#  should.... but come on, this file is small                                #
+#                                                                            #
+#                                                                            #
+#  Using this resource file:                                                 #
+#                                                                            #
+#   http://wiki.juneday.se/mediawiki/index.php/Junedays_scripting_guidelines #
+#                                                                            #
+##############################################################################
+
+bailout()
+{
+    if [ "$0" = "bash" ]
+    then
+        #        echo "Not bailing out since (mostlikely) bash sourced us"
+        :
+    else
+        echo "Juneday's resourse script is cowardly bailing out, sorry!"
+#        exit 1
+    fi
+}
+
+determine_os()
+{
+    if [ "$(uname  | grep -ic linux)" != "0" ]
+    then
+        OS=linux
+        if [ -f /etc/fedora-release ]
+        then
+            DIST=fedora
+        elif [ -f /etc/fedora-release ]
+        then
+            DIST=redhat
+        elif [ -f /etc/os-release ]
+        then
+            if [ "$( grep NAME /etc/os-release | grep -i -c ubuntu)" != "0" ]
+            then
+                DIST=ubuntu
+            else
+                DIST=debian
+            fi
+        else
+            echo "UNSUPPORTED Linux distribution"
+            bailout
+       fi
+    elif [ "$(uname  | grep -ic darwin)" != "0" ]
+    then
+        OS=MacOS
+        DIST=MacOS
+    elif [ "$(uname  | grep -ic cygwin)" != "0" ]
+    then
+        OS=cygwin
+        DIST=cygwin
+    elif [ "$(uname  | grep -ic MINGW)" != "0" ]
+    then
+        echo "UNSUPPORTED OS, bash or ... well, something else"
+        echo "Based on the output from the command uname"
+        echo "we're guessing you're running \"Git Bash\""
+        echo ""
+        echo "This might be a very good and useful software, "
+        echo "possibly better than cygwin when it comes to git"
+        echo "but this is not something Juneday supports. "
+        echo ""
+        echo "Your software"
+        echo " * OS:    $(uname)"
+        echo " * bash:  $0"
+        echo ""
+        echo ""
+        echo "WHAT TO DO NOW?"
+        echo ""
+        echo "Install cygwin:"
+        echo " * follow the instructions on our wiki, at:"
+        echo ""
+        echo "         wiki.juneday.se"
+        echo ""
+        bailout
+    else
+        echo "UNSUPPORTED OS, bash or ... well, something else"
+        echo "Your software"
+        echo " * OS:    $(uname)"
+        echo " * bash:  $0"
+        bailout
+    fi
+
+}
+
+setup_cygwin_cygwin()
+{
+    :
+}
+
+setup_MacOS_MacOS()
+{
+    :
+}
+
+setup_linux()
+{
+ #   echo "setting up environment for linux (${OS} ${DIST})"
+ :
+}
+
+setup_linux_fedora()
+{
+    setup_linux
+}
+
+setup_linux_ubuntu()
+{
+    setup_linux
+}
+
+setup_common()
+{
+#    alias echo='builtin echo'
+    alias awk='gawk'
+    alias date='gdate'
+}
+
+update-juneday() {
+    DATE=$(date '+%Y-%m-%d')
+    JUNEDAY_RC=~/.junedayrc
+    JUNEDAY_RC_URL=https://raw.githubusercontent.com/progund/utils/master/etc/junedayrc
+
+    mv ${JUNEDAY_RC} ${JUNEDAY_RC}-${DATE}
+    echo "Downloading junedayrc"P
+    curl -LJ -o ${JUNEDAY_RC} ${JUNEDAY_RC_URL}
+    RET=$?
+    if [ $RET -ne 0 ]
+    then
+        mv ${JUNEDAY_RC}-${DATE} ${JUNEDAY_RC}
+        echo "Failed updating juneday's rc file. Return value: $RET"
+    else
+        source ${JUNEDAY_RC}
+    fi
+}
+
+#
+# "main"
+#
+determine_os
+setup_${OS}_${DIST}
+

@@ -1,0 +1,256 @@
+#
+# Bash util functions for misc scripts
+#
+#
+#
+
+FORCED_MODE="false"
+
+
+#
+#
+# PARSER - well, sort of
+#
+#
+if [ "$1" = "--force" ] || [ "$1" = "-f" ]
+then
+    FORCED_MODE="true" 
+fi
+
+check_x()
+{
+    xdpyinfo 2>/dev/null >/dev/null 
+    if [ $? -ne 0 ]
+    then
+        HAS_X=false
+    else
+        HAS_X=true
+    fi
+}
+
+
+exit_on_error()
+{
+    if [ "$1" != "0" ]
+    then
+        if [ "$2" != "" ]
+        then
+            echo "$2"
+            echo "return value: $1"
+            exit $1
+        else
+            echo "Failure"
+            echo "return value: $1"
+            exit $1
+        fi
+    fi
+}
+
+source_file()
+{
+    if [ ! -f $1 ]
+    then
+        exit_on_error "1" "Failed reading (sourcing) file: $1"
+    fi
+    . $1
+}
+
+get_date()
+{
+    echo -n "$(date '+%Y-%m-%d %H:%M:%S')"
+}
+
+log()
+{
+    echo -n "["
+    get_date
+    echo "] $*"
+}
+
+log_to_file()
+{
+    if [ "$LOG_FILE" != "" ]
+    then
+        log "$*" >> $LOG_FILE
+    fi           
+}
+
+do_exec()
+{
+    CMD="$1"
+    ERR_MSG="$2"
+    log "$CMD"
+    $CMD
+    exit_on_error "$?" "$ERR_MSG"
+    log "$CMD: OK"
+}
+
+debug()
+{
+    if [ $DEBUG ]
+    then
+        echo $*
+    fi
+}
+
+
+determine_os()
+{
+    if [ "$(uname  | grep -ic linux)" != "0" ]
+    then
+        OS=linux
+        if [ -f /etc/fedora-release ]
+        then
+            DIST=fedora
+        elif [ -f /etc/fedora-release ]
+        then
+            DIST=redhat
+        elif [ -f /etc/os-release ]
+        then
+            if [ "$( grep NAME /etc/os-release | grep -i -c ubuntu)" != "0" ]
+            then
+                DIST=ubuntu
+            else
+                DIST=debian
+            fi
+        else
+            echo "UNSUPPORTED Linux distribution"
+            exit 1
+        fi
+    elif [ "$(uname  | grep -ic darwin)" != "0" ]
+    then
+        OS=MacOS
+        DIST=MacOS
+    elif [ "$(uname  | grep -ic cygwin)" != "0" ]
+    then
+        OS=cygwin
+        DIST=cygwin
+    elif [ "$(uname  | grep -ic MINGW)" != "0" ]
+    then
+        echo "UNSUPPORTED OS, bash or ... well, something else"
+        echo "Based on the output from the command uname"
+        echo "we're guessing you're running \"Git Bash\""
+        echo ""
+        echo "This might be a very good and useful software, "
+        echo "possibly better than cygwin when it comes to git"
+        echo "but this is not something Juneday supports. "
+        echo ""
+        echo "Your software"
+        echo " * OS:    $(uname)"
+        echo " * bash:  $0"
+        echo ""
+        echo ""
+        echo "WHAT TO DO NOW?"
+        echo ""
+        echo "Install cygwin:"
+        echo " * follow the instructions on our wiki, at:"
+        echo ""
+        echo "         wiki.juneday.se"
+        echo ""
+        exit 1
+    else
+        echo "UNSUPPORTED OS, bash or ... well, something else"
+        echo "Your software"
+        echo " * OS:    $(uname)"
+        echo " * bash:  $0"
+        exit 1
+    fi
+
+}
+
+ask_question()
+{
+    Q=$1
+    
+    RET=1
+
+    if [ "$FORCED_MODE" = "true" ]
+    then
+        # RET=0 means yes
+        RET=0
+    elif [ "$HAS_X" = "true" ]
+    then
+        zenity --question --text "$Q"
+        RET=$?
+    else
+        echo "$Q [Y/n]"
+        read ANSWER
+        if [ "$ANSWER" = "Y" ] || [ "$ANSWER" = "y" ]
+        then
+            RET=0
+        fi
+    fi
+    return $RET
+}
+
+MacOS_MacOS_set_install_tool()
+{
+    if [ "$MAC_INSTALL_TOOL" != "" ]
+    then
+        return 
+    fi
+
+    /opt/local/bin/port version 2>/dev/null >/dev/null
+    PORT_RET=$?
+
+    /usr/local/bin/brew --version  2>/dev/null >/dev/null
+    BREW_RET=$?
+
+    if [ $PORT_RET -ne 0 ] && [ $BREW_RET -ne 0 ]
+    then
+        echo "*****************************************************"
+        echo "*** Uh oh, neither Homebrew or MacPorts seems     *** "
+        echo "*** to be installed. This means, we're not able   ***"
+        echo "*** to download the required software packages    ***"
+        echo "***                                               ***" 
+        echo "*** WHAT TO DO NOW?                               ***" 
+        echo "***                                               ***"
+        echo "***    Install HomeBrew or MacPorts and try again ***"
+        echo "***                                               ***"
+        echo "*****************************************************"
+        exit 6
+    elif [ $PORT_RET -eq 0 ] && [ $BREW_RET -eq 0 ]
+    then
+        echo "*****************************************************"
+        echo "***    Both Homebrew or MacPorts seems            ***"
+        echo "*** to be installed. We're choosing to use:       ***"
+        echo "***                                               ***"
+        echo "***                HomeBrew                       ***"
+        echo "***                                               ***" 
+        echo "*****************************************************"
+        MAC_INSTALL_TOOL=Homebrew
+        MAC_INSTALL_INSTALL="brew_install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
+    elif [ $PORT_RET -eq 0 ]
+    then
+        MAC_INSTALL_TOOL=MacPorts
+        MAC_INSTALL_INSTALL="sudo /opt/local/bin/port install"
+        MAC_INSTALL_UPDATE="sudo /opt/local/bin/port selfupdate"
+        MAC_INSTALL_UPGRADE="sudo /opt/local/bin/port upgrade outdated"
+    elif [ $BREW_RET -eq 0 ]
+    then
+        MAC_INSTALL_TOOL=Homebrew
+        MAC_INSTALL_INSTALL="/usr/local/bin/brew install"
+        MAC_INSTALL_UPDATE="/usr/local/bin/brew update"
+        MAC_INSTALL_UPGRADE="/usr/local/bin/brew upgrade"
+    fi
+    
+}
+
+#
+# Fix for homebrew %¤# install directive
+#
+brew_install() {
+#    echo "brew_install $*"
+ #   sleep 3
+    for macpkg in $*
+    do
+        /usr/local/bin/brew ls --versions 2>/dev/null $1 && /usr/local/bin/brew upgrade $1 2>/dev/null || /usr/local/bin/brew install $1
+    done
+}
+
+
+check_x
+source_file ${THIS_SCRIPT_DIR}/settings
+determine_os
