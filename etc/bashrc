@@ -1,0 +1,4 @@
+
+# C DEVEL
+alias pgcc='gcc  -pedantic -Wconversion -Wall -Werror  -Wextra -Wstrict-prototypes'
+
