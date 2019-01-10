@@ -29,27 +29,101 @@ download()
         echo "Download $URL to $TMP_DIR/$FILE"
         curl $URL -o $TMP_DIR/$FILE
     fi
+
+    jsonlint-php $TMP_DIR/$FILE 2>/dev/null >/dev/null
+    RET=$?
+
+    if [ $RET -ne 0 ]
+    then
+        echo "Bad JSON file, removing: $TMP_DIR/$FILE"
+        echo ""
+        echo "Try again"
+        rm $TMP_DIR/$FILE
+        exit 1
+    fi
+    
 }
 
+arg_to_date() {
+    DATE_ARG=$1
+    SIZE=$(echo ${#DATE_ARG})
+
+    RET_DATE=""
+
+    if [ "$DATE_ARG" = "" ]
+    then
+    # missing arg
+        :
+    elif [ $SIZE -lt 5 ]
+    then
+        # less than 5 digits -> "days old"
+        RET_DATE=$(date --date="$DATE_ARG day ago" +%Y%m%d)
+    elif [ $SIZE -eq 8 ]
+    then
+        # 8 digits -> date
+        RET_DATE=$DATE_ARG
+    else
+        :
+    fi
+        
+    echo $RET_DATE 
+}
 
 parse()
 {
-    START_DATE=20190101
-    START_DATE=20180101
-    STOP_DATE=20190101
+    if [ $# -eq 2 ]
+    then
+        START_DATE=$(arg_to_date $1)
+        STOP_DATE=$(arg_to_date $2)
+    elif [ $# -eq 1 ]
+    then
+        START_DATE=$(arg_to_date $1)
+        STOP_DATE=$(arg_to_date 0)
+    else
+        START_DATE=$(arg_to_date 7)
+        STOP_DATE=$(arg_to_date 0)
+    fi
+
+    if [ "$START_DATE" = "" ]
+    then
+        START_DATE=$(date --date="7 day ago" +%Y%m%d)
+    fi
+    if [ "$STOP_DATE" = "" ]
+    then
+        STOP_DATE=$(date +%Y%m%d)
+    fi
 
     DAYS=$(( ($(date --date="$STOP_DATE" +%s) - $(date --date="$START_DATE" +%s) )/(60*60*24) ))
+
+    if [ $DAYS -le 0 ]
+    then
+        echo "Invalid dates:"
+        echo " * start: $START_DATE"
+        echo " * stop: $STOP_DATE"
+        echo " * gives diff: $DAYS"
+        exit 1
+    fi
 }
 
 
 #
 # main
 #
-parse
+parse $*
 makedir $TMP_DIR
 
 download $START_DATE
 download $STOP_DATE
+
+
+    HEADER="===================================================================="
+SUB_HEADER="--------------------------------------------------------------------"
+
+FMT="%-35s %6s %6s\t%-6s\t%-6s\n"
+print_diff_header() {
+    printf "$FMT" $1 $2 $3 $4 $5
+    #$6
+}
 
 print_diff() {
     HEADER=$1
@@ -63,7 +137,7 @@ print_diff() {
 
     DIFF=$(( $STOP_VAL - $START_VAL ))
     DAILY_DIFF=$(echo "scale=2;$DIFF / $DAYS" | bc -l)
-    printf "%-35s %6d (%s)        (%-6s | %-6s | %-s)\n" "$HEADER:" $DIFF $DAILY_DIFF $START_VAL $STOP_VAL $DAYS
+    printf "$FMT" "$HEADER:" $DIFF $DAILY_DIFF $START_VAL $STOP_VAL #$DAYS
 }
 
 
@@ -85,7 +159,7 @@ books(){
     STOP_BOOKS=${STOP% *}
     STOP_PAGES=${STOP#* }
 
-    print_diff "Books" "$START_BOOKS" "$STOP_BOOKS"
+    print_diff "Books summary" "$START_BOOKS" "$STOP_BOOKS"
 }
 
 code_helper()
@@ -137,7 +211,6 @@ code() {
 
     print_diff "Repositories" "$START_REPOS" "$STOP_REPOS"
     print_diff "Commits" "$START_COMMITS" "$STOP_COMMITS"
-    print_diff "Total loc" "$START_TOT_LOC" "$STOP_TOT_LOC"
 
     TOT_CODE=0
     echo "Language loc:"
@@ -150,6 +223,7 @@ code() {
         fi
         TOT_CODE=$(( $TOT_CODE -  ${START_CODE[$i]} + ${STOP_CODE[$i]} ))
     done
+    print_diff "Total loc" "$START_TOT_LOC" "$STOP_TOT_LOC"
 #    print_diff "LOCS in total" 0 $TOT_CODE
 
 }
@@ -199,7 +273,7 @@ books_individuals() {
     IFS=$SAVED_IFS
 
     TOT_PAGES=0
-    echo "Books:"
+    echo "Book stats:"
     for i in "${!STOP_BOOKS[@]}"
     do
         print_diff " * $i" "${START_BOOKS[$i]}" "${STOP_BOOKS[$i]}"
@@ -209,11 +283,19 @@ books_individuals() {
 }
 
 
-echo "Worklog between $START_DATE and $STOP_DATE"
-echo "---------------------------------------------------------"
+echo
+echo "Worklog statistics between $START_DATE and $STOP_DATE ($DAYS days)"
+echo $HEADER
+echo 
+echo $SUB_HEADER
+print_diff_header "type" "diff" "daily" "start" "stop" "days"
+echo $SUB_HEADER
+echo
 books
 books_individuals
 echo 
+echo "Source code"
+echo $SUB_HEADER
 code
 
 
