@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 THIS_SCRIPT_DIR=$(dirname "$0")
 BASH_FUNCTIONS="${THIS_SCRIPT_DIR}/bash-functions"
 if [ -f "${BASH_FUNCTIONS}" ]
@@ -39,6 +38,7 @@ do
 done
 
 "${THIS_SCRIPT_DIR}/jd-download-software.sh" "$COURSE" 
+
 exit_on_error "$?" "Failed downloading system software using \"${THIS_SCRIPT_DIR}/jd-download-software.sh $COURSE \""
 
 # For Arduino
