@@ -69,5 +69,3 @@ do
     echo " -- "
     GROUP=
 done 
-
-#for i in user{1..5}; do useradd $i; passwd -d $i; echo $i"123" | passwd  $i --stdin; done
