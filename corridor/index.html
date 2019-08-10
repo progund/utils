@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <script>
+      var frameSRC = Array(
+      //          'ai.html', 5,
+      //'WikiScreenshot.png', 5,
+      //      'cal.html',10,
+      'http://wiki.juneday.se/mediawiki/index.php/Main_Page', 5,
+      'loonies.jpg', 5,
+      //      'spying.jpg', 2,
+      'http://xkcd.com/', 5,
+      //    'h-and-r-1.jpg', 3,
+      //      'http://rameau.sandklef.com/status/1.html', 10,
+      //    'https://twitter.com/prog_edu', 5,
+      // doesn't work for some reason 'https://github.com/orgs/progund', 5,
+      //'http://rameau.sandklef.com/status/2.html', 5,
+      //  'Felix.jpg', 5,
+      'http://wiki.juneday.se/mediawiki/index.php/Id-iot_-_Informatics_Driven_Internet_Of_Things', 5,
+      'https://ait.gu.se/kontaktaoss/journalister', 5,
+      'http://129.16.213.15:9090/lcd', 5,
+      'https://github.com/progund/adhd', 5,
+      'https://programmeringspedagogik.wordpress.com/2018/08/27/forbattringsarbete-tig015-java-delen-2017/', 5,
+      'http://wiki.juneday.se/mediawiki/index.php/Android_-_the_practical_way', 5,
+      'https://programmeringspedagogik.wordpress.com/2018/05/30/ego-tripp-kommentar-fran-tidigare-student/',10,
+      'http://wiki.juneday.se/mediawiki/index.php/Category:FAQ', 5, 
+      'brown-bag.png', 2,
+      'https://programmeringspedagogik.wordpress.com/2018/05/31/vad-vi-jobbar-med-nar-vi-ar-lediga/',5,
+      'https://programmingpedagogy.wordpress.com/', 5,
+      'https://programmeringspedagogik.wordpress.com/2018/05/29/intervju-med-niclas-nachtweij/',5,
+      'https://programmeringspedagogik.wordpress.com/2018/05/22/vi-forstar-inte-heller-ooad/',10,
+      'twitter.html', 10,
+      'https://utbildning.gu.se/program/program_detalj/?programid=N1SYS', 3,
+      'https://programmeringspedagogik.wordpress.com/2018/05/18/motsagelse-01/',5,
+      'http://wiki.juneday.se/mediawiki/index.php/Category:FAQ', 5, 
+      'https://juneday.podbean.com/', 5,
+      'math.jpg', 5,
+      //      'stupid.jpg', 3,
+      'https://programmeringspedagogik.wordpress.com/', 5);
+      // Doesn't work for some reason: 'https://vimeo.com/user52531669/about', 10);      
+      var i = 0, len = frameSRC.length;
+      
+      function ChangeSrc() {
+      if (i >= len) { i = 0; } // start over
+      document.getElementById('content').src = frameSRC[i++];
+      setTimeout('ChangeSrc()', (frameSRC[i++]*1000));
+      }
+      
+      window.onload = ChangeSrc;
+    </script>
+  </head>
+  <body style="margin:0px; padding:0px; overflow:hidden; height: 100%;">
+    <h7>These pages are presented using: Artifical Intelligence Driven Screen. (C) 2018 Henrik & Rikard</h7>
+    <iframe scrolling="no" id="content" frameborder="10"
+            style="overflow:hidden; height:100%; width:100%; border:none;"
+            height="10%" width="100%"; bottom=20px>
+    </iframe>
+  </body>
+  <!--
+      <body>
+        <iframe id="content" width="100%" height="100%" style="border:none;" />
+      </body>
+      -->
+</html>

@@ -1,0 +1,269 @@
+TOTAL_PAGE_COUNT=0
+
+get_html()
+{
+    if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${page}.html ]
+    then
+        rm -f ${page}.html
+        curl -s "http://rameau.sandklef.com/mediawiki/index.php/${page}" -o ${page}.html
+    fi
+}
+
+get_wiki_page()
+{
+    PAGES="$1"
+    for page in $PAGES
+    do
+        echo "        \"name\": \"$page\","
+        if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${page}.pdf ]
+        then
+            HTML_DOC_ARGS="--charset iso-8859-1  --no-title --format pdf14 --numbered --firstpage toc"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS --fontsize 8  --fontspacing 1  --linkstyle plain --linkcolor 217A28"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS --toclevels 3  --headfootsize 8 --quiet --jpeg --color"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS --bodyfont Arial --left 1cm --top 1cm --bottom 1cm --right 1cm"
+            HTML_DOC_ARGS="$HTML_DOC_ARGS   --header ... --footer .1. -t pdf"
+            rm -f ${page}.pdf
+#	    log_to_file	    "curl -s \"http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single\" -o ${page}.pdf "
+            #curl -s "http://rameau.sandklef.com/mediawiki/index.php?title=${page}&action=pdfbook&format=single" -o ${page}.pdf 
+            htmldoc "http://wiki.juneday.se/mediawiki/index.php?title=${page}" --outfile ${page}.pdf 2>/dev/null >/dev/null
+            log_to_file "htmldoc returned $?"
+        fi
+        PAGE_PAGES=$(pdfinfo ${page}.pdf 2>/dev/null | grep Pages | awk ' { print $2}')
+	log_to_file "PAGE_PAGES: $PAGE_PAGES"
+	log_to_file "WIKIBOOK_NR_PAGES:   $WIKIBOOK_NR_PAGES"
+	WIKIBOOK_NR_PAGES=$(( WIKIBOOK_NR_PAGES + PAGE_PAGES ))
+	log_to_file "WIKIBOOK_NR_PAGES:   $WIKIBOOK_NR_PAGES"
+        echo "        \"pages\": \"$PAGE_PAGES\","
+        PDFS="$PDFS ${page}.pdf"
+	log_to_file "page $page: $PAGE_PAGES / books (so far): $WIKIBOOK_NR_PAGES"
+#[2018-01-31 13:31:48] page Chapter:Exceptions_-_Creating_your_own: 10 / books (so far): 956
+
+    done
+    TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + NR_PAGES ))
+    log_to_file "pages in book $book: $NR_PAGES"
+
+}
+
+check_pres_pdfs_vids()
+{
+    log_to_file "  -----> check_pres_pdfs_vids"
+    PRES_PAGE_COUNT=0
+    PRES_VIDEO_COUNT=0
+    PRES_CHANNEL_COUNT=0
+    log_to_file "  ----- check_pres_pdfs_vids PRES_PDFS: $PRES_PDFS"
+    UNIQ_PDFS=$(echo "$PRES_PDFS"   | sort -u | uniq | tr '[\n]' '[ ]')
+    UNIQ_VID_COUNT=$(echo "$PRES_VIDEOS" | sort -u | uniq | wc -l)
+    echo "$(date)   UNIQ_VID_COUNT: $UNIQ_VID_COUNT" >> /tmp/jd-stat-debug.txt
+    UNIQ_CHANNEL_COUNT=$(echo "$PRES_CHANNELS" | sort -u | uniq | wc -l )
+    PDF_COUNTER=0
+    log_to_file "  ------ check_pres_pdfs_vids: $UNIQ_PDFS"
+    for pdf_long in $UNIQ_PDFS
+    do
+        PDF_COUNTER=$(( PDF_COUNTER + 1 ))
+        pdf=$(basename "$pdf_long")
+	log_to_file "  ------ check_pres_pdfs_vids: pdf: $pdf"
+#        echo -n "   { "
+ #       echo -n "     \"name\":  \"$pdf\""
+        PRES_PAGES=$(pdfinfo $pdf 2>/dev/null | grep Pages | awk ' { print $2}')
+  #      echo -n "     \"pages\":  \"$PRES_PAGE_COUNT\""
+   #     echo -n "   }, "
+        PRES_PAGE_COUNT=$(( PRES_PAGE_COUNT + PRES_PAGES ))
+#        echo "$PRES_PAGES"
+    done
+    echo "  \"book-summary\": {"
+    echo "    \"books\": \"${BOOK_COUNT}\", "
+    echo "    \"pages\": \"${TOTAL_PAGE_COUNT}\","
+    echo "    \"uniq-presentations\": \"$PDF_COUNTER\", "
+    echo "    \"uniq-presentations-pages\": \"$PRES_PAGE_COUNT\", "
+    echo "    \"uniq-videos\": \"$UNIQ_VID_COUNT\", "
+    echo "    \"uniq-channels\": \"$UNIQ_CHANNEL_COUNT\" "
+    echo "  },"
+    TOTAL_PRES_PAGE_COUNT=$(( TOTAL_PRES_PAGE_COUNT + PRES_PAGE_COUNT ))
+#    echo "    ]"
+#    echo "presentaion|page-count: $PRES_PAGE_COUNT"
+    log_to_file "  <----- check_pres_pdfs_vids"
+}
+
+check_pdfs()
+{
+    book=$1
+    
+    PAGE_COUNT=0
+    echo "  \"wiki-pages\": ["
+    for pdf in $PDFS
+    do
+        echo "      {"
+        echo "        \"name\": \"$pdf\", "
+        PAGES=$(pdfinfo $pdf 2>/dev/null | grep Pages | awk ' { print $2}')
+        echo "        \"pages\": \"$PAGES\""
+        PAGE_COUNT=$(( PAGE_COUNT + PAGES ))
+        echo "      },"
+    done
+    echo "    ]"
+    TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + PAGE_COUNT ))
+    echo "   \"pages-total\": \"$PAGE_COUNT\""
+}
+
+get_pres_and_vids()
+{
+    get_html "$page"
+    echo "        \"presentations\":[" 
+    CHAPTER_PDF_PAGES=0
+    LOCAL_PRES_VIDEO_COUNT=0
+    HTML_PAGE="$1".html
+    echo "----->  Find local pdfs in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
+    echo "-----   Find local pdfs using:  grep \"href=\" \"$HTML_PAGE\" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,\",,g'| sort -u | uniq " >> /tmp/jd-stat-debug.txt
+    LOCAL_PRES_PDFS=$(grep "href=" "$HTML_PAGE" | grep pdf | sed 's, ,\n,g' | grep pdf | grep mediawiki | sed -e 's,href=,,g' -e 's,",,g'| sort -u | uniq)
+    echo "<-----  Find local pdfs in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
+
+    LOCAL_PRES_VIDEOS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel | sort -u)
+
+    echo "----> Find local videos in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
+    grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep -v channel >> /tmp/jd-stat-debug.txt
+    echo "<--- Find local videos in $HTML_PAGE" >> /tmp/jd-stat-debug.txt
+    echo "$(date)   LOCAL_PRES_VIDEOS: $LOCAL_PRES_VIDEOS" >> /tmp/jd-stat-debug.txt
+
+    LOCAL_PRES_CHANNELS=$(grep "vimeo" "$HTML_PAGE" | sed 's,[ >],\n,g' | grep href | sed -e 's,href=,,g' -e 's,",,g'  | grep -v mediawiki | grep -v github | grep  channel | sort -u)
+    CNT=0
+    for page in $LOCAL_PRES_PDFS
+    do
+        if [ $CNT -ne 0 ]
+        then
+            echo ","
+        fi
+        CNT=$(( CNT + 1 ))
+        short_page=$(basename ${page})
+        if [ "$DOWNLOAD" = "true" ] || [ ! -f  ${short_page} ]
+        then
+            rm -f ${short_page}
+            curl -s "http://rameau.sandklef.com/$page" -o ${short_page}
+        fi
+        echo "            { "
+        echo "              \"name\": \"$short_page\","
+        PAGES=$(pdfinfo $short_page 2>/dev/null | grep Pages | awk ' { print $2}')
+        CHAPTER_PDF_PAGES=$(( CHAPTER_PDF_PAGES + PAGES ))
+        echo "              \"pages\": \"$PAGES\""
+        echo -n "            } "
+    done
+    echo
+    echo "          ]," 
+    echo "        \"presentation-pages\": \"$CHAPTER_PDF_PAGES\"," 
+    echo "        \"videos\":[" 
+    LOCAL_PRES_VIDEO_COUNT=0
+    for video in $LOCAL_PRES_VIDEOS
+    do
+        if [ $LOCAL_PRES_VIDEO_COUNT -ne 0 ]
+        then
+            echo ","
+        fi
+        LOCAL_PRES_VIDEO_COUNT=$(( LOCAL_PRES_VIDEO_COUNT + 1 ))
+#        echo "              { "
+#        echo "                 \"url\": \"$video\""
+        echo -n "                 \"$video\""
+#        echo "              }, "
+    done
+    PRES_VIDEO_COUNT=$(( PRES_VIDEO_COUNT + LOCAL_PRES_VIDEO_COUNT ))
+    echo  "          ]," 
+    echo "        \"video-count\": \"$LOCAL_PRES_VIDEO_COUNT\"," 
+    echo "        \"channels\":[" 
+    LOCAL_PRES_CHANNEL_COUNT=0
+    for channel in $LOCAL_PRES_CHANNELS
+    do
+        if [ $LOCAL_PRES_CHANNEL_COUNT -ne 0 ]
+        then
+            echo ","
+        fi
+        LOCAL_PRES_CHANNEL_COUNT=$(( LOCAL_PRES_CHANNEL_COUNT + 1 ))
+        echo -n "                 \"$channel\""
+    done
+    echo  "          ]," 
+    echo "        \"channel-count\": \"$LOCAL_PRES_CHANNEL_COUNT\"" 
+    PRES_CHANNEL_COUNT=$(( PRES_CHANNEL_COUNT + LOCAL_PRES_CHANNEL_COUNT ))
+
+    PRES_PDFS="$PRES_PDFS $LOCAL_PRES_PDFS"
+    PRES_VIDEOS="$PRES_VIDEOS $LOCAL_PRES_VIDEOS"
+    echo "$(date)   PRES_VIDEOS: $PRES_VIDEOS" >> /tmp/jd-stat-debug.txt
+    echo "$(date)   PRES_PDFS: $PRES_PDFS" >> /tmp/jd-stat-debug.txt
+    
+    PRES_CHANNELS="$PRES_CHANNELS $LOCAL_PRES_CHANNELS"
+}
+
+
+check_book()
+{
+    book=$1
+    
+    PAGES=${book}_PAGES
+    TITLE_VAR=${book}_TITLE
+    TITLE=${!TITLE_VAR}
+    TITLE_NO_BLANKS=$(echo $TITLE | sed 's, ,_,g')
+
+    log_to_file "PAGES: $PAGES / ${!PAGES}"
+    
+    debug " * $TITLE"
+    echo "  {"
+    echo "    \"title\": \"$TITLE\","
+    PDFS=""
+    echo "    \"chapters\": ["
+    local COUNT=0
+    WIKIBOOK_NR_PAGES=0
+    for page in ${!PAGES}
+    do
+        if [ $COUNT -ne 0 ]
+        then
+            echo ","
+        fi
+        COUNT=$(( CNT + 1 ))
+        echo "        { "
+
+        # download pdf version of wiki page
+	log_to_file " download pdf version of wiki page: $page"
+        get_wiki_page   "$page"
+
+        # download presentation pdfs linked from wiki page
+        get_pres_and_vids "$page"
+        echo "        } "
+    done
+    echo "  ],"
+    echo "    \"pages\": \"$WIKIBOOK_NR_PAGES\""
+    echo " }"
+    
+#    echo "   \"presentations-pages-total\": \"$PRES_PAGE_COUNT\""
+     
+#    check_pdfs $book
+    PAGE_COUNT=$WIKIBOOK_NR_PAGES
+    PAGE_COUNTS["${book}"]="${PAGE_COUNT}"
+
+    log_to_file "Books so far"
+    for i in "${!PAGE_COUNTS[@]}"
+    do
+	log_to_file " * $i / ${PAGE_COUNTS[$i]}"
+    done
+    
+    TOTAL_PAGE_COUNT=$(( TOTAL_PAGE_COUNT + PAGE_COUNT ))
+    rm -f  "${TITLE_NO_BLANKS}.pdf"
+    pdfmerge $PDFS "${TITLE_NO_BLANKS}.pdf" 2>/dev/null >/dev/null
+}
+
+
+
+
+get_wiki_stats_sub()
+{
+    export EXP=$2
+    NR=$(grep "$EXP" $TEMP_DIR/wiki.txt | sed "s/$EXP//g" | awk '{ print $1 }' | sed 's/,//g')
+    echo -n "      \"$1\": \"$NR\""
+}
+get_wiki_stats()
+{
+    echo "  \"wiki-stats\": { "
+    w3m -dump http://rameau.sandklef.com/mediawiki/index.php/Special:Statistics > $TEMP_DIR/wiki.txt
+    get_wiki_stats_sub "content-pages" "Content pages"
+    echo ","
+    get_wiki_stats_sub "pages" "Pages"
+    echo ","
+    get_wiki_stats_sub "uploaded-files" "Uploaded files"
+    echo ","
+    get_wiki_stats_sub "edits" "Page edits since Juneday education was set up"
+    echo "  }"
+}

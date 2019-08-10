@@ -1,0 +1,125 @@
+
+dload_repo()
+{
+    repo=$1
+    GIT_DIR=$(echo "$repo" | sed -e 's,https://github.com/progund/,,g' -e 's,.git,,g')
+    log_to_file "        -- dir: $GIT_DIR"
+    if [ -d $GIT_DIR ]
+    then
+        log_to_file "        -- updating repo ($repo)"
+        pushd $GIT_DIR 2>/dev/null >/dev/null
+        git pull
+        RET=$?
+        log_to_file "        -- pulling repo ${repo}: $RET"
+        popd 2>/dev/null >/dev/null
+        if [ $RET -ne 0 ]
+        then
+            log_to_file "        -- failed pulling repo ($repo), removing and cloning"
+            rm -fr $GIT_DIR
+            git clone "${repo}"
+            RET=$?
+            log_to_file "        -- cloning repo ${repo}: $?"
+        fi              
+    else
+        log_to_file "        -- cloning repo ${repo}"
+        git clone "${repo}"
+            RET=$?
+        log_to_file "        -- cloning repo ${repo}: $?"
+    fi
+    return $RET
+}
+
+dload_source_code()
+{
+    log_to_file "      --> dload_source_code()"
+    curl -s https://api.github.com/orgs/progund/repos?per_page=400  > repos.json
+    echo "\"clone_url\": \"https://git.savannah.nongnu.org/git/searduino.git\"" >> repos.json
+    REPOS=$(   grep clone_url repos.json  | sed -e 's,"clone_url": ,,' -e "s/[,\"]//g" )
+    REPO_CNT=$(grep clone_url repos.json  | sed -e 's,"clone_url": ,,' -e "s/[,\"]//g"| wc -l )
+
+    mkdir -p git
+    pushd git 2>/dev/null >/dev/null
+
+    log_to_file "        --> looping through repos"
+    for repo in $REPOS
+    do
+        dload_repo $repo
+    done
+    log_to_file "        <-- looping through repos"
+
+    popd 2>/dev/null >/dev/null
+    log_to_file "      <-- dload_source_code()"
+}
+
+git_stats_sub()
+{
+    LANG_TYPE=$1
+    echo "        {" 
+    echo "           \"name\": \"$LANG_TYPE\","
+    echo -n "        \"repos\": \""
+    log_to_file "w3m -dump 'https://github.com/progund?language=$LANG_TYPE'"
+    echo -n $(w3m -dump "https://github.com/progund?language=$LANG_TYPE" | grep "repositories written in "|awk '{print $1}');
+    echo  "\""
+    echo "        }"
+    #LC_TIME=en_US date
+}
+
+git_repo_stat()
+{
+    REPO=$1
+    log_to_file "      --> git_repo_stat() $REPO"
+    pushd git 2>/dev/null >/dev/null
+    REPO_DIR=$(echo "$REPO" | sed -e 's,https://github.com/progund/,,g' -e 's,.git,,g')
+
+    pushd $REPO_DIR  2>/dev/null >/dev/null
+
+    COMMITS=$(git log  | grep "^commit " | wc -l)
+    BRANCHES=$(git branch | wc -l)
+    TAGS=$(git tag | wc -l)
+    echo "        { "
+    echo "           \"repo-url\": \"$REPO\", "
+    echo "           \"repo-name\": \"$REPO_DIR\", "
+    echo "           \"repo-commits\": \"$COMMITS\","
+    echo "           \"repo-branches\": \"$BRANCHES\","
+    echo "           \"repo-tags\": \"$TAGS\""
+    echo "        }"
+    
+    popd 2>/dev/null >/dev/null
+    popd 2>/dev/null >/dev/null
+    log_to_file "      <-- git_repo_stat()"
+}
+
+git_repos_stat()
+{
+    log_to_file "      --> git_repos_stat()"
+    echo "    \"git-repo-stat\": ["
+    log_to_file "      --  git_repos_stat() $REPOS"
+    REP_CNT=0
+    for repo in $REPOS
+    do
+        if [ $REP_CNT -ne 0 ]
+        then
+               echo -n ","
+        fi
+        git_repo_stat $repo
+        REP_CNT=$(( REP_CNT + 1 ))
+    done
+    echo "    ]"
+    log_to_file "      <-- git_repos_stat()"
+}
+
+
+git_stats()
+{
+    echo "    \"git-repos\": {"
+    echo "      \"total\": \"$REPO_CNT\","
+    echo "      \"languages\": ["
+    git_stats_sub java
+    echo "      ,"
+    git_stats_sub c
+    echo "      ,"
+    git_stats_sub shell
+    echo "       ],"
+    git_repos_stat
+    echo "    }"
+}

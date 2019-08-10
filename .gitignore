@@ -1,8 +1,6 @@
-
 # emacs save files
 *~
 
-# emacs save files
 *.class
 
 # media files (keep repo small)
@@ -18,7 +16,4 @@
 *.gz
 *.tar
 *.zip
-
-
-
 

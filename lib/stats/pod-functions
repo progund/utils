@@ -1,0 +1,9 @@
+
+get_pod_stat()
+{
+    echo "    \"pod\": {"
+    echo -n "      \"podcasts\": \""
+    echo -n $(w3m -dump http://juneday.podbean.com/ 2>/dev/null | grep Episodes | sed 's,Episodes,,g')
+    echo "\""
+    echo "    }"
+}
