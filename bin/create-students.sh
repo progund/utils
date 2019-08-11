@@ -11,12 +11,12 @@ log()
 
 exec_cmd()
 {
-    echo "$*"
+    echo "$*" | bash
     RET=$?
     if [ $RET -ne 0 ]
     then
         echo "Failed executing \"$*\" (return code: $RET)"
-        exit $RET
+ #       exit $RET
     fi
 }
 
@@ -38,9 +38,9 @@ create_user()
 #    echo "  ** CREATE USER:  $NEW_USER ($NEW_GROUP)"
     WWW_DIR=${HOME_DIR_BASE}/${NEW_USER}/public_html/
 
-    exec_cmd "useradd $GROUP_ARGS $NEW_USER"
-    exec_cmd "passwd -d $NEW_USER"
-    exec_cmd "echo ${NEW_USER}$$ | passwd $NEW_USER --stdin"
+    exec_cmd "useradd -m -b ${HOME_DIR_BASE} $GROUP_ARGS $NEW_USER"
+    exec_cmd "chpasswd $NEW_USER:${NEW_USER}$$"
+#    exec_cmd "echo  | passwd $NEW_USER --stdin"
     exec_cmd "mkdir ${WWW_DIR}"
     exec_cmd "chown -R ${NEW_USER}. ${WWW_DIR}"
     GROUP_ARGS=""
