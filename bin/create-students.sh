@@ -31,14 +31,14 @@ create_user()
 {
     NEW_GROUP=$1
     NEW_USER=$2
-    if [ "$NEW_GROUP" != "" ]
-    then
-        GROUP_ARGS=" -g $NEW_GROUP "
-    fi
 #    echo "  ** CREATE USER:  $NEW_USER ($NEW_GROUP)"
     WWW_DIR=${HOME_DIR_BASE}/${NEW_USER}/public_html/
 
-    exec_cmd "useradd -m -b ${HOME_DIR_BASE} $GROUP_ARGS $NEW_USER"
+    exec_cmd "useradd -m -b ${HOME_DIR_BASE} $NEW_USER"
+    if [ "$NEW_GROUP" != "" ]
+    then
+        sudo usermod -a -G $NEW_GROUP $NEW_USER
+    fi
     exec_cmd "chpasswd $NEW_USER:${NEW_USER}$$"
 #    exec_cmd "echo  | passwd $NEW_USER --stdin"
     exec_cmd "mkdir ${WWW_DIR}"
