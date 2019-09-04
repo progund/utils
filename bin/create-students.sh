@@ -35,13 +35,13 @@ create_user()
 #    echo "  ** CREATE USER:  $NEW_USER ($NEW_GROUP)"
     WWW_USER_DIR=${HOME_DIR_BASE}/${NEW_USER}/public_html/
 
-    exec_cmd "useradd -m -b ${HOME_DIR_BASE} $NEW_USER"
+    exec_cmd "useradd -m  -s /bin/bash -b${HOME_DIR_BASE} $NEW_USER"
     if [ "$NEW_GROUP" != "" ]
     then
         sudo usermod -a -G $NEW_GROUP $NEW_USER
     fi
-    echo "chpasswd $NEW_USER:${NEW_USER}-secret"
-    exec_cmd "chpasswd $NEW_USER:${NEW_USER}-secret"
+#    echo "chpasswd $NEW_USER:${NEW_USER}-secret"
+    echo "$NEW_USER:tig015-${NEW_USER}" | chpasswd
 #    exec_cmd "echo  | passwd $NEW_USER --stdin"
     exec_cmd "mkdir ${WWW_USER_DIR}"
     exec_cmd "chown -R ${NEW_USER}. ${WWW_USER_DIR}"
