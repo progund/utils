@@ -47,6 +47,8 @@ create_user()
     exec_cmd "chown -R ${NEW_USER}. ${WWW_USER_DIR}"
 
     echo -e "Test page for user: ${NEW_USER} (group: ${NEW_GROUP})\nCreated: $(LC_TIME=en_GB.UTF-8 date)\n" > $WWW_USER_DIR/test.txt
+    chown -R  $NEW_USER.$NEW_USER  $WWW_USER_DIR/test.txt
+
     if [ "$NEW_GROUP" != "" ]
     then
 	echo "Adding student to group file $WWW_DIR/$NEW_GROUP/test.txt" 
