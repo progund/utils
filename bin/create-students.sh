@@ -50,7 +50,7 @@ create_user()
     echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8 date)" > $WWW_USER_DIR/test.txt
     if [ "$NEW_GROUP" != "" ]
     then
-	echo " * $NEW_USER" > $WWW_DIR/$GROUP/test.txt
+	echo " * $NEW_USER" > $WWW_DIR/$NEW_GROUP/test.txt
     fi    
 }
 
