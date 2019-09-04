@@ -48,7 +48,10 @@ create_user()
     NEW_USER=
     NEW_GROUP=
     echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8 date)" > $WWW_USER_DIR/test.txt
-    
+    if [ "$NEW_GROUP" != "" ]
+    then
+	echo " * $NEW_USER" > $WWW_DIR/$GROUP/test.txt
+    fi    
 }
 
 cat $FILE | while read LINE
@@ -62,7 +65,7 @@ do
         USERS=$(echo $LINE | cut -d':' -f 2)
         create_group $GROUP
 	mkdir -p $WWW_DIR/$GROUP
-	echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8 date)" > $WWW_DIR/$GROUP/test.txt
+	echo -e "Test page for group: $GROUP\nCreated: $(LC_TIME=en_GB.UTF-8 date)\nStudents:" > $WWW_DIR/$GROUP/test.txt
 	chown -R www-data.$GROUP $WWW_DIR/$GROUP
 	
     fi
