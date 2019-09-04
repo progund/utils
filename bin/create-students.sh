@@ -3,8 +3,8 @@
 FILE=$1
 LOG_FILE=/tmp/create-students-$$.log
 HOME_DIR_BASE=/home
-COURSE_DIR=/var/www/html/tig015
-YEAR_DIR=${COURSE_DIR}/2019/
+COURSE_DIR=/var/www/html/
+YEAR_DIR=${COURSE_DIR}/tig015/2019/
 
 log()
 {
