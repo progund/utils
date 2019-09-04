@@ -40,7 +40,7 @@ create_user()
     then
         sudo usermod -a -G $NEW_GROUP $NEW_USER
     fi
-    exec_cmd "chpasswd $NEW_USER:${NEW_USER}$$"
+    exec_cmd "chpasswd $NEW_USER:${NEW_USER}-secret"
 #    exec_cmd "echo  | passwd $NEW_USER --stdin"
     exec_cmd "mkdir ${WWW_USER_DIR}"
     exec_cmd "chown -R ${NEW_USER}. ${WWW_USER_DIR}"
