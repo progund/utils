@@ -45,6 +45,7 @@ create_user()
 #    exec_cmd "echo  | passwd $NEW_USER --stdin"
     exec_cmd "mkdir ${WWW_USER_DIR}"
     exec_cmd "chown -R ${NEW_USER}. ${WWW_USER_DIR}"
+    exec_cmd "chmod -R o+r ${WWW_USER_DIR}"
 
     echo -e "Test page for user: ${NEW_USER} (group: ${NEW_GROUP})\nCreated: $(LC_TIME=en_GB.UTF-8 date)\n" > $WWW_USER_DIR/test.txt
     chown -R  $NEW_USER.$NEW_USER  $WWW_USER_DIR/test.txt
@@ -73,6 +74,7 @@ do
 	echo -e "Test page for group: $GROUP\nCreated: $(LC_TIME=en_GB.UTF-8 date)\nStudents:" > $WWW_DIR/$GROUP/test.txt
 	chown -R www-data.$GROUP $WWW_DIR/$GROUP
 	chmod -R g+rw $WWW_DIR/$GROUP
+	chmod -R g+s $WWW_DIR/$NEW_GROUP
     fi
 
     for i in $(echo $USERS | sed 's/,/ /g')
