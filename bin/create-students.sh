@@ -69,6 +69,7 @@ do
 	mkdir -p $WWW_DIR/$GROUP
 	echo -e "Test page for group: $GROUP\nCreated: $(LC_TIME=en_GB.UTF-8 date)\nStudents:" > $WWW_DIR/$GROUP/test.txt
 	chown -R www-data.$GROUP $WWW_DIR/$GROUP
+	chmod -R g+rw $WWW_DIR/$GROUP
 	
     fi
 
