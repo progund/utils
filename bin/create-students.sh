@@ -75,6 +75,7 @@ do
 	chown -R www-data.$GROUP $WWW_DIR/$GROUP
 	chmod -R g+rw $WWW_DIR/$GROUP
 	chmod -R g+s $WWW_DIR/$NEW_GROUP
+	chmod -R o-rwx $WWW_DIR/$NEW_GROUP
     fi
 
     for i in $(echo $USERS | sed 's/,/ /g')
