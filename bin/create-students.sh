@@ -83,8 +83,8 @@ do
 	echo -e "Test page for group: $GROUP\nCreated: $(LC_TIME=en_GB.UTF-8 date)\nStudents:" > $YEAR_DIR/$GROUP/test.txt
 	chown -R www-data.$GROUP $YEAR_DIR/$GROUP
 	chmod -R g+rw $YEAR_DIR/$GROUP
-	chmod -R g+s $YEAR_DIR/$NEW_GROUP
-	chmod -R o-rwx $YEAR_DIR/$NEW_GROUP
+	chmod -R g+s $YEAR_DIR/$GROUP
+	chmod -R o-rwx $YEAR_DIR/$GROUP
     fi
 
     for i in $(echo $USERS | sed 's/,/ /g')
