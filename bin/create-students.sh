@@ -3,7 +3,8 @@
 FILE=$1
 LOG_FILE=/tmp/create-students-$$.log
 HOME_DIR_BASE=/home
-WWW_DIR=/var/www/html/tig015/2019/
+COURSE_DIR=/var/www/html/tig015
+WWW_DIR=${COURSE_DIR}/tig015/2019/
 
 log()
 {
@@ -67,7 +68,8 @@ do
     USE_GROUP=$(echo $LINE | grep -c ":" )
 
     mkdir -p $WWW_DIR/
-    chown -R www-data.www-data $WWW_DIR/
+    chown -R www-data.www-data $COURSE_DIR
+    chmod o+rx $WWW_DIR/..
 
     if [ $USE_GROUP -ne 0 ]
     then
