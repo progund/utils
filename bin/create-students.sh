@@ -3,6 +3,7 @@
 FILE=$1
 LOG_FILE=/tmp/create-students-$$.log
 HOME_DIR_BASE=/home
+WWW_DIR=/var/www/tig015/2019/
 
 log()
 {
@@ -32,7 +33,7 @@ create_user()
     NEW_GROUP=$1
     NEW_USER=$2
 #    echo "  ** CREATE USER:  $NEW_USER ($NEW_GROUP)"
-    WWW_DIR=${HOME_DIR_BASE}/${NEW_USER}/public_html/
+    WWW_USER_DIR=${HOME_DIR_BASE}/${NEW_USER}/public_html/
 
     exec_cmd "useradd -m -b ${HOME_DIR_BASE} $NEW_USER"
     if [ "$NEW_GROUP" != "" ]
@@ -41,11 +42,13 @@ create_user()
     fi
     exec_cmd "chpasswd $NEW_USER:${NEW_USER}$$"
 #    exec_cmd "echo  | passwd $NEW_USER --stdin"
-    exec_cmd "mkdir ${WWW_DIR}"
-    exec_cmd "chown -R ${NEW_USER}. ${WWW_DIR}"
+    exec_cmd "mkdir ${WWW_USER_DIR}"
+    exec_cmd "chown -R ${NEW_USER}. ${WWW_USER_DIR}"
     GROUP_ARGS=""
     NEW_USER=
     NEW_GROUP=
+    echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8)" > $WWW_USER_DIR/test.txt
+    
 }
 
 cat $FILE | while read LINE
@@ -58,14 +61,17 @@ do
         GROUP=$(echo $LINE | cut -d':' -f 1)
         USERS=$(echo $LINE | cut -d':' -f 2)
         create_group $GROUP
+	mkdir -p $WWW_DIR/$GROUP
+	echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8)" > $WWW_DIR/$GROUP/test.txt
+	chown -R www-data.$GROUP $WWW_DIR/$GROUP
+	
     fi
 
     for i in $(echo $USERS | sed 's/,/ /g')
     do
         create_user "$GROUP" "$i"
-        echo
+	echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8)" > $WWW_DIR/$GROUP/test.txt
+        echo "$GROUP" "$i"
     done
-
-    echo " -- "
     GROUP=
 done 
