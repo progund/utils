@@ -65,6 +65,10 @@ do
 #    echo "$LINE"
     USERS=$LINE
     USE_GROUP=$(echo $LINE | grep -c ":" )
+
+    mkdir -p $WWW_DIR/
+    chown -R www-data.www-data $WWW_DIR/
+
     if [ $USE_GROUP -ne 0 ]
     then
         GROUP=$(echo $LINE | cut -d':' -f 1)
