@@ -4,7 +4,7 @@ FILE=$1
 LOG_FILE=/tmp/create-students-$$.log
 HOME_DIR_BASE=/home
 COURSE_DIR=/var/www/html/tig015
-WWW_DIR=${COURSE_DIR}/tig015/2019/
+YEAR_DIR=${COURSE_DIR}/2019/
 
 log()
 {
@@ -53,8 +53,8 @@ create_user()
 
     if [ "$NEW_GROUP" != "" ]
     then
-	echo "Adding student to group file $WWW_DIR/$NEW_GROUP/test.txt" 
-	echo " * $NEW_USER" >> $WWW_DIR/$NEW_GROUP/test.txt
+	echo "Adding student to group file $YEAR_DIR/$NEW_GROUP/test.txt" 
+	echo " * $NEW_USER" >> $YEAR_DIR/$NEW_GROUP/test.txt
     fi    
     GROUP_ARGS=""
     NEW_USER=
@@ -67,21 +67,21 @@ do
     USERS=$LINE
     USE_GROUP=$(echo $LINE | grep -c ":" )
 
-    mkdir -p $WWW_DIR/
+    mkdir -p $YEAR_DIR/
     chown -R www-data.www-data $COURSE_DIR
-    chmod o+rx $WWW_DIR/..
+    chmod -R o+rx $COURSE_DIR
 
     if [ $USE_GROUP -ne 0 ]
     then
         GROUP=$(echo $LINE | cut -d':' -f 1)
         USERS=$(echo $LINE | cut -d':' -f 2)
         create_group $GROUP
-	mkdir -p $WWW_DIR/$GROUP
-	echo -e "Test page for group: $GROUP\nCreated: $(LC_TIME=en_GB.UTF-8 date)\nStudents:" > $WWW_DIR/$GROUP/test.txt
-	chown -R www-data.$GROUP $WWW_DIR/$GROUP
-	chmod -R g+rw $WWW_DIR/$GROUP
-	chmod -R g+s $WWW_DIR/$NEW_GROUP
-	chmod -R o-rwx $WWW_DIR/$NEW_GROUP
+	mkdir -p $YEAR_DIR/$GROUP
+	echo -e "Test page for group: $GROUP\nCreated: $(LC_TIME=en_GB.UTF-8 date)\nStudents:" > $YEAR_DIR/$GROUP/test.txt
+	chown -R www-data.$GROUP $YEAR_DIR/$GROUP
+	chmod -R g+rw $YEAR_DIR/$GROUP
+	chmod -R g+s $YEAR_DIR/$NEW_GROUP
+	chmod -R o-rwx $YEAR_DIR/$NEW_GROUP
     fi
 
     for i in $(echo $USERS | sed 's/,/ /g')
