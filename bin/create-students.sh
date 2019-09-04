@@ -70,7 +70,6 @@ do
     for i in $(echo $USERS | sed 's/,/ /g')
     do
         create_user "$GROUP" "$i"
-	echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8)" > $WWW_DIR/$GROUP/test.txt
         echo "$GROUP" "$i"
     done
     GROUP=
