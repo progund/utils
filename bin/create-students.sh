@@ -3,7 +3,7 @@
 FILE=$1
 LOG_FILE=/tmp/create-students-$$.log
 HOME_DIR_BASE=/home
-WWW_DIR=/var/www/tig015/2019/
+WWW_DIR=/var/www/html/tig015/2019/
 
 log()
 {
