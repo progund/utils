@@ -61,15 +61,18 @@ create_user()
     NEW_GROUP=
 }
 
+#
+# Prepare
+#
+mkdir -p $YEAR_DIR/
+chown -R www-data.www-data $COURSE_DIR
+chmod -R o+rx $COURSE_DIR
+
 cat $FILE | while read LINE
 do
 #    echo "$LINE"
     USERS=$LINE
     USE_GROUP=$(echo $LINE | grep -c ":" )
-
-    mkdir -p $YEAR_DIR/
-    chown -R www-data.www-data $COURSE_DIR
-    chmod -R o+rx $COURSE_DIR
 
     if [ $USE_GROUP -ne 0 ]
     then
