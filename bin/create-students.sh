@@ -44,15 +44,16 @@ create_user()
 #    exec_cmd "echo  | passwd $NEW_USER --stdin"
     exec_cmd "mkdir ${WWW_USER_DIR}"
     exec_cmd "chown -R ${NEW_USER}. ${WWW_USER_DIR}"
-    GROUP_ARGS=""
-    NEW_USER=
-    NEW_GROUP=
+
     echo -e "Test page\nCreated: $(LC_TIME=en_GB.UTF-8 date)" > $WWW_USER_DIR/test.txt
     if [ "$NEW_GROUP" != "" ]
     then
 	echo "Adding student to group file $WWW_DIR/$NEW_GROUP/test.txt" 
 	echo " * $NEW_USER" >> $WWW_DIR/$NEW_GROUP/test.txt
     fi    
+    GROUP_ARGS=""
+    NEW_USER=
+    NEW_GROUP=
 }
 
 cat $FILE | while read LINE
