@@ -27,7 +27,7 @@ download_json()
     FILE_TO_SAVE=${BASE_DIR}/$1.json
     if [ ! -f $FILE_TO_SAVE ]
     then
-        curl -o $FILE_TO_SAVE $BASE_URL/$1/jd-stats.json
+        curl -s -o $FILE_TO_SAVE $BASE_URL/$1/jd-stats.json
     fi
 }
 
