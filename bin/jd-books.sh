@@ -19,19 +19,19 @@ then
 fi
 
 
-FIRST_JSON=${BASE_DIR}/$FIRST_DATE.json
-SECOND_JSON=${BASE_DIR}/$SECOND_DATE.json
+FIRST_JSON="${BASE_DIR}/$FIRST_DATE.json"
+SECOND_JSON="${BASE_DIR}/$SECOND_DATE.json"
 
 download_json()
 {
-    FILE_TO_SAVE=${BASE_DIR}/$1.json
-    if [ ! -f $FILE_TO_SAVE ]
+    FILE_TO_SAVE="${BASE_DIR}/$1.json"
+    if [ ! -f "$FILE_TO_SAVE" ]
     then
-        curl -s -o $FILE_TO_SAVE $BASE_URL/$1/jd-stats.json
+        curl -s -o "$FILE_TO_SAVE" "$BASE_URL/$1/jd-stats.json"
     fi
 }
 
-download_json $FIRST_DATE
+download_json "$FIRST_DATE"
 
 single_date()
 {
@@ -39,11 +39,11 @@ single_date()
     echo
     printf " %-40s %5s\n" "Book " "Pages"
     echo "--------------------------------------------------"
-    cat $FIRST_JSON  | jq '.books[]|.title,.pages' | sed 's,",,g' | while (true) ; do
-        read NAME
-	read PAGES
+    jq '.books[]|.title,.pages' "$FIRST_JSON" | sed 's,",,g' | while (true) ; do
+        read -r NAME
+	read -r PAGES
         if [ "$PAGES" = "" ] ; then break ; fi
-        printf " %-40s %5d\n" "$NAME:" $PAGES
+        printf " %-40s %5d\n" "$NAME:" "$PAGES"
     done | rev | sort -nr | rev
 }
 
@@ -53,15 +53,15 @@ two_dates()
     echo
     printf " %-40s %5s %5s %s\n" "Book " "Pages" "Pages" "diff"
     echo "-------------------------------------------------------------------"
-    cat $SECOND_JSON | jq '.books[]|.title' | sed 's,\",,g' | while read BOOK_TITLE
+    jq '.books[]|.title' $SECOND_JSON | sed 's,\",,g' | while read -r BOOK_TITLE
     do
-        FIRST_PAGES=$(jq --raw-output ".books[] | select(.title==\"$BOOK_TITLE\") | .pages" $FIRST_JSON)
-        SECOND_PAGES=$(jq --raw-output ".books[] | select(.title==\"$BOOK_TITLE\") | .pages" $SECOND_JSON)
+        FIRST_PAGES=$(jq --raw-output ".books[] | select(.title==\"$BOOK_TITLE\") | .pages" "$FIRST_JSON")
+        SECOND_PAGES=$(jq --raw-output ".books[] | select(.title==\"$BOOK_TITLE\") | .pages" "$SECOND_JSON")
         if [ "$FIRST_PAGES" = "" ]
         then
             FIRST_PAGES=0
         fi
-        printf " %-40s %5s %5s %s\n" "$BOOK_TITLE" "$FIRST_PAGES"  "$SECOND_PAGES"  $(( $SECOND_PAGES - $FIRST_PAGES))
+        printf " %-40s %5s %5s %s\n" "$BOOK_TITLE" "$FIRST_PAGES"  "$SECOND_PAGES"  $(( SECOND_PAGES - FIRST_PAGES))
     done | rev | sort -nr | rev
 }
 
@@ -71,8 +71,6 @@ if [ "$SECOND_DATE" = "" ]
 then
     single_date
 else
-    download_json $SECOND_DATE
+    download_json "$SECOND_DATE"
     two_dates
 fi
-
-
