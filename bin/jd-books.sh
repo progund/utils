@@ -44,14 +44,14 @@ single_date()
 	read -r PAGES
         if [ "$PAGES" = "" ] ; then break ; fi
         printf " %-40s %5d\n" "$NAME:" "$PAGES"
-    done | rev | sort -nr | rev
+    done | sort -n -t ":" -k 2
 }
 
 two_dates()
 {
     echo "Books statistics from ($FIRST_DATE - $SECOND_DATE)"
     echo
-    printf " %-40s %5s %5s %s\n" "Book " "Pages" "Pages" "diff"
+    printf " %-40s %5s %5s %s\n" "Book " "Pages" "Pages" "(diff)"
     echo "-------------------------------------------------------------------"
     jq '.books[]|.title' $SECOND_JSON | sed 's,\",,g' | while read -r BOOK_TITLE
     do
@@ -61,8 +61,8 @@ two_dates()
         then
             FIRST_PAGES=0
         fi
-        printf " %-40s %5s %5s %s\n" "$BOOK_TITLE" "$FIRST_PAGES"  "$SECOND_PAGES"  $(( SECOND_PAGES - FIRST_PAGES))
-    done | rev | sort -nr | rev
+        printf " %-40s %5s %5s (%s)\n" "$BOOK_TITLE" "$FIRST_PAGES"  "$SECOND_PAGES"  $(( SECOND_PAGES - FIRST_PAGES))
+    done | sort -n -t "(" -k 2
 }
 
 
