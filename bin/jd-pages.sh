@@ -1,26 +1,94 @@
 #!/bin/bash
 
-PAGE_URL=$1
-FIRST_DATE=$2
 BASE_DIR=/tmp/jd-books
-DATE=$(date '+%Y%m%d')
-
-if [ "$PAGE_URL" = "" ]
-then
-    echo "Missing argument(s)"
-    exit 1
-fi
-
-if [ "$FIRST_DATE" = "" ]
-then
-    FIRST_DATE=$DATE
-fi
+DATE="$(date '+%Y%m%d')"
+BASE_URL="http://wiki.juneday.se/mediawiki/index.php"
+JD_BOOKS_CONF="$(dirname $0)/../../utils-private/etc/juneday-books.conf"
 
 if [ ! -d $BASE_DIR ]
 then
     mkdir -p $BASE_DIR
 fi
 
-htmldoc --size A4 "$PAGE_URL" --outfile $BASE_DIR/wiki.pdf 2>&1 /dev/null >  /dev/null 2>&1
+get_books()
+{
+    BOOKS_INDENT="  "
+    . ${JD_BOOKS_CONF}
+    BOOKS_PAGE_COUNT=0
+    for book in $BOOKS
+    do
+        get_book "$book"
+        BOOKS_PAGE_COUNT=$(( BOOKS_PAGE_COUNT + BOOK_COUNT ))
+    done
+}
 
-pdfinfo $BASE_DIR/wiki.pdf 2>&1 | grep Pages | awk '{print $2}'
+get_book()
+{
+    BOOK=$1
+    BOOK_INDENT="  "
+    . ${JD_BOOKS_CONF}
+    PAGES=${BOOK}_PAGES
+
+    TITLE_VAR=${BOOK}_TITLE
+    TITLE=${!TITLE_VAR}
+    echo "  $BOOKS_INDENT$TITLE"
+    BOOK_COUNT=0
+    for page in ${!PAGES}
+    do
+        get_pages "$page"
+        BOOK_COUNT=$(( BOOK_COUNT + PAGE_COUNT ))
+        echo "    $page:  $PAGE_COUNT"
+    done
+    echo "    Total:  $BOOK_COUNT"
+    
+}
+
+get_pages()
+{
+    LOCAL_PAGE_URL=$1
+    TMP_PDF="$BASE_DIR/$LOCAL_PAGE_URL.pdf"
+    if [ "$FORCED" = "true" ]
+    then
+        rm -f "$TMP_PDF"
+    fi
+    if [ ! -f "$TMP_PDF" ]
+    then
+           htmldoc --size A4 "$BASE_URL/$LOCAL_PAGE_URL" --outfile "$TMP_PDF"  >  /dev/null 2>&1
+    fi
+    PAGE_COUNT=$(pdfinfo "$TMP_PDF" 2>&1 | grep Pages | awk '{print $2}')
+}
+
+#PAGE_URL=$1
+#FIRST_DATE=$2
+
+while [ "$1" != "" ]
+do
+    case "$1" in
+        "--page")
+            PAGE_URL="$2"
+            ;;
+        "--book")
+            BOOK="$2"
+            ;;
+        "--force")
+            FORCED="true"
+            ;;
+        *)
+            FIRST_DATE="$1"
+            ;;
+    esac
+    shift
+done
+    
+if [ "$BOOK" != "" ]
+then
+    echo "Single book"
+    get_book $BOOK
+elif [ "$PAGE_URL" != "" ]
+then
+    echo "Single page"
+    get_pages $PAGE_URL
+else
+    echo "All books"
+    get_books
+fi
