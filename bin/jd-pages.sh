@@ -21,6 +21,7 @@ get_books()
         get_book "$book"
         BOOKS_PAGE_COUNT=$(( BOOKS_PAGE_COUNT + BOOK_COUNT ))
     done
+    echo "Total: $BOOKS_PAGE_COUNT"
 }
 
 get_book()
