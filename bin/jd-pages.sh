@@ -5,6 +5,7 @@ DATE="$(date '+%Y%m%d')"
 BASE_URL="http://wiki.juneday.se/mediawiki/index.php"
 JD_BOOKS_CONF="$(dirname $0)/../../utils-private/etc/juneday-books.conf"
 
+
 if [ ! -d $BASE_DIR ]
 then
     mkdir -p $BASE_DIR
@@ -31,13 +32,13 @@ get_book()
 
     TITLE_VAR=${BOOK}_TITLE
     TITLE=${!TITLE_VAR}
-    echo "  $BOOKS_INDENT$TITLE"
+    echo "  $TITLE"
     BOOK_COUNT=0
     for page in ${!PAGES}
     do
         get_pages "$page"
         BOOK_COUNT=$(( BOOK_COUNT + PAGE_COUNT ))
-        echo "    $page:  $PAGE_COUNT"
+        echo "  $BOOKS_INDENT$page:  $PAGE_COUNT"
     done
     echo "    Total:  $BOOK_COUNT"
     
@@ -53,9 +54,10 @@ get_pages()
     fi
     if [ ! -f "$TMP_PDF" ]
     then
-           htmldoc --size A4 "$BASE_URL/$LOCAL_PAGE_URL" --outfile "$TMP_PDF"  >  /dev/null 2>&1
+           htmldoc --quiet --size A4 "$BASE_URL/$LOCAL_PAGE_URL" --outfile "$TMP_PDF" 
     fi
     PAGE_COUNT=$(pdfinfo "$TMP_PDF" 2>&1 | grep Pages | awk '{print $2}')
+    PAGE_COUNT=$(( PAGE_COUNT - 3 ))
 }
 
 #PAGE_URL=$1
