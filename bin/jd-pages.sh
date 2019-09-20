@@ -58,6 +58,7 @@ get_pages()
            htmldoc --quiet --size A4 "$BASE_URL/$LOCAL_PAGE_URL" --outfile "$TMP_PDF" 
     fi
     PAGE_COUNT=$(pdfinfo "$TMP_PDF" 2>&1 | grep Pages | awk '{print $2}')
+    # Remove title page, navigation pages
     PAGE_COUNT=$(( PAGE_COUNT - 3 ))
 }
 
